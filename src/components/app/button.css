@@ -10,7 +10,7 @@
     var(--gradient-color2),
     var(--gradient-color3)
   );
-  border-color: var(--border-color);
+  border-color: var(--border-color) !important;
 
   @apply p-4 border-2 active:scale-95 transition-all w-full font-bold text-2xl h-auto rounded-2xl text-white;
 }
