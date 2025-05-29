@@ -1,0 +1,51 @@
+.welcome-screen {
+  @apply w-full min-h-screen flex flex-col items-center justify-center gap-8;
+  /* background: url("/bg-app.jpg") repeat-x center center; */
+  /* background-size: cover; */
+}
+
+@media (min-width: 768px) {
+  .welcome-screen {
+    background-size: contain;
+  }
+}
+
+.heading {
+  @apply text-7xl font-bold leading-[0.94em] tracking-[-0.02em] text-center;
+  @apply relative;
+  color: red;
+  text-shadow: 0px 3px 2px #81818199;
+  user-select: none;
+}
+
+.heading-shadow {
+  @apply text-7xl font-bold leading-[0.94em] tracking-[-0.02em] text-center;
+  @apply absolute top-0 left-0 w-full h-full bg-black/50;
+
+  text-shadow: none;
+
+  background: linear-gradient(180deg, #89c4ff 0%, #378ce1 69.71%, #154d85 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  -webkit-text-stroke-width: 1.5px;
+  -webkit-text-stroke-color: #ecf5ff;
+}
+
+@keyframes hanging-down {
+  0% {
+    transform: translateY(0);
+  }
+  70% {
+    transform: translateY(20%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.hand-down {
+  /* animation: hanging-down 1s ease-in-out infinite; */
+  animation: hanging-down 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite
+    forwards;
+}

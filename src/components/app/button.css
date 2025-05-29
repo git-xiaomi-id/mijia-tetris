@@ -1,0 +1,64 @@
+.app-styled-button {
+  --gradient-color1: #e5e7eb;
+  --gradient-color2: #9ca3af;
+  --gradient-color3: #4b5563;
+  --border-color: #9ca3af;
+
+  background: linear-gradient(
+    180deg,
+    var(--gradient-color1),
+    var(--gradient-color2),
+    var(--gradient-color3)
+  );
+  border-color: var(--border-color);
+
+  @apply p-4 border-2 active:scale-95 transition-all w-full font-bold text-2xl h-auto rounded-2xl text-white;
+}
+.app-styled-button:active {
+  background: linear-gradient(
+    90deg,
+    var(--gradient-color1),
+    var(--gradient-color2),
+    var(--gradient-color3)
+  );
+}
+.app-styled-button:disabled {
+  @apply text-white/40 cursor-not-allowed;
+}
+.app-styled-button.blue {
+  --gradient-color1: #89c4ff;
+  --gradient-color2: #378ce1;
+  --gradient-color3: #154d85;
+  --border-color: #378ce1;
+}
+.app-styled-button.blue:disabled {
+  --gradient-color1: #67a6e4;
+  --gradient-color2: #2e7ecd;
+  --gradient-color3: #155392;
+  opacity: 1;
+}
+
+.app-styled-button.orange {
+  --gradient-color1: #ff813e;
+  --gradient-color2: #ff630f;
+  --gradient-color3: #d34a00;
+  --border-color: #ff630f;
+}
+.app-styled-button.orange:disabled {
+  --gradient-color1: #e6a77d;
+  --gradient-color2: #e67e3d;
+  --gradient-color3: #b33d00;
+  opacity: 1;
+}
+
+.app-styled-button.ghost-red {
+  --gradient-color1: transparent;
+  --gradient-color2: transparent;
+  --gradient-color3: transparent;
+  --border-color: transparent;
+}
+.app-styled-button.ghost-red:hover {
+  --gradient-color1: #e13737;
+  --gradient-color2: #e13737;
+  --gradient-color3: #e13737;
+}

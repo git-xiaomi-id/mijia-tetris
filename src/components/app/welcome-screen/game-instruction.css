@@ -1,0 +1,22 @@
+.gi-overlay {
+  @apply bg-black/20 backdrop-blur-sm;
+  @apply fixed left-0 top-0 size-full;
+}
+
+.game-instruction {
+  @apply absolute left-[50%] top-[45%] translate-x-[-50%] translate-y-[-50%];
+  @apply w-[90%] max-w-sm border-2 border-[#D8D8D899] rounded-2xl;
+  background: linear-gradient(180deg, #ffffff 0%, #f6f6f6 88.46%, #e8e8e8 100%);
+}
+
+.gi-inner {
+  @apply relative size-full pt-8 px-4 pb-12;
+}
+
+.gi-title {
+  @apply text-[#378CE1] font-bold text-4xl text-center leading-[1.8em];
+}
+
+.gi-close-btn {
+  @apply absolute -right-3 -top-3  active:scale-95;
+}
