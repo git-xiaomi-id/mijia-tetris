@@ -74,15 +74,4 @@ export default function GameInstruction() {
       </AlertDialogContent>
     </AlertDialog>
   );
-
-  //   return (
-  //     <>
-  //       <div className="gi-overlay" />
-  //       <div className="game-instruction">
-  //         <div className="gi-inner">
-  //           <h2 className="gi-title">Instructions</h2>
-  //         </div>
-  //       </div>
-  //     </>
-  //   );
 }

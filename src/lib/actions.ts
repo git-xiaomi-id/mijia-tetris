@@ -1,7 +1,5 @@
 "use server";
 
-// import { KEY_ID_LOCAL, KEY_TOKEN, KEY_USERNAME_LOCAL } from "./key-store";
-
 import {
   getUserByToken,
   checkAlreadyLoggedIn,
@@ -62,19 +60,30 @@ export async function tapCheckUser() {
   const currentUserByToken = await getUserByToken(token);
   return currentUserByToken;
 }
-
 export async function tapStartUser(usernameIG: string) {
   let token = getCookie(KEY_TOKEN) ?? "";
 
   const username = usernameIG.replace("@", "");
 
+  if (import.meta.env.DEV) {
+    console.log("[tapStartUser] Starting with username:", username);
+    console.log("[tapStartUser] Existing token:", token);
+  }
+
   if (!token) {
     const newToken = generateRandomString(32);
     setCookie(KEY_TOKEN, newToken);
     token = newToken;
+    if (import.meta.env.DEV) {
+      console.log("[tapStartUser] Generated new token:", newToken);
+    }
   }
 
   const userAlreadyLoggedIn = await checkAlreadyLoggedIn(username, token);
+  if (import.meta.env.DEV) {
+    console.log("[tapStartUser] Check login result:", userAlreadyLoggedIn);
+  }
+
   if (userAlreadyLoggedIn?.error)
     return {
       data: userAlreadyLoggedIn.data,
@@ -82,9 +91,20 @@ export async function tapStartUser(usernameIG: string) {
     };
 
   const res = await createUser(username, token);
+  if (import.meta.env.DEV) {
+    console.log("[tapStartUser] Create user result:", res);
+  }
+
   if (res?.data?.id) {
     const { username_ig, id, token } = res.data;
     await setUserCookie(username_ig!, token!, id!);
+    if (import.meta.env.DEV) {
+      console.log("[tapStartUser] Set cookies for user:", {
+        username_ig,
+        id,
+        token,
+      });
+    }
   }
 
   return res;

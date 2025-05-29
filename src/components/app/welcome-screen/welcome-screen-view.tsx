@@ -23,7 +23,7 @@ export default function WelcomeScreenView({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (user) setUsername(user?.username_ig || "");
+    if (user) setUsername(`@${user?.username_ig || ""}`);
   }, [user]);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function WelcomeScreenView({
   return (
     <>
       <WelcomeScreenInput
-        localUsername={user?.username_ig || ""}
+        localUsername={`@${user?.username_ig || ""}`}
         username={username}
         setUsername={setUsername}
         userLoading={userLoading}
@@ -62,7 +62,8 @@ export default function WelcomeScreenView({
         loading={loading}
         username={username}
         clickStart={clickStart}
-        localUsername={user?.username_ig || ""}
+        localUsername={`@${user?.username_ig || ""}`}
+        error={error}
       />
     </>
   );
@@ -73,17 +74,19 @@ function WelcomeScreenButton({
   clickStart,
   loading,
   localUsername,
+  error,
 }: {
   username: string;
   clickStart: () => void;
   loading: boolean;
   localUsername?: string;
+  error?: string;
 }) {
   return (
     <div className="relative z-10 mb-20 flex flex-col items-center justify-center gap-5  w-full max-w-[280px] mx-auto">
       <AppButton
         variant="blue"
-        disabled={username.length < 2}
+        disabled={(error?.length || 0) > 1 || username.length < 2}
         onClick={clickStart}
         loading={loading}
       >
@@ -118,7 +121,8 @@ function WelcomeScreenInput({
     <Loader className="size-6 mx-auto animate-spin" />
   ) : localUsername ? (
     <div className="text-xl font-bold text-[#6d6d6d] text-center">
-      {`@${localUsername}`}
+      {localUsername}
+      <div className="text-xs">{error}</div>
     </div>
   ) : (
     <div className="flex flex-col gap-3 items-center justify-center  w-full max-w-[280px] mx-auto">

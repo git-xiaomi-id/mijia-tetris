@@ -34,16 +34,24 @@ export default function LogoutModal({ children }: { children: ReactNode }) {
   async function callLogout() {
     setLoading(true);
     setTimeout(async () => {
-      const logouting = await tapLogoutUser();
+      await tapLogoutUser();
       await mutate("user");
       setLoading(false);
       setResponse("success");
-      if (logouting?.data?.id) setResponse("success");
+      // if (logouting?.data?.id) setResponse("success");
     }, 3000);
+  }
+
+  function close() {
+    setOpen(false);
   }
 
   useEffect(() => {
     if (open) callLogout();
+    else {
+      setLoading(false);
+      setResponse("");
+    }
   }, [open]);
 
   return (
@@ -72,7 +80,7 @@ export default function LogoutModal({ children }: { children: ReactNode }) {
             <RegularButton
               variant="ghost-blue"
               className="w-fit block"
-              onClick={() => setOpen(false)}
+              onClick={close}
             >
               Oke, lanjutkan
             </RegularButton>
