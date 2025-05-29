@@ -1,0 +1,84 @@
+/* @font-face {
+  font-family: "MiSans";
+  src: url("./fonts/MiSansLatin-Thin.woff2") format("woff2");
+  font-weight: 150;
+  font-style: normal;
+  font-display: swap;
+} */
+
+/* @font-face {
+  font-family: "MiSans";
+  src: url("./fonts/MiSansLatin-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+} */
+
+/* @font-face {
+  font-family: "MiSans";
+  src: url("./fonts/MiSansLatin-Light.woff2") format("woff2");
+  font-weight: 250;
+  font-style: normal;
+  font-display: swap;
+} */
+
+@font-face {
+  font-family: "MiSans";
+  src: url("./fonts/MiSansLatin-Normal.woff2") format("woff2");
+  font-weight: 305;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MiSans";
+  src: url("./fonts/MiSansLatin-Regular.woff2") format("woff2");
+  font-weight: 330;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MiSans";
+  src: url("./fonts/MiSansLatin-Medium.woff2") format("woff2");
+  font-weight: 380;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MiSans";
+  src: url("./fonts/MiSansLatin-Demibold.woff2") format("woff2");
+  font-weight: 450;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MiSans";
+  src: url("./fonts/MiSansLatin-Semibold.woff2") format("woff2");
+  font-weight: 520;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MiSans";
+  src: url("./fonts/MiSansLatin-Bold.woff2") format("woff2");
+  font-weight: 630;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* @font-face {
+  font-family: "MiSans";
+  src: url("./fonts/MiSansLatin-Heavy.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+} */
+
+body {
+  font-family: "MiSans", sans-serif;
+  font-weight: 330; /* Default to Regular weight */
+}
