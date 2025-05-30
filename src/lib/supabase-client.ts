@@ -45,3 +45,27 @@ export async function removeUserToken(token: string, username_ig: string) {
     .select()
     .maybeSingle();
 }
+
+export async function removeTokenFromUser(username_ig: string) {
+  if (!username_ig) return null;
+  return await clientSupabase
+    .from("user")
+    .update({ token: null })
+    .eq("username_ig", username_ig)
+    .select()
+    .maybeSingle();
+}
+
+export async function checkValidUser(
+  username_ig: string,
+  token: string,
+  id: string
+) {
+  return await clientSupabase
+    .from("user")
+    .select()
+    .eq("username_ig", username_ig)
+    .eq("token", token)
+    .eq("id", id)
+    .maybeSingle();
+}

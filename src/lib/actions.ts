@@ -5,6 +5,8 @@ import {
   checkAlreadyLoggedIn,
   createUser,
   removeUserToken,
+  removeTokenFromUser,
+  checkValidUser,
 } from "./supabase-client";
 import {
   delCookie,
@@ -63,8 +65,14 @@ export async function tapCheckUser() {
 
 export async function tapStartUser(usernameIG: string) {
   let token = getCookie(KEY_TOKEN) ?? "";
-
+  const id = getCookie(KEY_ID_LOCAL) ?? "";
   const username = usernameIG.replace("@", "");
+
+  if (token && id && username) {
+    console.log("[tapStartUser] Checking user with token:", token);
+    const user = await checkValidUser(username, token, id);
+    if (user) return user;
+  }
 
   if (import.meta.env.DEV) {
     console.log("[tapStartUser] Starting with username:", username);
@@ -109,4 +117,9 @@ export async function tapStartUser(usernameIG: string) {
   }
 
   return res;
+}
+
+export async function tapForceLogoutUser() {
+  const username_ig = getCookie(KEY_USERNAME_LOCAL) ?? "";
+  return await removeTokenFromUser(username_ig);
 }

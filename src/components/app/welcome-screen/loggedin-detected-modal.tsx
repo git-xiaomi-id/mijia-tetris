@@ -1,30 +1,77 @@
 "use client";
 
-import { type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import AppModal from "./modal";
+import { tapForceLogoutUser } from "@/lib/actions";
+import { toast } from "sonner";
+
+type TStep = "inform" | "loading" | "success-logout";
 
 export default function LoggedInModal({
   children,
   open,
   onOpenChange,
-  onCancelClick,
 }: {
   children?: ReactNode;
   open: boolean;
   onOpenChange?: (open: boolean) => void;
   onCancelClick?: () => void;
 }) {
+  const [step, setStep] = useState<TStep>("inform");
+
+  async function callLogout() {
+    setStep("loading");
+    const res = await tapForceLogoutUser();
+    if (res?.data) setStep("success-logout");
+    else {
+      toast.error("Failed", { description: res?.error?.message });
+      setStep("inform");
+    }
+  }
+
+  const content = {
+    inform: {
+      title: "Akun terdeteksi sudah digunakan",
+      description:
+        "Akun yang kamu gunakan terdeteksi sudah digunakan di perangkat lain. Silakan logout terlebih dahulu dari perangkat tersebut.",
+      textConfirm: "Oke, mengerti",
+      animationImage: "animate-headshaking",
+      image: "/mi-bunny/mi-bunny-shock.webp",
+      textCancel: "Paksa Logout",
+      onCancelClick: callLogout,
+    },
+    loading: {
+      title: "Memulai logout",
+      description: "Tunggu yaaa kami sedang melepaskan Akun kamu dari game.",
+      textConfirm: "",
+      animationImage: "animate-headshaking",
+      image: "/mi-bunny/mi-bunny-shock.webp",
+      textCancel: "",
+      onCancelClick: undefined,
+    },
+    "success-logout": {
+      title: "Akun berhasil di Logout",
+      description:
+        "Akun berhasil di logout! Sekarang, kamu bisa main dengan akun lain.",
+      textConfirm: "Oke, lanjutkan",
+      animationImage: "animate-headscaling",
+      image: "/mi-bunny/mi-bunny-fun.webp",
+      textCancel: "",
+      onCancelClick: undefined,
+    },
+  };
+
   return (
     <AppModal
-      image="/mi-bunny/mi-bunny-shock.webp"
+      image={content[step].image}
       open={open}
-      title="Akun terdeteksi sudah digunakan"
-      description="Akun yang kamu gunakan terdeteksi sudah digunakan di perangkat lain. Silakan logout terlebih dahulu dari perangkat tersebut."
-      textConfirm="Oke, mengerti"
+      title={content[step].title}
+      description={content[step].description}
+      textConfirm={content[step].textConfirm}
       onOpenChange={onOpenChange}
-      animationImage="animate-headshaking"
-      textCancel="Paksa Logout"
-      onCancelClick={onCancelClick}
+      animationImage={content[step].animationImage}
+      textCancel={content[step].textCancel}
+      onCancelClick={content[step].onCancelClick}
     >
       {children}
     </AppModal>

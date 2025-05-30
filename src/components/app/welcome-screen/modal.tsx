@@ -34,7 +34,7 @@ export default function AppModal({
   image,
   animationImage,
   loadingConfirm,
-  textConfirm = "Oke",
+  textConfirm,
   onOpenChange: onOpenChangeProp,
   onCancelClick,
   textCancel,
@@ -73,14 +73,25 @@ export default function AppModal({
         </AlertDialogHeader>
         {!loadingConfirm && (
           <AlertDialogFooter className="flex flex-row justify-between items-center w-full">
-            <AlertDialogCancel asChild noBaseClass onClick={onCancelClick}>
-              <RegularButton variant="ghost-red">{textCancel}</RegularButton>
-            </AlertDialogCancel>
-            <AlertDialogAction asChild noBaseClass>
-              <RegularButton variant="ghost-blue" className="ml-auto">
-                {textConfirm}
-              </RegularButton>
-            </AlertDialogAction>
+            {textCancel &&
+              (onCancelClick ? (
+                <RegularButton variant="ghost-red" onClick={onCancelClick}>
+                  {textCancel}
+                </RegularButton>
+              ) : (
+                <AlertDialogCancel asChild noBaseClass>
+                  <RegularButton variant="ghost-red" onClick={onCancelClick}>
+                    {textCancel}
+                  </RegularButton>
+                </AlertDialogCancel>
+              ))}
+            {textConfirm && (
+              <AlertDialogAction asChild noBaseClass>
+                <RegularButton variant="ghost-blue" className="ml-auto">
+                  {textConfirm}
+                </RegularButton>
+              </AlertDialogAction>
+            )}
           </AlertDialogFooter>
         )}
       </AlertDialogContent>
