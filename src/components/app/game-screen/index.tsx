@@ -51,7 +51,7 @@ export default function GameScreen() {
     const interval = setInterval(() => {
       setScreenStep((prev: TScreenStep) => {
         const currentIndex = screenSteps.findIndex((step) => step === prev);
-        if (currentIndex === screenSteps.length - 1) {
+        if (currentIndex === screenSteps.length - 2) {
           clearInterval(interval);
           return prev; // Stop at the last step
         }
@@ -85,6 +85,7 @@ export default function GameScreen() {
         {/* 1 */}
         <div className="gs-toparea">
           <UsernameDisplay username={user?.username_ig ?? ""} />
+          {screenSteps.indexOf(screenStep)}
           <div className="flex flex-col items-end gap-4">
             <GameTimer step={timerStep} />
             <ButtonTimer onClick={togglingStep} step={timerStep} />

@@ -191,3 +191,20 @@ body {
   animation: headScaling 0.45s ease-out infinite;
   transform-origin: center top;
 }
+
+@keyframes shownSlow {
+  0% {
+    opacity: 0;
+    transform: translateY(10%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-shownSlow {
+  opacity: 0;
+  transform: translateY(10%);
+  animation: shownSlow 0.5s ease-out 0.25s 1 forwards;
+}

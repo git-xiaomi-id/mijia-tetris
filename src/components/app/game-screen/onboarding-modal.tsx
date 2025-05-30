@@ -8,6 +8,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import RegularButton from "../button-regular";
+import AppCheckbox from "../checkbox";
 
 export default function OnboardingModal({
   open,
@@ -38,7 +39,7 @@ export default function OnboardingModal({
     image = "/mi-bunny/mi-bunny-fun.webp";
     textConfirm = "Mulai main";
     animationImage = "animate-headshaking";
-    positionClassname = "top-70%";
+    positionClassname = "!top-[70%]";
   }
 
   function nextStep() {
@@ -51,6 +52,17 @@ export default function OnboardingModal({
       return newValue;
     });
   }
+
+  const footer = (
+    <AlertDialogFooter className="flex flex-row justify-between items-center">
+      <AppCheckbox>
+        <div className=" text-[10px] text-[#888]">Jangan tampilkan lagi</div>
+      </AppCheckbox>
+      <RegularButton variant="ghost-blue" onClick={nextStep}>
+        {textConfirm}
+      </RegularButton>
+    </AlertDialogFooter>
+  );
 
   return (
     <>
@@ -71,19 +83,32 @@ export default function OnboardingModal({
               />
             </div>
           </div>
-          <AlertDialogHeader className="max-w-full">
-            <AlertDialogTitle className="text-left font-semibold text-sm">
-              {title}
-            </AlertDialogTitle>
-            <AlertDialogDescription className="text-left text-sm">
-              {description}
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter className="justify-between items-center">
-            <RegularButton variant="ghost-blue" onClick={nextStep}>
-              {textConfirm}
-            </RegularButton>
-          </AlertDialogFooter>
+          {step === 0 && (
+            <div className="animate-shownSlow gap-4 flex flex-col">
+              <AlertDialogHeader className="max-w-full">
+                <AlertDialogTitle className="text-left font-semibold text-sm">
+                  {title}
+                </AlertDialogTitle>
+                <AlertDialogDescription className="text-left text-sm">
+                  {description}
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              {footer}
+            </div>
+          )}
+          {step === 1 && (
+            <div className="animate-shownSlow gap-4 flex flex-col">
+              <AlertDialogHeader className="max-w-full">
+                <AlertDialogTitle className="text-left font-semibold text-sm">
+                  {title}
+                </AlertDialogTitle>
+                <AlertDialogDescription className="text-left text-sm">
+                  {description}
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              {footer}
+            </div>
+          )}
         </AlertDialogContent>
       </AlertDialog>
     </>
