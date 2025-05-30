@@ -1,5 +1,6 @@
 .gs-toparea {
   @apply px-5 py-6 w-full;
+  @apply flex justify-between items-start;
   /* @apply  absolute left-0 top-0; */
 }
 
@@ -88,4 +89,21 @@
 
 .gs-image-wrap.active {
   animation: image-show 0.75s ease-out 0.25s 1 forwards;
+}
+
+.gs-timer-area {
+  @apply relative;
+}
+
+.gs-timer-area .gs-time-box {
+  @apply rounded-full min-w-[102px] py-2 pl-10 pr-5;
+  background: linear-gradient(180deg, #89c4ff 0%, #378ce1 69.71%, #3399ff 100%);
+}
+
+.gs-icon-clock {
+  @apply size-14  absolute -left-5 top-[50%] translate-y-[-50%];
+}
+
+.gs-icon-clock img {
+  @apply size-full object-contain block;
 }

@@ -1,9 +1,11 @@
 "use client";
 
 import { useAppProvider } from "@/hooks/use-context";
-import "./game-screen.css";
 import { Instagram } from "lucide-react";
 import { useEffect, useState } from "react";
+import "./game-screen.css";
+import GameTimer from "./game-timer";
+import ButtonTimer from "./button-timer";
 
 function UsernameDisplay({ username }: { username: string }) {
   return (
@@ -33,10 +35,13 @@ const assets = [
   },
 ];
 
+type TStep = "start" | "pause";
+
 export default function GameScreen() {
   const { user } = useAppProvider();
 
   const [gameStep, setGameStep] = useState<TGameStep>("intro1");
+  const [timerStep, setTimerStep] = useState<TStep>("start");
   // const active = assets.find((asset) => asset.key === gameStep);
 
   useEffect(() => {
@@ -52,12 +57,20 @@ export default function GameScreen() {
     return () => clearInterval(interval);
   }, []);
 
+  function togglingStep() {
+    setTimerStep(timerStep === "start" ? "pause" : "start");
+  }
+
   return (
     <div className="h-screen relative flex flex-col items-start">
       {/* JANGAN ADA FIXED DLL, GRID COL BAGI RATA */}
       <div className="gs-gamearea">
         <div className="gs-toparea">
           <UsernameDisplay username={user?.username_ig ?? ""} />
+          <div className="flex flex-col items-end gap-2 border-2">
+            <GameTimer step={timerStep} />
+            <ButtonTimer onClick={togglingStep} step={timerStep} />
+          </div>
         </div>
         <div className="relative aspect-[1/1.12] w-full flex items-center justify-center">
           {assets.map((asset) => (
