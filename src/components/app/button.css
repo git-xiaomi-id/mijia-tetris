@@ -62,3 +62,9 @@
   --gradient-color2: #e13737;
   --gradient-color3: #e13737;
 }
+.app-styled-button.red {
+  --gradient-color1: #ff6161;
+  --gradient-color2: #e33636;
+  --gradient-color3: #ce3131;
+  --border-color: #e33636;
+}

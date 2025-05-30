@@ -9,7 +9,7 @@ import { Loader } from "lucide-react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
-  variant?: "orange" | "blue" | "ghost-red";
+  variant?: "orange" | "blue" | "ghost-red" | "red";
   loading?: boolean;
 }
 

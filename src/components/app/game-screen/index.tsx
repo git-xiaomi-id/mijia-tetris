@@ -89,7 +89,11 @@ export default function GameScreen() {
           {screenSteps.indexOf(screenStep)}
           <div className="flex flex-col items-end gap-4">
             <GameTimer step={timerStep} />
-            <ButtonTimer onClick={togglingStep} step={timerStep} />
+            <ButtonTimer
+              onClick={togglingStep}
+              screen={screenStep}
+              step={timerStep}
+            />
           </div>
         </div>
 
