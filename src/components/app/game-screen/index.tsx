@@ -19,41 +19,53 @@ function UsernameDisplay({ username }: { username: string }) {
   );
 }
 
-type TGameStep = "intro1" | "intro2" | "intro3" | "intro4";
+type TScreenStep =
+  | "intro1"
+  | "intro2"
+  | "intro3"
+  | "onboarding1"
+  | "onboarding2";
 
 const assets = [
   {
-    key: "intro1" as TGameStep,
+    key: "intro1" as TScreenStep,
     src: "/illustration/refrigerator-closed.webp",
   },
   {
-    key: "intro2" as TGameStep,
+    key: "intro2" as TScreenStep,
     src: "/illustration/refrigerator-without-door.webp",
   },
   {
-    key: "intro3" as TGameStep,
+    key: "intro3" as TScreenStep,
     src: "/illustration/refrigerator-naked.webp",
   },
 ];
+const screenSteps = [
+  "intro1",
+  "intro2",
+  "intro3",
+  "onboarding1",
+  "onboarding2",
+];
 
-type TStep = "start" | "pause";
+type TTimerStep = "start" | "pause";
 
 export default function GameScreen() {
   const { user } = useAppProvider();
 
-  const [gameStep, setGameStep] = useState<TGameStep>("intro1");
-  const [timerStep, setTimerStep] = useState<TStep>("start");
-  // const active = assets.find((asset) => asset.key === gameStep);
+  const [screenStep, setScreenStep] = useState<TScreenStep>("intro1");
+  const [timerStep, setTimerStep] = useState<TTimerStep>("pause");
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setGameStep((prev) => {
-        const currentIndex = assets.findIndex((asset) => asset.key === prev);
-        if (currentIndex === assets.length - 1) return prev;
-        const nextIndex = currentIndex + 1;
-        return assets[nextIndex].key;
+      setScreenStep((prev: TScreenStep) => {
+        const currentIndex = screenSteps.findIndex((step) => step === prev);
+        if (currentIndex === screenSteps.length - 1) {
+          return prev; // Stop at the last step
+        }
+        return screenSteps[currentIndex + 1] as TScreenStep;
       });
-    }, 4000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);
@@ -77,25 +89,43 @@ export default function GameScreen() {
 
         {/* 2 */}
         <div className="relative w-full flex flex-1 items-center justify-center">
-          {assets.map((asset) => (
+          {screenStep.includes("intro") ? (
+            assets.map((asset) => (
+              <img
+                key={asset.key}
+                alt={asset?.key || ""}
+                src={asset?.src || ""}
+                className={[
+                  "size-full object-contain  gs-image-wrap absolute left-0 top-0",
+                  screenStep === asset.key ? "active" : "hidden",
+                ].join(" ")}
+              />
+            ))
+          ) : (
             <img
-              key={asset.key}
-              alt={asset?.key || ""}
-              src={asset?.src || ""}
-              className={[
-                "size-full object-contain  gs-image-wrap absolute left-0 top-0",
-                gameStep === asset.key ? "active" : "hidden",
-              ].join(" ")}
+              key={assets[assets.length - 1].key}
+              alt={assets[assets.length - 1]?.key || ""}
+              src={assets[assets.length - 1]?.src || ""}
+              className="size-full object-contain  gs-image-wrap absolute left-0 top-0 active"
             />
-          ))}
+          )}
         </div>
 
         {/* 3 */}
         <div
-          className={`gs-item-drawer ${gameStep === "intro3" ? "shown" : ""}`}
+          className={`gs-item-drawer ${
+            screenSteps.indexOf(screenStep) >= 2 ? "shown" : ""
+          }`}
         >
           <ItemDock />
         </div>
+
+        {/* Onboarding Overlay */}
+        {screenStep.includes("onboarding") && (
+          <>
+            <div className="absolute inset-0 bg-black/80 transition-opacity duration-500" />
+          </>
+        )}
       </div>
     </div>
   );

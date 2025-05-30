@@ -21,3 +21,4 @@ export function delCookie(name: string) {
 export const KEY_USERNAME_LOCAL = "mijia-game-username";
 export const KEY_ID_LOCAL = "mijia-game-id";
 export const KEY_TOKEN = "mijia-game-token";
+export const KEY_ONBOARDING = "mijia-game-onboarding";
