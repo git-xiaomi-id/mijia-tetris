@@ -46,14 +46,21 @@ export async function removeUserToken(token: string, username_ig: string) {
     .maybeSingle();
 }
 
-export async function removeTokenFromUser(username_ig: string) {
+export async function getIdByUsername(username_ig: string) {
   if (!username_ig) return null;
   return await clientSupabase
     .from("user")
+    .select("id")
+    .eq("username_ig", username_ig);
+}
+
+export async function removeTokenFromUser(username_ig: string) {
+  if (!username_ig) return null;
+  const res = await clientSupabase
+    .from("user")
     .update({ token: null })
-    .eq("username_ig", username_ig)
-    .select()
-    .maybeSingle();
+    .eq("username_ig", username_ig.replace("@", ""));
+  return res;
 }
 
 export async function checkValidUser(

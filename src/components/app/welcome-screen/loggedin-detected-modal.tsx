@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import AppModal from "./modal";
 import { tapForceLogoutUser } from "@/lib/actions";
 import { toast } from "sonner";
@@ -11,17 +11,20 @@ export default function LoggedInModal({
   children,
   open,
   onOpenChange,
+  username,
 }: {
   children?: ReactNode;
   open: boolean;
   onOpenChange?: (open: boolean) => void;
   onCancelClick?: () => void;
+  username: string;
 }) {
   const [step, setStep] = useState<TStep>("inform");
 
   async function callLogout() {
     setStep("loading");
-    const res = await tapForceLogoutUser();
+    const res = await tapForceLogoutUser(username);
+    console.log("calllogout: ", res);
     if (res?.data) setStep("success-logout");
     else {
       toast.error("Failed", { description: res?.error?.message });
@@ -60,6 +63,10 @@ export default function LoggedInModal({
       onCancelClick: undefined,
     },
   };
+
+  useEffect(() => {
+    if (!open) setStep("inform");
+  }, [open]);
 
   return (
     <AppModal

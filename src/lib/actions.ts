@@ -69,7 +69,8 @@ export async function tapStartUser(usernameIG: string) {
   const username = usernameIG.replace("@", "");
 
   if (token && id && username) {
-    console.log("[tapStartUser] Checking user with token:", token);
+    if (import.meta.env.DEV)
+      console.log("[tapStartUser] Checking user with token:", token);
     const user = await checkValidUser(username, token, id);
     if (user) return user;
   }
@@ -119,7 +120,7 @@ export async function tapStartUser(usernameIG: string) {
   return res;
 }
 
-export async function tapForceLogoutUser() {
-  const username_ig = getCookie(KEY_USERNAME_LOCAL) ?? "";
+export async function tapForceLogoutUser(username_ig: string) {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   return await removeTokenFromUser(username_ig);
 }

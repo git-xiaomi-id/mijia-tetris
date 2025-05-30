@@ -75,6 +75,7 @@ export default function WelcomeScreenView({
         logoutModal={logoutModal}
       />
       <LoggedInModal
+        username={username}
         open={loggedinDetected}
         onOpenChange={setLoggedinDetected}
         onCancelClick={switchLogout}
