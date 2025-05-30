@@ -40,13 +40,7 @@ const assets = [
     src: "/illustration/refrigerator-naked.webp",
   },
 ];
-const screenSteps = [
-  "intro1",
-  "intro2",
-  "intro3",
-  "onboarding1",
-  "onboarding2",
-];
+const screenSteps = ["intro1", "intro2", "intro3", "onboarding"];
 
 type TTimerStep = "start" | "pause";
 
@@ -123,7 +117,7 @@ export default function GameScreen() {
         {/* Onboarding Overlay */}
         {screenStep.includes("onboarding") && (
           <>
-            <div className="absolute inset-0 bg-black/80 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-[#222222BF]  transition-opacity duration-500" />
           </>
         )}
       </div>
