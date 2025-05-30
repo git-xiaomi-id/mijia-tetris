@@ -24,6 +24,7 @@ interface IAppModalProps {
   onOpenChange?: (open: boolean) => void;
   onCancelClick?: () => void;
   textCancel?: string;
+  footer?: ReactNode;
 }
 
 export default function AppModal({
@@ -38,6 +39,7 @@ export default function AppModal({
   onOpenChange: onOpenChangeProp,
   onCancelClick,
   textCancel,
+  footer,
 }: IAppModalProps) {
   const [_open, setOpen] = useState(open);
 
@@ -71,7 +73,8 @@ export default function AppModal({
             {description}
           </AlertDialogDescription>
         </AlertDialogHeader>
-        {!loadingConfirm && (
+        {footer}
+        {!loadingConfirm && !footer && (
           <AlertDialogFooter className="flex flex-row justify-between items-center w-full">
             {textCancel &&
               (onCancelClick ? (

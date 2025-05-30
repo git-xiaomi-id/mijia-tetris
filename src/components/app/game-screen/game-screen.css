@@ -36,14 +36,14 @@
   background-size: cover;
 
   /* @apply absolute left-0 bottom-0; */
-  @apply w-full h-fit rounded-t-xl p-4  border-2 border-gray-200;
+  @apply w-full h-fit rounded-t-xl p-4 pb-16  border-2 border-gray-200;
 
   @apply translate-y-10 opacity-0 transition-all;
 }
 
 @keyframes drawer-shown {
   0% {
-    transform: translate(0, 50%);
+    transform: translate(0, 20%);
     opacity: 0;
   }
   100% {
@@ -60,11 +60,11 @@
 @keyframes image-show {
   0% {
     opacity: 0;
-    transform: scale(1.1);
+    /* transform: scale(1.1); */
   }
   100% {
     opacity: 1;
-    transform: scale(1);
+    /* transform: scale(1); */
   }
 }
 

@@ -7,6 +7,8 @@ import "./game-screen.css";
 import GameTimer from "./game-timer";
 import ButtonTimer from "./button-timer";
 import ItemDock from "./item-dock";
+import { getCookie, KEY_ONBOARDING } from "@/lib/utils";
+import OnboardingModal from "./onboarding-modal";
 
 function UsernameDisplay({ username }: { username: string }) {
   return (
@@ -19,12 +21,7 @@ function UsernameDisplay({ username }: { username: string }) {
   );
 }
 
-type TScreenStep =
-  | "intro1"
-  | "intro2"
-  | "intro3"
-  | "onboarding1"
-  | "onboarding2";
+type TScreenStep = "intro1" | "intro2" | "intro3" | "onboarding" | "game";
 
 const assets = [
   {
@@ -40,7 +37,7 @@ const assets = [
     src: "/illustration/refrigerator-naked.webp",
   },
 ];
-const screenSteps = ["intro1", "intro2", "intro3", "onboarding"];
+const screenSteps = ["intro1", "intro2", "intro3", "onboarding", "game"];
 
 type TTimerStep = "start" | "pause";
 
@@ -55,17 +52,30 @@ export default function GameScreen() {
       setScreenStep((prev: TScreenStep) => {
         const currentIndex = screenSteps.findIndex((step) => step === prev);
         if (currentIndex === screenSteps.length - 1) {
+          clearInterval(interval);
           return prev; // Stop at the last step
         }
-        return screenSteps[currentIndex + 1] as TScreenStep;
+        // Check if next step is onboarding and if onboarding cookie is true
+        const nextStep = screenSteps[currentIndex + 1];
+
+        if (nextStep === "onboarding" && getCookie(KEY_ONBOARDING) === "true") {
+          clearInterval(interval);
+          return prev; // Stay at current step if onboarding is already done
+        }
+
+        return nextStep as TScreenStep;
       });
-    }, 3000);
+    }, 1500);
 
     return () => clearInterval(interval);
   }, []);
 
   function togglingStep() {
     setTimerStep(timerStep === "start" ? "pause" : "start");
+  }
+
+  function closeOnboarding() {
+    setScreenStep("game");
   }
 
   return (
@@ -96,6 +106,7 @@ export default function GameScreen() {
               />
             ))
           ) : (
+            // Onboarding image
             <img
               key={assets[assets.length - 1].key}
               alt={assets[assets.length - 1]?.key || ""}
@@ -118,6 +129,10 @@ export default function GameScreen() {
         {screenStep.includes("onboarding") && (
           <>
             <div className="absolute inset-0 bg-[#222222BF]  transition-opacity duration-500" />
+            <OnboardingModal
+              open={screenStep.includes("onboarding")}
+              onClose={closeOnboarding}
+            />
           </>
         )}
       </div>
