@@ -33,7 +33,9 @@ export default function OnboardingModal({
   let animationImage = "animate-headscaling";
   let positionClassname = "";
 
-  if (step > 0) {
+  if (step > 1) {
+    positionClassname = "!top-[30%] opacity-0";
+  } else if (step > 0) {
     title = "Daftar area yang bisa diisi";
     description =
       "Tersedia beberapa area yang bisa diisi, mulai dari area utama, pintu, laci sayuran, dan laci freezer.";
@@ -47,8 +49,10 @@ export default function OnboardingModal({
     setStep((curr) => {
       const newValue = curr + 1;
       if (newValue > 1) {
-        setOpen(false);
-        onClose();
+        setTimeout(() => {
+          setOpen(false);
+          onClose();
+        }, 350);
       }
       return newValue;
     });
