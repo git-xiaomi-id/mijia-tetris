@@ -76,6 +76,7 @@ export default function GameScreen() {
 
   function closeOnboarding() {
     setScreenStep("game");
+    setTimerStep("start");
   }
 
   return (

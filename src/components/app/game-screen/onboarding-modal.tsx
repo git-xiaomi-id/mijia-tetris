@@ -19,6 +19,7 @@ export default function OnboardingModal({
 }) {
   const [step, setStep] = useState<number>(0);
   const [_open, setOpen] = useState(false);
+  const [dontShowAgain, setDontShowAgain] = useState(false);
 
   useEffect(() => {
     setOpen(open);
@@ -55,7 +56,10 @@ export default function OnboardingModal({
 
   const footer = (
     <AlertDialogFooter className="flex flex-row justify-between items-center">
-      <AppCheckbox>
+      <AppCheckbox
+        checked={dontShowAgain}
+        onCheckedChange={(checked) => setDontShowAgain(checked as boolean)}
+      >
         <div className=" text-[10px] text-[#888]">Jangan tampilkan lagi</div>
       </AppCheckbox>
       <RegularButton variant="ghost-blue" onClick={nextStep}>
@@ -93,7 +97,6 @@ export default function OnboardingModal({
                   {description}
                 </AlertDialogDescription>
               </AlertDialogHeader>
-              {footer}
             </div>
           )}
           {step === 1 && (
@@ -106,9 +109,9 @@ export default function OnboardingModal({
                   {description}
                 </AlertDialogDescription>
               </AlertDialogHeader>
-              {footer}
             </div>
           )}
+          {footer}
         </AlertDialogContent>
       </AlertDialog>
     </>
