@@ -1,8 +1,8 @@
-const PauseIcon = () => (
+const PauseIcon = ({ size = 24 }: { size?: number }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="68"
-    height="67"
+    width={size}
+    height={size - 1}
     fill="none"
     viewBox="0 0 68 67"
   >

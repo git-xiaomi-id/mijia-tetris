@@ -67,7 +67,7 @@ export default function GameScreen() {
       <div className="gs-gamearea">
         <div className="gs-toparea">
           <UsernameDisplay username={user?.username_ig ?? ""} />
-          <div className="flex flex-col items-end gap-2 border-2">
+          <div className="flex flex-col items-end gap-4">
             <GameTimer step={timerStep} />
             <ButtonTimer onClick={togglingStep} step={timerStep} />
           </div>

@@ -19,8 +19,12 @@ export default function ButtonTimer({
   }
 
   return (
-    <button type="button" onClick={_onClick} className="size-8 aspect-square">
-      {step === "start" ? <PauseIcon /> : <StartIcon />}
+    <button
+      type="button"
+      onClick={_onClick}
+      className="size-10 aspect-square transition-all active:scale-90"
+    >
+      {step === "start" ? <PauseIcon size={40} /> : <StartIcon size={40} />}
     </button>
   );
 }
