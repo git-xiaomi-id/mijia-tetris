@@ -72,7 +72,7 @@ export async function tapStartUser(usernameIG: string) {
     if (import.meta.env.DEV)
       console.log("[tapStartUser] Checking user with token:", token);
     const user = await checkValidUser(username, token, id);
-    if (user) return user;
+    if (user && user.data) return user;
   }
 
   if (import.meta.env.DEV) {

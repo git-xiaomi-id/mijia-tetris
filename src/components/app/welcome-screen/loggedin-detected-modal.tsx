@@ -24,10 +24,9 @@ export default function LoggedInModal({
   async function callLogout() {
     setStep("loading");
     const res = await tapForceLogoutUser(username);
-    console.log("calllogout: ", res);
     if (res?.data) setStep("success-logout");
     else {
-      toast.error("Failed", { description: res?.error?.message });
+      toast.error("Failed to logout", { description: res?.error?.message });
       setStep("inform");
     }
   }

@@ -48,7 +48,7 @@ export default function WelcomeScreenView({
     } else if (res.error?.message === "already-logged-in")
       setLoggedinDetected(true);
     // else alert(res?.error?.message);
-    else toast.error("Failed", { description: res?.error?.message });
+    else toast.error("Failed to Start", { description: res?.error?.message });
   }
 
   function switchLogout() {

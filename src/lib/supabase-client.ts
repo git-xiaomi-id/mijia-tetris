@@ -59,7 +59,9 @@ export async function removeTokenFromUser(username_ig: string) {
   const res = await clientSupabase
     .from("user")
     .update({ token: null })
-    .eq("username_ig", username_ig.replace("@", ""));
+    .eq("username_ig", username_ig.replace("@", ""))
+    .select()
+    .maybeSingle();
   return res;
 }
 
