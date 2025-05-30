@@ -3,6 +3,7 @@
   --gradient-color2: #9ca3af;
   --gradient-color3: #4b5563;
   --border-color: #9ca3af;
+  --text-color: #fff;
 
   background: linear-gradient(
     180deg,
@@ -11,8 +12,9 @@
     var(--gradient-color3)
   );
   border-color: var(--border-color) !important;
+  color: var(--text-color);
 
-  @apply p-4 border-2 active:scale-95 transition-all w-full font-bold text-2xl h-auto rounded-2xl text-white;
+  @apply p-4 border-2 active:scale-95 transition-all w-full font-bold text-2xl h-auto rounded-2xl;
 }
 .app-styled-button:active {
   background: linear-gradient(
@@ -67,4 +69,11 @@
   --gradient-color2: #e33636;
   --gradient-color3: #ce3131;
   --border-color: #e33636;
+}
+.app-styled-button.white {
+  --gradient-color1: #ffffff;
+  --gradient-color2: #e3e3e3;
+  --gradient-color3: #c7c7c7;
+  --border-color: #e3e3e3;
+  --text-color: #404040;
 }
