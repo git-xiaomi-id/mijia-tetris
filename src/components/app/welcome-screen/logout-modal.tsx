@@ -1,22 +1,24 @@
 "use client";
 
 import { tapLogoutUser } from "../../../lib/actions";
-import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { type ReactNode, useEffect, useState } from "react";
-import RegularButton from "../button-regular";
 import { mutate } from "swr";
+import AppModal from "./modal";
 
-export default function LogoutModal({ children }: { children: ReactNode }) {
+export default function LogoutModal({
+  children,
+  open,
+}: {
+  children: ReactNode;
+  open?: boolean;
+}) {
   const [loading, setLoading] = useState(true);
   const [response, setResponse] = useState("");
-  const [open, setOpen] = useState(false);
+  const [_open, setOpen] = useState(open || false);
+
+  useEffect(() => {
+    setOpen(open || false);
+  }, [open]);
 
   let title = "Logouting...";
   let description = "Tunggu yaaa kami sedang melepaskan Akun kamu dari game.";
@@ -42,10 +44,6 @@ export default function LogoutModal({ children }: { children: ReactNode }) {
     }, 3000);
   }
 
-  function close() {
-    setOpen(false);
-  }
-
   useEffect(() => {
     if (open) callLogout();
     else {
@@ -55,38 +53,16 @@ export default function LogoutModal({ children }: { children: ReactNode }) {
   }, [open]);
 
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
-      <AlertDialogContent className="w-[90%] max-w-[280px] rounded-xl">
-        <div className="w-full flex items-center justify-center">
-          <div className={`size-[120px] mx-auto relative ${animation}`}>
-            <img
-              alt="logout-illustration"
-              src={image}
-              className="size-full object-contain"
-            />
-          </div>
-        </div>
-        <AlertDialogHeader>
-          <AlertDialogTitle className="text-left font-semibold text-sm">
-            {title}
-          </AlertDialogTitle>
-          <AlertDialogDescription className="text-left text-sm">
-            {description}
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        {!loading && (
-          <div className="flex justify-end w-full">
-            <RegularButton
-              variant="ghost-blue"
-              className="w-fit block"
-              onClick={close}
-            >
-              Oke, lanjutkan
-            </RegularButton>
-          </div>
-        )}
-      </AlertDialogContent>
-    </AlertDialog>
+    <AppModal
+      open={_open}
+      title={title}
+      description={description}
+      image={image}
+      animationImage={animation}
+      loadingConfirm={loading}
+      textConfirm="Oke, lanjutkan"
+      children={children}
+      onOpenChange={setOpen}
+    />
   );
 }

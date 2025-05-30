@@ -60,6 +60,7 @@ export async function tapCheckUser() {
   const currentUserByToken = await getUserByToken(token);
   return currentUserByToken;
 }
+
 export async function tapStartUser(usernameIG: string) {
   let token = getCookie(KEY_TOKEN) ?? "";
 
@@ -87,7 +88,7 @@ export async function tapStartUser(usernameIG: string) {
   if (userAlreadyLoggedIn?.error)
     return {
       data: userAlreadyLoggedIn.data,
-      error: { message: "already logged in" },
+      error: { message: "already-logged-in" },
     };
 
   const res = await createUser(username, token);

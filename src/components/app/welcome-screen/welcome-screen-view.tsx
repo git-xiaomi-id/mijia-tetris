@@ -11,6 +11,7 @@ import RegularButton from "../button-regular";
 import AppInput from "../input";
 import { tapStartUser } from "../../../lib/actions";
 import { useAppProvider } from "../../../hooks/use-context";
+import LoggedInModal from "./loggedin-detected-modal";
 
 export default function WelcomeScreenView({
   tokenCookie,
@@ -21,9 +22,11 @@ export default function WelcomeScreenView({
   const { user, userLoading, setScreen } = useAppProvider();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [logoutModal, setLogoutModal] = useState(false);
+  const [loggedinDetected, setLoggedinDetected] = useState(false);
 
   useEffect(() => {
-    if (user) setUsername(`@${user?.username_ig || ""}`);
+    if (user && user.username_ig) setUsername(`@${user?.username_ig || ""}`);
   }, [user]);
 
   useEffect(() => {
@@ -39,19 +42,24 @@ export default function WelcomeScreenView({
     setLoading(true);
     const res = await tapStartUser(username.trim());
     setLoading(false);
-    // if (res?.data?.id) router.push("/game");
     if (res?.data?.id) {
       mutate("user");
       setScreen("game");
-    }
+    } else if (res.error?.message === "already-logged-in")
+      setLoggedinDetected(true);
     // else alert(res?.error?.message);
     else toast.error("Failed", { description: res?.error?.message });
+  }
+
+  function switchLogout() {
+    setLoggedinDetected(false);
+    setLogoutModal(true);
   }
 
   return (
     <>
       <WelcomeScreenInput
-        localUsername={`@${user?.username_ig || ""}`}
+        localUsername={user?.username_ig ? `@${user?.username_ig || ""}` : ""}
         username={username}
         setUsername={setUsername}
         userLoading={userLoading}
@@ -62,8 +70,14 @@ export default function WelcomeScreenView({
         loading={loading}
         username={username}
         clickStart={clickStart}
-        localUsername={`@${user?.username_ig || ""}`}
+        localUsername={user?.username_ig ? `@${user?.username_ig || ""}` : ""}
         error={error}
+        logoutModal={logoutModal}
+      />
+      <LoggedInModal
+        open={loggedinDetected}
+        onOpenChange={setLoggedinDetected}
+        onCancelClick={switchLogout}
       />
     </>
   );
@@ -75,12 +89,14 @@ function WelcomeScreenButton({
   loading,
   localUsername,
   error,
+  logoutModal,
 }: {
   username: string;
   clickStart: () => void;
   loading: boolean;
   localUsername?: string;
   error?: string;
+  logoutModal: boolean;
 }) {
   return (
     <div className="relative z-10 mb-20 flex flex-col items-center justify-center gap-5  w-full max-w-[280px] mx-auto">
@@ -94,7 +110,7 @@ function WelcomeScreenButton({
       </AppButton>
       <GameInstruction />
       {localUsername && (
-        <LogoutModal>
+        <LogoutModal open={logoutModal}>
           <RegularButton variant="ghost-red">Keluar dari akun</RegularButton>
         </LogoutModal>
       )}
