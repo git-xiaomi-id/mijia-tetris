@@ -65,6 +65,7 @@ export default function GameScreen() {
     <div className="h-screen relative flex flex-col items-start">
       {/* JANGAN ADA FIXED DLL, GRID COL BAGI RATA */}
       <div className="gs-gamearea">
+        {/* 1 */}
         <div className="gs-toparea">
           <UsernameDisplay username={user?.username_ig ?? ""} />
           <div className="flex flex-col items-end gap-4">
@@ -72,7 +73,9 @@ export default function GameScreen() {
             <ButtonTimer onClick={togglingStep} step={timerStep} />
           </div>
         </div>
-        <div className="relative aspect-[1/1.12] w-full flex items-center justify-center">
+
+        {/* 2 */}
+        <div className="relative aspect-[1/1.12] w-full flex flex-1 items-center justify-center">
           {assets.map((asset) => (
             <img
               key={asset.key}
@@ -85,9 +88,13 @@ export default function GameScreen() {
             />
           ))}
         </div>
-      </div>
-      <div className={`gs-item-drawer ${gameStep === "intro3" ? "shown" : ""}`}>
-        BOTTOM
+
+        {/* 3 */}
+        <div
+          className={`gs-item-drawer ${gameStep === "intro3" ? "shown" : ""}`}
+        >
+          BOTTOM
+        </div>
       </div>
     </div>
   );

@@ -44,10 +44,7 @@ export default function GameTimer({ step }: { step?: TStep }) {
   return (
     <div className="gs-timer-area">
       <div className="gs-time-box">
-        <div className="text-white">
-          {/* TAMPIlAN TIMER GAME DISINI, CONTOH 00:00:00 */}
-          {formatTime(time)}
-        </div>
+        <div className="text-white text-sm font-[450]">{formatTime(time)}</div>
       </div>
       <div className="gs-icon-clock">
         <img alt="icon-clock" src="/icon/icon-clock.webp" />
