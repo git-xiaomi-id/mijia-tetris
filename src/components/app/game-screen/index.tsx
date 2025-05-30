@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import "./game-screen.css";
 import GameTimer from "./game-timer";
 import ButtonTimer from "./button-timer";
+import ItemDock from "./item-dock";
 
 function UsernameDisplay({ username }: { username: string }) {
   return (
@@ -75,7 +76,7 @@ export default function GameScreen() {
         </div>
 
         {/* 2 */}
-        <div className="relative aspect-[1/1.12] w-full flex flex-1 items-center justify-center">
+        <div className="relative w-full flex flex-1 items-center justify-center">
           {assets.map((asset) => (
             <img
               key={asset.key}
@@ -93,7 +94,7 @@ export default function GameScreen() {
         <div
           className={`gs-item-drawer ${gameStep === "intro3" ? "shown" : ""}`}
         >
-          BOTTOM
+          <ItemDock />
         </div>
       </div>
     </div>

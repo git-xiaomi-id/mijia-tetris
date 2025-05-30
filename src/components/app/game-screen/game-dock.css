@@ -1,0 +1,10 @@
+.game-dock {
+  @apply relative flex flex-col gap-3 items-center;
+}
+
+.gd-row {
+  @apply w-full h-20 text-center;
+  background: url("/illustration/dock-food.webp") repeat-x;
+  background-size: contain;
+  background-position: bottom center;
+}

@@ -36,7 +36,7 @@
   background-size: cover;
 
   /* @apply absolute left-0 bottom-0; */
-  @apply w-full h-[220px] rounded-t-xl p-4  border-2 border-gray-200;
+  @apply w-full h-fit rounded-t-xl p-4  border-2 border-gray-200;
 
   @apply translate-y-10 opacity-0 transition-all;
 }
