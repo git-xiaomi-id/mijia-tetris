@@ -117,15 +117,15 @@
 
 .gs-mask-door-top.door-left {
   @apply left-[20%];
-  background-image: url("/illustration/door-top-left.png");
+  background-image: url("/illustration/door-top-left.webp");
 }
 .gs-mask-door-top.door-right {
   @apply right-[20%];
-  background-image: url("/illustration/door-top-right.png");
+  background-image: url("/illustration/door-top-right.webp");
 }
 .gs-mask-door-top.door-middle {
   @apply top-[9.1%] left-[50%] -translate-x-[50%];
   @apply w-[160px] h-[160px];
-  background-image: url("/illustration/door-top-middle.png");
+  background-image: url("/illustration/door-top-middle.webp");
   background-size: cover;
 }
