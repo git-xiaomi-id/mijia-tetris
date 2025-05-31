@@ -8,11 +8,11 @@ import ItemDock from "./item-dock";
 
 function UsernameDisplay({ username }: { username: string }) {
   return (
-    <div className="gs-usernameIg">
+    <div className="gs-usernameIg max-w-[204px]">
       <div className="gs-usernameIg-icon">
         <Instagram />
       </div>
-      <div className="font-semibold">@{username}</div>
+      <div className="font-[520] truncate">@{username}</div>
     </div>
   );
 }
