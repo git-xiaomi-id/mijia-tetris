@@ -11,12 +11,15 @@ export async function getUserByToken(token: string) {
 
 export async function checkAlreadyLoggedIn(username_ig: string, token: string) {
   if (!token) return null;
-  return await clientSupabase
+  const res = await clientSupabase
     .from("user")
     .select()
     .eq("username_ig", username_ig)
-    .is("token", null)
     .single();
+  if (res.error) return await createUser(username_ig, token);
+  else if (res.data && res.data.token)
+    return { data: null, error: { message: "already-logged-in" } };
+  return res;
 }
 
 export async function createUser(username_ig: string, token: string) {
