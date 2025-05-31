@@ -137,10 +137,7 @@ function WelcomeScreenInput({
   return userLoading && tokenCookie ? (
     <Loader className="size-6 mx-auto animate-spin" />
   ) : localUsername ? (
-    <div className="text-xl font-bold text-[#6d6d6d] text-center">
-      {localUsername}
-      <div className="text-xs">{error}</div>
-    </div>
+    <div className="ws-currentUsername">{localUsername}</div>
   ) : (
     <div className="flex flex-col gap-3 items-center justify-center  w-full max-w-[280px] mx-auto">
       <div className="flex justify-center items-center w-full">
