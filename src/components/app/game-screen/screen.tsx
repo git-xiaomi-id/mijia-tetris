@@ -81,8 +81,18 @@ export default function GameScreenContent() {
                 <div className="gs-mask-door-top door-middle  " />
                 <div className="gs-mask-door-top door-right  " />
                 <div className="gs-mask-door-top door-right  " />
+
                 <div className="gs-mask-door-middle door-left  " />
                 <div className="gs-mask-door-middle door-right  " />
+
+                <div className="gs-mask-door-bottom left" />
+                <div className="gs-mask-door-bottom right" />
+
+                <div className="gs-mask-door-freezerbottom left" />
+                <div className="gs-mask-door-freezerbottom right" />
+
+                <div className="gs-mask-door-freezerbottom sec2 left" />
+                <div className="gs-mask-door-freezerbottom sec2 right" />
               </div>
             </>
           )}
