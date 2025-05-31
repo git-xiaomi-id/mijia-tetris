@@ -14,7 +14,8 @@
   border-color: var(--border-color) !important;
   color: var(--text-color);
 
-  @apply p-4 border-2 active:scale-95 transition-all w-full font-bold text-2xl h-auto rounded-2xl;
+  @apply border-2 active:scale-95 transition-all w-full font-bold text-2xl h-auto rounded-2xl;
+  @apply py-[14px] px-5;
 }
 .app-styled-button:active {
   background: linear-gradient(

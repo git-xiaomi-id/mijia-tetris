@@ -62,7 +62,7 @@ export default function ButtonTimer({
             )}
           </button>
         </AlertDialogTrigger>
-        <AlertDialogContent className="w-[90%] max-w-xs rounded-xl">
+        <AlertDialogContent className="w-[90%] max-w-sm rounded-xl">
           <div className="flex flex-col gap-10 items-center">
             <div className="flex flex-col gap-1.5">
               <AlertDialogTitle className="w-full [&>svg]:w-full">
@@ -101,7 +101,7 @@ export default function ButtonTimer({
         open={pop === "restart"}
         onOpenChange={(e) => setPop(e ? "restart" : "")}
       >
-        <AlertDialogContent className="w-[90%] max-w-xs rounded-xl">
+        <AlertDialogContent className="w-[90%] max-w-sm rounded-xl">
           <AlertDialogHeader>
             <AlertDialogTitle hidden>Restart Game</AlertDialogTitle>
             <AlertDialogDescription className="text-center text-lg">
@@ -121,7 +121,7 @@ export default function ButtonTimer({
         open={pop === "exit"}
         onOpenChange={(e) => setPop(e ? "exit" : "")}
       >
-        <AlertDialogContent className="w-[90%] max-w-xs rounded-xl">
+        <AlertDialogContent className="w-[90%] max-w-sm rounded-xl">
           <AlertDialogHeader>
             <AlertDialogTitle hidden>Restart Game</AlertDialogTitle>
             <AlertDialogDescription className="text-center text-lg">
