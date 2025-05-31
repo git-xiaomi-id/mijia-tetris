@@ -57,13 +57,15 @@ export default function AppModal({
       {children && <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>}
       <AlertDialogContent className="w-[90%] max-w-[300px] rounded-xl">
         <div className="w-full flex items-center justify-center">
-          <div className={`size-[120px] mx-auto relative ${animationImage}`}>
-            <img
-              alt="logout-illustration"
-              src={image}
-              className="size-full object-contain"
-            />
-          </div>
+          {image && (
+            <div className={`size-[120px] mx-auto relative ${animationImage}`}>
+              <img
+                alt="logout-illustration"
+                src={image}
+                className="size-full object-contain"
+              />
+            </div>
+          )}
         </div>
         <AlertDialogHeader className="max-w-full">
           <AlertDialogTitle className="text-left font-semibold text-sm">

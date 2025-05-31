@@ -5,7 +5,6 @@ import GameTimer from "./game-timer";
 import ButtonTimer from "./button-timer";
 import OnboardingModal from "./onboarding-modal";
 import ItemDock from "./item-dock";
-import { useEffect } from "react";
 
 function UsernameDisplay({ username }: { username: string }) {
   return (
@@ -23,26 +22,6 @@ export default function GameScreenContent() {
     useGameProvider();
   const { user } = useAppProvider();
 
-  useEffect(() => {
-    // const interval = setInterval(() => {
-    //   setScreenStep((prev: TScreenStep) => {
-    //     const currentIndex = screenSteps.findIndex((step) => step === prev);
-    //     if (currentIndex === screenSteps.length - 2) {
-    //       clearInterval(interval);
-    //       return prev; // Stop at the last step
-    //     }
-    //     // Check if next step is onboarding and if onboarding cookie is true
-    //     const nextStep = screenSteps[currentIndex + 1];
-    //     if (nextStep === "onboarding" && getCookie(KEY_ONBOARDING) === "true") {
-    //       clearInterval(interval);
-    //       return prev; // Stay at current step if onboarding is already done
-    //     }
-    //     return nextStep as TScreenStep;
-    //   });
-    // }, 1500);
-    // return () => clearInterval(interval);
-  }, []);
-
   return (
     <div className="h-screen relative flex flex-col items-start">
       {/* JANGAN ADA FIXED DLL, GRID COL BAGI RATA */}
@@ -51,7 +30,14 @@ export default function GameScreenContent() {
         <div className="gs-toparea">
           <UsernameDisplay username={user?.username_ig ?? ""} />
           {screenSteps.indexOf(screenStep)}
-          <div className="flex flex-col items-end gap-4">
+          <div
+            className={[
+              "flex flex-col items-end gap-4",
+              screenStep.includes("game")
+                ? ""
+                : "opacity-0 pointer-events-none",
+            ].join(" ")}
+          >
             <GameTimer />
             <ButtonTimer />
           </div>

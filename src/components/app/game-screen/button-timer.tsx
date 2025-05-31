@@ -19,6 +19,8 @@ import GameExitIcon from "../icon/game-exit";
 import { useState } from "react";
 import { useGameProvider } from "@/hooks/use-game";
 import { useAppProvider } from "@/hooks/use-context";
+import RestartGameHeading from "./restart-game-heading";
+import ExitGameHeading from "./exit-game-heading";
 
 export default function ButtonTimer() {
   const {
@@ -128,6 +130,18 @@ export default function ButtonTimer() {
         <AlertDialogContent className="w-[90%] max-w-sm rounded-xl">
           <AlertDialogHeader>
             <AlertDialogTitle hidden>Restart Game</AlertDialogTitle>
+            <div
+              className={`size-[120px] mx-auto relative !animate-headScaling`}
+            >
+              <img
+                alt="restart-illustration"
+                src="/mi-bunny/mi-bunny-shock.webp"
+                className="size-full object-contain"
+              />
+            </div>
+            <div className="w-full [&>svg]:w-full">
+              <RestartGameHeading />
+            </div>
             <AlertDialogDescription className="text-center text-lg">
               Kamu yakin mau restart game?
             </AlertDialogDescription>
@@ -149,7 +163,19 @@ export default function ButtonTimer() {
       >
         <AlertDialogContent className="w-[90%] max-w-sm rounded-xl">
           <AlertDialogHeader>
-            <AlertDialogTitle hidden>Restart Game</AlertDialogTitle>
+            <AlertDialogTitle hidden>Exit Game</AlertDialogTitle>
+            <div
+              className={`size-[120px] mx-auto relative animate-headShaking`}
+            >
+              <img
+                alt="exit-illustration"
+                src="/mi-bunny/mi-bunny-cry.webp"
+                className="size-full object-contain"
+              />
+            </div>
+            <div className="w-full [&>svg]:w-full">
+              <ExitGameHeading />
+            </div>
             <AlertDialogDescription className="text-center text-lg">
               Yakin mau keluar dari game?
             </AlertDialogDescription>
