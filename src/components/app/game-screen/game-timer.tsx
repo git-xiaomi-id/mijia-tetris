@@ -1,30 +1,31 @@
-import { useEffect, useState } from "react";
+import { useGameProvider } from "@/hooks/use-game";
+import { useEffect } from "react";
 
-type TStep = "start" | "pause";
+export default function GameTimer() {
+  //   const [_step, setStep] = useState<TStep>("pause");
+  //   const [time, setTime] = useState<number>(0);
 
-export default function GameTimer({ step }: { step?: TStep }) {
-  const [_step, setStep] = useState<TStep>("pause");
-  const [time, setTime] = useState<number>(0);
+  const { time, setTime, timerStep } = useGameProvider();
 
-  useEffect(() => {
-    setStep(step || "pause");
-  }, [step]);
+  //   useEffect(() => {
+  //     setStep(step || "pause");
+  //   }, [step]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout | undefined;
 
-    if (_step === "start") {
+    if (timerStep === "start") {
       interval = setInterval(() => {
-        setTime((time) => time + 1);
+        setTime((time: number) => time + 1);
       }, 1000);
-    } else if (_step === "pause") {
+    } else if (timerStep === "pause") {
       clearInterval(interval);
     }
 
     return () => {
       clearInterval(interval);
     };
-  }, [_step]);
+  }, [timerStep]);
 
   const formatTime = (totalSeconds: number): string => {
     const hours = Math.floor(totalSeconds / 3600);

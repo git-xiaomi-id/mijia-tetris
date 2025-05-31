@@ -17,25 +17,18 @@ import GamePlayIcon from "../icon/game-play";
 import GameRestartIcon from "../icon/game-reset";
 import GameExitIcon from "../icon/game-exit";
 import { useState } from "react";
+import { useGameProvider } from "@/hooks/use-game";
 
-type TStep = "start" | "pause";
-type TScreenStep = "intro1" | "intro2" | "intro3" | "onboarding" | "game";
+export default function ButtonTimer() {
+  const { screenStep, timerStep, togglingStep } = useGameProvider();
 
-export default function ButtonTimer({
-  onClick,
-  step,
-  screen,
-}: {
-  onClick?: () => void;
-  step: TStep;
-  screen: TScreenStep;
-}) {
   const { clickPlay } = useClickSound();
   const [pop, setPop] = useState<"exit" | "restart" | "">("");
 
   function _onClick() {
     clickPlay();
-    if (typeof onClick === "function") onClick();
+    // if (typeof onClick === "function") onClick();
+    togglingStep();
   }
 
   function popExit() {
@@ -48,14 +41,16 @@ export default function ButtonTimer({
 
   return (
     <>
-      <AlertDialog open={step === "pause" && screen.includes("game") && !pop}>
+      <AlertDialog
+        open={timerStep === "pause" && screenStep.includes("game") && !pop}
+      >
         <AlertDialogTrigger asChild>
           <button
             type="button"
             onClick={_onClick}
             className="size-10 aspect-square transition-all active:scale-90"
           >
-            {step === "start" ? (
+            {timerStep === "start" ? (
               <PauseIcon size={40} />
             ) : (
               <StartIcon size={40} />
