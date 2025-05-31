@@ -1,11 +1,10 @@
 import { useAppProvider } from "@/hooks/use-context";
-import { useGameProvider, type TScreenStep } from "@/hooks/use-game";
+import { useGameProvider } from "@/hooks/use-game";
 import { Instagram } from "lucide-react";
 import GameTimer from "./game-timer";
 import ButtonTimer from "./button-timer";
 import OnboardingModal from "./onboarding-modal";
 import ItemDock from "./item-dock";
-import { getCookie, KEY_ONBOARDING } from "@/lib/utils";
 import { useEffect } from "react";
 
 function UsernameDisplay({ username }: { username: string }) {
@@ -20,31 +19,28 @@ function UsernameDisplay({ username }: { username: string }) {
 }
 
 export default function GameScreenContent() {
-  const { screenStep, screenSteps, assets, closeOnboarding, setScreenStep } =
+  const { screenStep, screenSteps, assets, closeOnboarding, runScenario } =
     useGameProvider();
   const { user } = useAppProvider();
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setScreenStep((prev: TScreenStep) => {
-        const currentIndex = screenSteps.findIndex((step) => step === prev);
-        if (currentIndex === screenSteps.length - 2) {
-          clearInterval(interval);
-          return prev; // Stop at the last step
-        }
-        // Check if next step is onboarding and if onboarding cookie is true
-        const nextStep = screenSteps[currentIndex + 1];
-
-        if (nextStep === "onboarding" && getCookie(KEY_ONBOARDING) === "true") {
-          clearInterval(interval);
-          return prev; // Stay at current step if onboarding is already done
-        }
-
-        return nextStep as TScreenStep;
-      });
-    }, 1500);
-
-    return () => clearInterval(interval);
+    // const interval = setInterval(() => {
+    //   setScreenStep((prev: TScreenStep) => {
+    //     const currentIndex = screenSteps.findIndex((step) => step === prev);
+    //     if (currentIndex === screenSteps.length - 2) {
+    //       clearInterval(interval);
+    //       return prev; // Stop at the last step
+    //     }
+    //     // Check if next step is onboarding and if onboarding cookie is true
+    //     const nextStep = screenSteps[currentIndex + 1];
+    //     if (nextStep === "onboarding" && getCookie(KEY_ONBOARDING) === "true") {
+    //       clearInterval(interval);
+    //       return prev; // Stay at current step if onboarding is already done
+    //     }
+    //     return nextStep as TScreenStep;
+    //   });
+    // }, 1500);
+    // return () => clearInterval(interval);
   }, []);
 
   return (
@@ -64,7 +60,7 @@ export default function GameScreenContent() {
         {/* 2 */}
         <div className="relative w-full flex flex-1 items-center justify-center">
           {screenStep.includes("intro") ? (
-            assets.map((asset) => (
+            assets.map((asset, index) => (
               <img
                 key={asset.key}
                 alt={asset?.key || ""}
@@ -73,6 +69,7 @@ export default function GameScreenContent() {
                   "size-full object-contain  gs-image-wrap absolute left-0 top-0",
                   screenStep === asset.key ? "active" : "hidden",
                 ].join(" ")}
+                onLoad={index === 0 ? runScenario : undefined}
               />
             ))
           ) : (

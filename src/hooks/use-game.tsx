@@ -1,3 +1,4 @@
+import { getCookie, KEY_ONBOARDING } from "@/lib/utils";
 import {
   createContext,
   useContext,
@@ -26,6 +27,7 @@ interface GameContextType {
   closeOnboarding: () => void;
   time: number;
   setTime: Dispatch<SetStateAction<number>>;
+  runScenario: () => void;
 }
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
@@ -67,6 +69,27 @@ export function GameProvider({ children }: { children: ReactNode }) {
     setTimerStep("start");
   }
 
+  function runScenario() {
+    const interval = setInterval(() => {
+      setScreenStep((prev: TScreenStep) => {
+        const currentIndex = screenSteps.findIndex((step) => step === prev);
+        if (currentIndex === screenSteps.length - 2) {
+          clearInterval(interval);
+          return prev; // Stop at the last step
+        }
+        // Check if next step is onboarding and if onboarding cookie is true
+        const nextStep = screenSteps[currentIndex + 1];
+
+        if (nextStep === "onboarding" && getCookie(KEY_ONBOARDING) === "true") {
+          clearInterval(interval);
+          return prev; // Stay at current step if onboarding is already done
+        }
+
+        return nextStep as TScreenStep;
+      });
+    }, 1500);
+  }
+
   return (
     <GameContext.Provider
       value={{
@@ -80,6 +103,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
         closeOnboarding,
         time,
         setTime,
+        runScenario,
       }}
     >
       {children}

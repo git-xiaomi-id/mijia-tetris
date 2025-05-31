@@ -18,9 +18,19 @@ import GameRestartIcon from "../icon/game-reset";
 import GameExitIcon from "../icon/game-exit";
 import { useState } from "react";
 import { useGameProvider } from "@/hooks/use-game";
+import { useAppProvider } from "@/hooks/use-context";
 
 export default function ButtonTimer() {
-  const { screenStep, timerStep, togglingStep } = useGameProvider();
+  const {
+    screenStep,
+    timerStep,
+    togglingStep,
+    setTime,
+    setTimerStep,
+    setScreenStep,
+    runScenario,
+  } = useGameProvider();
+  const { setScreen } = useAppProvider();
 
   const { clickPlay } = useClickSound();
   const [pop, setPop] = useState<"exit" | "restart" | "">("");
@@ -37,6 +47,25 @@ export default function ButtonTimer() {
 
   function popRestart() {
     setPop("restart");
+  }
+
+  function doResetGame() {
+    setTime(0);
+    setTimerStep("pause");
+    setScreenStep("intro1");
+  }
+
+  function doExitGame() {
+    doResetGame();
+    setScreen("welcome");
+    setPop("");
+  }
+
+  function doRestartGame() {
+    doResetGame();
+    // setTimerStep("start");
+    setPop("");
+    runScenario();
   }
 
   return (
@@ -107,7 +136,9 @@ export default function ButtonTimer() {
             <AlertDialogCancel noBaseClass>
               <AppButton variant="white">Batal</AppButton>
             </AlertDialogCancel>
-            <AppButton variant="orange">Ya, Restart</AppButton>
+            <AppButton variant="orange" onClick={doRestartGame}>
+              Ya, Restart
+            </AppButton>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -127,7 +158,9 @@ export default function ButtonTimer() {
             <AlertDialogCancel noBaseClass>
               <AppButton variant="white">Batal</AppButton>
             </AlertDialogCancel>
-            <AppButton variant="red">Ya, Restart</AppButton>
+            <AppButton variant="red" onClick={doExitGame}>
+              Ya, Keluar
+            </AppButton>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
