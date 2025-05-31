@@ -110,22 +110,35 @@
 }
 
 .gs-mask-door-top {
-  @apply w-[64px] h-[200px] aspect-square absolute top-3 rounded-lg border;
+  @apply w-[64px] h-[200px] aspect-square absolute top-4 rounded-lg;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .gs-mask-door-top.door-left {
-  @apply left-[20%];
+  @apply left-[19%];
   background-image: url("/illustration/door-top-left.webp");
 }
 .gs-mask-door-top.door-right {
-  @apply right-[20%];
+  @apply right-[19%];
   background-image: url("/illustration/door-top-right.webp");
 }
 .gs-mask-door-top.door-middle {
-  @apply top-[9.1%] left-[50%] -translate-x-[50%];
+  @apply top-[9.1%] left-[34%];
   @apply w-[160px] h-[160px];
   background-image: url("/illustration/door-top-middle.webp");
   background-size: cover;
+}
+.gs-mask-door-middle {
+  @apply w-[90px] h-[50px] aspect-square absolute top-[220px] rounded-md;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("/illustration/door-mid.webp");
+  background-position: center center;
+}
+.gs-mask-door-middle.door-left {
+  @apply left-[31.5%];
+}
+.gs-mask-door-middle.door-right {
+  @apply right-[31.5%];
 }

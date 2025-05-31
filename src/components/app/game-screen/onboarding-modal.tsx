@@ -39,7 +39,7 @@ export default function OnboardingModal() {
     image = "/mi-bunny/mi-bunny-fun.webp";
     textConfirm = "Mulai main";
     animationImage = "animate-headshaking";
-    positionClassname = "!top-[70%]";
+    positionClassname = "!top-[76%]";
   }
 
   function doCloseOnboarding() {
@@ -82,7 +82,7 @@ export default function OnboardingModal() {
           showOverlay={false}
         >
           <div className="w-full flex items-center justify-center">
-            <div className={`size-[120px] mx-auto relative ${animationImage}`}>
+            <div className={`size-[100px] mx-auto relative ${animationImage}`}>
               <img
                 alt="logout-illustration"
                 src={image}

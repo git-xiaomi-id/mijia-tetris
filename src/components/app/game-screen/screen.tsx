@@ -5,7 +5,6 @@ import GameTimer from "./game-timer";
 import ButtonTimer from "./button-timer";
 import OnboardingModal from "./onboarding-modal";
 import ItemDock from "./item-dock";
-import SvgMask from "./svg-mask";
 
 function UsernameDisplay({ username }: { username: string }) {
   return (
@@ -78,9 +77,12 @@ export default function GameScreenContent() {
           {onboardingStep === 1 && (
             <>
               <div className="z-[1] w-full h-full relative">
-                <div className="gs-mask-door-top door-left" />
-                <div className="gs-mask-door-top door-middle" />
-                <div className="gs-mask-door-top door-right" />
+                <div className="gs-mask-door-top door-left  " />
+                <div className="gs-mask-door-top door-middle  " />
+                <div className="gs-mask-door-top door-right  " />
+                <div className="gs-mask-door-top door-right  " />
+                <div className="gs-mask-door-middle door-left  " />
+                <div className="gs-mask-door-middle door-right  " />
               </div>
             </>
           )}
