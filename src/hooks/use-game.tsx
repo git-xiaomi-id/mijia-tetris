@@ -2,6 +2,7 @@ import { getCookie, KEY_ONBOARDING } from "@/lib/utils";
 import {
   createContext,
   useContext,
+  useEffect,
   useState,
   type Dispatch,
   type ReactNode,
@@ -28,6 +29,10 @@ interface GameContextType {
   time: number;
   setTime: Dispatch<SetStateAction<number>>;
   runScenario: () => void;
+  onboardingStep: number;
+  setOnboardingStep: Dispatch<SetStateAction<number>>;
+  onboardingOpen: boolean;
+  setOnboardingOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
@@ -59,6 +64,8 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const [screenStep, setScreenStep] = useState<TScreenStep>("intro1");
   const [timerStep, setTimerStep] = useState<TTimerStep>("pause");
   const [time, setTime] = useState<number>(0);
+  const [onboardingStep, setOnboardingStep] = useState<number>(0);
+  const [onboardingOpen, setOnboardingOpen] = useState<boolean>(false);
 
   function togglingStep() {
     setTimerStep(timerStep === "start" ? "pause" : "start");
@@ -90,6 +97,11 @@ export function GameProvider({ children }: { children: ReactNode }) {
     }, 1500);
   }
 
+  useEffect(() => {
+    if (screenStep === "onboarding") setOnboardingOpen(true);
+    else setOnboardingOpen(false);
+  }, [screenStep]);
+
   return (
     <GameContext.Provider
       value={{
@@ -104,6 +116,10 @@ export function GameProvider({ children }: { children: ReactNode }) {
         time,
         setTime,
         runScenario,
+        onboardingStep,
+        setOnboardingStep,
+        onboardingOpen,
+        setOnboardingOpen,
       }}
     >
       {children}

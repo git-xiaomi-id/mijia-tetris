@@ -18,8 +18,14 @@ function UsernameDisplay({ username }: { username: string }) {
 }
 
 export default function GameScreenContent() {
-  const { screenStep, screenSteps, assets, closeOnboarding, runScenario } =
-    useGameProvider();
+  const {
+    screenStep,
+    screenSteps,
+    assets,
+    runScenario,
+    onboardingStep,
+    onboardingOpen,
+  } = useGameProvider();
   const { user } = useAppProvider();
 
   return (
@@ -78,14 +84,23 @@ export default function GameScreenContent() {
           <ItemDock />
         </div>
 
-        {/* Onboarding Overlay */}
-        {screenStep.includes("onboarding") && (
+        {/* Onboarding Parts */}
+        {onboardingOpen && (
           <>
+            {/* Overlay */}
             <div className="absolute inset-0 bg-[#222222BF]  transition-opacity duration-500" />
-            <OnboardingModal
-              open={screenStep.includes("onboarding")}
-              onClose={closeOnboarding}
-            />
+
+            {/* Modal */}
+            <OnboardingModal />
+
+            {onboardingStep === 1 && (
+              <>
+                <div
+                  className="w-4 h-10 border border-red-500 absolute left-10 top-10"
+                  style={{ maskComposite: "subtract", maskSize: "16px 40px" }}
+                ></div>
+              </>
+            )}
           </>
         )}
       </div>

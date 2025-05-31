@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -9,21 +9,18 @@ import {
 } from "@/components/ui/alert-dialog";
 import RegularButton from "../button-regular";
 import AppCheckbox from "../checkbox";
+import { useGameProvider } from "@/hooks/use-game";
 
-export default function OnboardingModal({
-  open,
-  onClose,
-}: {
-  open: boolean;
-  onClose: () => void;
-}) {
-  const [step, setStep] = useState<number>(0);
-  const [_open, setOpen] = useState(false);
+export default function OnboardingModal() {
+  const {
+    onboardingStep: step,
+    setOnboardingStep: setStep,
+    setOnboardingOpen,
+    onboardingOpen,
+    closeOnboarding,
+  } = useGameProvider();
+  //   const [step, setStep] = useState<number>(0);
   const [dontShowAgain, setDontShowAgain] = useState(false);
-
-  useEffect(() => {
-    setOpen(open);
-  }, [open]);
 
   let title = "Klik bagian yang ingin diisi";
   let description =
@@ -45,14 +42,16 @@ export default function OnboardingModal({
     positionClassname = "!top-[70%]";
   }
 
+  function doCloseOnboarding() {
+    setOnboardingOpen(false);
+    closeOnboarding();
+  }
+
   function nextStep() {
     setStep((curr) => {
       const newValue = curr + 1;
       if (newValue > 1) {
-        setTimeout(() => {
-          setOpen(false);
-          onClose();
-        }, 350);
+        setTimeout(doCloseOnboarding, 350);
       }
       return newValue;
     });
@@ -74,7 +73,7 @@ export default function OnboardingModal({
 
   return (
     <>
-      <AlertDialog open={_open} onOpenChange={setOpen}>
+      <AlertDialog open={onboardingOpen} onOpenChange={doCloseOnboarding}>
         <AlertDialogContent
           className={[
             "w-[90%] max-w-[300px] rounded-xl",
