@@ -131,7 +131,7 @@ export default function ButtonTimer() {
           <AlertDialogHeader>
             <AlertDialogTitle hidden>Restart Game</AlertDialogTitle>
             <div
-              className={`size-[120px] mx-auto relative !animate-headScaling`}
+              className={`size-[120px] mx-auto relative animate-headscaling`}
             >
               <img
                 alt="restart-illustration"
@@ -165,7 +165,7 @@ export default function ButtonTimer() {
           <AlertDialogHeader>
             <AlertDialogTitle hidden>Exit Game</AlertDialogTitle>
             <div
-              className={`size-[120px] mx-auto relative animate-headShaking`}
+              className={`size-[120px] mx-auto relative animate-headshaking`}
             >
               <img
                 alt="exit-illustration"
