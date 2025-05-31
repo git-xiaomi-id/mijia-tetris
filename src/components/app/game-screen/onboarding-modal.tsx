@@ -15,10 +15,8 @@ export default function OnboardingModal() {
   const {
     onboardingStep: step,
     setOnboardingStep: setStep,
-    setOnboardingOpen,
     onboardingOpen,
     closeOnboarding,
-    setHasOnboarding,
   } = useGameProvider();
   //   const [step, setStep] = useState<number>(0);
   const [dontShowAgain, setDontShowAgain] = useState(false);
@@ -43,17 +41,11 @@ export default function OnboardingModal() {
     positionClassname = "!top-[76%]";
   }
 
-  function doCloseOnboarding() {
-    setOnboardingOpen(false);
-    closeOnboarding();
-    setHasOnboarding(true);
-  }
-
   function nextStep() {
     setStep((curr) => {
       const newValue = curr + 1;
       if (newValue > 1) {
-        setTimeout(doCloseOnboarding, 350);
+        setTimeout(closeOnboarding, 350);
       }
       return newValue;
     });
@@ -64,6 +56,7 @@ export default function OnboardingModal() {
       <AppCheckbox
         checked={dontShowAgain}
         onCheckedChange={(checked) => setDontShowAgain(checked as boolean)}
+        className="pl-0"
       >
         <div className=" text-[10px] text-[#888]">Jangan tampilkan lagi</div>
       </AppCheckbox>
@@ -75,7 +68,10 @@ export default function OnboardingModal() {
 
   return (
     <>
-      <AlertDialog open={onboardingOpen} onOpenChange={doCloseOnboarding}>
+      <AlertDialog
+        open={onboardingOpen}
+        onOpenChange={(e) => (e ? undefined : closeOnboarding())}
+      >
         <AlertDialogContent
           className={[
             "w-[90%] max-w-[300px] rounded-xl",

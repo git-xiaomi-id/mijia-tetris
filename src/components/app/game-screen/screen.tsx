@@ -38,7 +38,7 @@ export default function GameScreenContent() {
           {screenSteps.indexOf(screenStep)}
           <div
             className={[
-              "flex flex-col items-end gap-4 relative",
+              "flex flex-col items-end gap-4 relative h-14",
               screenStep.includes("game")
                 ? ""
                 : "opacity-0 pointer-events-none",
@@ -111,7 +111,6 @@ export default function GameScreenContent() {
         {onboardingOpen && (
           <>
             {/* Overlay */}
-            {/* <SvgMask /> */}
             <div className="absolute bg-[#22222298] size-full" />
 
             {/* Modal */}

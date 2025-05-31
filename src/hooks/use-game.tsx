@@ -68,7 +68,9 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const [time, setTime] = useState<number>(0);
   const [onboardingStep, setOnboardingStep] = useState<number>(0);
   const [onboardingOpen, setOnboardingOpen] = useState<boolean>(false);
-  const [hasOnboarding, setHasOnboarding] = useState<boolean>(false);
+  const [hasOnboarding, setHasOnboarding] = useState<boolean>(
+    getCookie(KEY_ONBOARDING) === "true"
+  );
 
   function togglingStep() {
     setTimerStep(timerStep === "start" ? "pause" : "start");
@@ -77,6 +79,8 @@ export function GameProvider({ children }: { children: ReactNode }) {
   function closeOnboarding() {
     setScreenStep("game");
     setTimerStep("start");
+    setHasOnboarding(true);
+    setOnboardingOpen(false);
   }
 
   function runScenario() {
@@ -90,7 +94,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
         // Check if next step is onboarding and if onboarding cookie is true
         const nextStep = screenSteps[currentIndex + 1];
 
-        if (nextStep === "onboarding" && getCookie(KEY_ONBOARDING) === "true") {
+        if (nextStep === "onboarding" && hasOnboarding) {
           clearInterval(interval);
           return prev; // Stay at current step if onboarding is already done
         }
