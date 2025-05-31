@@ -74,6 +74,16 @@ export default function GameScreenContent() {
               className="size-full object-contain  gs-image-wrap absolute left-0 top-0 active"
             />
           )}
+
+          {onboardingStep === 1 && (
+            <>
+              <div className="z-[1] w-full h-full relative">
+                <div className="gs-mask-door-top door-left" />
+                <div className="gs-mask-door-top door-middle" />
+                <div className="gs-mask-door-top door-right" />
+              </div>
+            </>
+          )}
         </div>
 
         {/* 3 */}
@@ -89,13 +99,11 @@ export default function GameScreenContent() {
         {onboardingOpen && (
           <>
             {/* Overlay */}
-            <SvgMask />
+            {/* <SvgMask /> */}
             <div className="absolute bg-[#22222298] size-full" />
 
             {/* Modal */}
             <OnboardingModal />
-
-            {onboardingStep === 1 && <></>}
           </>
         )}
       </div>

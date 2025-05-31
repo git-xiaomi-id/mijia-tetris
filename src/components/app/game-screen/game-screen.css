@@ -109,25 +109,23 @@
   @apply size-full object-contain block;
 }
 
-/* .mask-hole {
-  -webkit-mask-image: radial-gradient(
-    circle at 200px 200px,
-    transparent 100px,
-    black 45px
-  );
-  -webkit-mask-composite: destination-out;
-  mask-image: radial-gradient(
-    circle at 200px 200px,
-    transparent 100px,
-    black 45px
-  );
-  mask-composite: subtract; 
-} */
+.gs-mask-door-top {
+  @apply w-[64px] h-[200px] aspect-square absolute top-3 rounded-lg border;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 
-.mask-hole {
-  position: absolute;
-  inset: 0;
-  mask: url(#double-rect-mask);
-  -webkit-mask: url(#double-rect-mask);
-  background: #222222bf;
+.gs-mask-door-top.door-left {
+  @apply left-[20%];
+  background-image: url("/illustration/door-top-left.png");
+}
+.gs-mask-door-top.door-right {
+  @apply right-[20%];
+  background-image: url("/illustration/door-top-right.png");
+}
+.gs-mask-door-top.door-middle {
+  @apply top-[9.1%] left-[50%] -translate-x-[50%];
+  @apply w-[160px] h-[160px];
+  background-image: url("/illustration/door-top-middle.png");
+  background-size: cover;
 }
