@@ -33,6 +33,8 @@ interface GameContextType {
   setOnboardingStep: Dispatch<SetStateAction<number>>;
   onboardingOpen: boolean;
   setOnboardingOpen: Dispatch<SetStateAction<boolean>>;
+  hasOnboarding: boolean;
+  setHasOnboarding: Dispatch<SetStateAction<boolean>>;
 }
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
@@ -66,6 +68,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const [time, setTime] = useState<number>(0);
   const [onboardingStep, setOnboardingStep] = useState<number>(0);
   const [onboardingOpen, setOnboardingOpen] = useState<boolean>(false);
+  const [hasOnboarding, setHasOnboarding] = useState<boolean>(false);
 
   function togglingStep() {
     setTimerStep(timerStep === "start" ? "pause" : "start");
@@ -120,6 +123,8 @@ export function GameProvider({ children }: { children: ReactNode }) {
         setOnboardingStep,
         onboardingOpen,
         setOnboardingOpen,
+        hasOnboarding,
+        setHasOnboarding,
       }}
     >
       {children}

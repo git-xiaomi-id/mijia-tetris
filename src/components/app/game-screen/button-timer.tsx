@@ -31,6 +31,7 @@ export default function ButtonTimer() {
     setTimerStep,
     setScreenStep,
     runScenario,
+    setOnboardingStep,
   } = useGameProvider();
   const { setScreen } = useAppProvider();
 
@@ -55,6 +56,7 @@ export default function ButtonTimer() {
     setTime(0);
     setTimerStep("pause");
     setScreenStep("intro1");
+    setOnboardingStep(0);
   }
 
   function doExitGame() {

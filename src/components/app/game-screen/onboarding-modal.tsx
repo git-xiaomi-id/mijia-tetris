@@ -18,6 +18,7 @@ export default function OnboardingModal() {
     setOnboardingOpen,
     onboardingOpen,
     closeOnboarding,
+    setHasOnboarding,
   } = useGameProvider();
   //   const [step, setStep] = useState<number>(0);
   const [dontShowAgain, setDontShowAgain] = useState(false);
@@ -45,6 +46,7 @@ export default function OnboardingModal() {
   function doCloseOnboarding() {
     setOnboardingOpen(false);
     closeOnboarding();
+    setHasOnboarding(true);
   }
 
   function nextStep() {
