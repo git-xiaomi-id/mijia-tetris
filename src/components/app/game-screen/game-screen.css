@@ -108,3 +108,26 @@
 .gs-icon-clock img {
   @apply size-full object-contain block;
 }
+
+/* .mask-hole {
+  -webkit-mask-image: radial-gradient(
+    circle at 200px 200px,
+    transparent 100px,
+    black 45px
+  );
+  -webkit-mask-composite: destination-out;
+  mask-image: radial-gradient(
+    circle at 200px 200px,
+    transparent 100px,
+    black 45px
+  );
+  mask-composite: subtract; 
+} */
+
+.mask-hole {
+  position: absolute;
+  inset: 0;
+  mask: url(#double-rect-mask);
+  -webkit-mask: url(#double-rect-mask);
+  background: #222222bf;
+}

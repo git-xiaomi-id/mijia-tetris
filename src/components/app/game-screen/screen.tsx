@@ -5,6 +5,7 @@ import GameTimer from "./game-timer";
 import ButtonTimer from "./button-timer";
 import OnboardingModal from "./onboarding-modal";
 import ItemDock from "./item-dock";
+import SvgMask from "./svg-mask";
 
 function UsernameDisplay({ username }: { username: string }) {
   return (
@@ -38,7 +39,7 @@ export default function GameScreenContent() {
           {screenSteps.indexOf(screenStep)}
           <div
             className={[
-              "flex flex-col items-end gap-4",
+              "flex flex-col items-end gap-4 relative",
               screenStep.includes("game")
                 ? ""
                 : "opacity-0 pointer-events-none",
@@ -88,19 +89,13 @@ export default function GameScreenContent() {
         {onboardingOpen && (
           <>
             {/* Overlay */}
-            <div className="absolute inset-0 bg-[#222222BF]  transition-opacity duration-500" />
+            <SvgMask />
+            <div className="absolute bg-[#22222298] size-full" />
 
             {/* Modal */}
             <OnboardingModal />
 
-            {onboardingStep === 1 && (
-              <>
-                <div
-                  className="w-4 h-10 border border-red-500 absolute left-10 top-10"
-                  style={{ maskComposite: "subtract", maskSize: "16px 40px" }}
-                ></div>
-              </>
-            )}
+            {onboardingStep === 1 && <></>}
           </>
         )}
       </div>
