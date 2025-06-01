@@ -149,7 +149,7 @@ export default function ButtonTimer() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="flex flex-row gap-6 w-full">
-            <AlertDialogCancel noBaseClass>
+            <AlertDialogCancel noBaseClass asChild>
               <AppButton variant="white">Batal</AppButton>
             </AlertDialogCancel>
             <AppButton variant="orange" onClick={doRestartGame}>
@@ -183,7 +183,7 @@ export default function ButtonTimer() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="flex flex-row gap-6 w-full">
-            <AlertDialogCancel noBaseClass>
+            <AlertDialogCancel noBaseClass asChild>
               <AppButton variant="white">Batal</AppButton>
             </AlertDialogCancel>
             <AppButton variant="red" onClick={doExitGame}>

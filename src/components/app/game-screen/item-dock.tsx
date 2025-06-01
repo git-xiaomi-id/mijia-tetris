@@ -1,22 +1,57 @@
 import "./game-dock.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-import "swiper/css";
+import "swiper/swiper-bundle.css";
 import refrigeratorItems from "@/lib/refrigerator-items";
 import arrow from "./arrow-right.webp";
 import useClickSound from "@/hooks/use-click-sound";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+
+function DockItem({
+  item,
+  isActive,
+  onClickItem,
+}: {
+  item: (typeof refrigeratorItems)[0];
+  isActive: boolean;
+  onClickItem: (id: (typeof refrigeratorItems)[0]["id"]) => void;
+}) {
+  const activeClass = isActive ? "scale-150" : "";
+  return (
+    <div
+      onClick={() => onClickItem(item.id)}
+      className="py-2 transition-all active:scale-90"
+    >
+      <div className="mx-auto size-14 aspect-square rounded-md relative gd-item">
+        {item.image ? (
+          <img
+            alt={item.name}
+            src={item.image}
+            className={[
+              "size-full object-contain transition-all",
+              activeClass,
+            ].join(" ")}
+          />
+        ) : (
+          <div className="size-full object-contain bg-gray-200" />
+        )}
+        <div className={["gd-item-count"].join(" ")}>{item.totalQty}</div>
+      </div>
+    </div>
+  );
+}
 
 function DockRow({
+  items,
   dock,
   active,
-  onClick,
+  onClickItem,
 }: {
+  items: typeof refrigeratorItems;
   dock: (typeof refrigeratorItems)[0]["dock"];
   active: (typeof refrigeratorItems)[0]["id"] | null;
-  onClick: (id: (typeof refrigeratorItems)[0]["id"]) => void;
+  onClickItem: (id: (typeof refrigeratorItems)[0]["id"]) => void;
 }) {
-  const itemsSet = refrigeratorItems.filter((i) => i.dock === dock);
   const nav = { next: `.next-row-${dock}`, prev: `.prev-row-${dock}` };
   const { clickPlay } = useClickSound();
   return (
@@ -37,33 +72,15 @@ function DockRow({
           }}
           className="w-[90%] mx-auto relative"
         >
-          {itemsSet
-            .filter((i) => i.dock === "top")
-            .map((item, n) => (
-              <SwiperSlide key={n} title={item.name}>
-                <div onClick={() => onClick(item.id)} className="py-2">
-                  <div className="mx-auto size-14 aspect-square rounded-md relative gd-item">
-                    {/* <div className="line-clamp-1 truncate">{item.name}</div> */}
-                    {item.image ? (
-                      <img
-                        alt={item.name}
-                        src={item.image}
-                        className={[
-                          "size-full object-contain transition-all",
-                          "active:scale-90",
-                          active === item.id
-                            ? "scale-150 active:scale-125"
-                            : "",
-                        ].join(" ")}
-                      />
-                    ) : (
-                      <div className="size-full object-contain bg-gray-200" />
-                    )}
-                    <div className="gd-item-count">{item.totalQty}</div>
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
+          {items.map((item, n) => (
+            <SwiperSlide key={n} title={item.name}>
+              <DockItem
+                item={item}
+                isActive={active === item.id}
+                onClickItem={onClickItem}
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
 
         <button
@@ -98,17 +115,35 @@ export default function ItemDock() {
     (typeof refrigeratorItems)[0]["id"] | null
   >(null);
 
+  const [topItem] = useState<typeof refrigeratorItems | []>(
+    refrigeratorItems.filter((item) => item.dock === "top")
+  );
+  const [bottomItem] = useState<typeof refrigeratorItems | []>(
+    refrigeratorItems.filter((item) => item.dock === "bottom")
+  );
+
+  console.log({ topItem, bottomItem });
   const { clickPlay } = useClickSound();
 
-  function onClick(id: (typeof refrigeratorItems)[0]["id"]) {
+  function onClickItem(id: (typeof refrigeratorItems)[0]["id"]) {
     clickPlay();
     setActive(active === id ? null : id);
   }
 
   return (
     <div className="game-dock">
-      <DockRow dock="top" active={active} onClick={onClick} />
-      <DockRow dock="bottom" active={active} onClick={onClick} />
+      <DockRow
+        items={topItem}
+        dock="top"
+        active={active}
+        onClickItem={onClickItem}
+      />
+      <DockRow
+        items={bottomItem}
+        dock="bottom"
+        active={active}
+        onClickItem={onClickItem}
+      />
     </div>
   );
 }

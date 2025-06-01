@@ -1,4 +1,4 @@
-import { getCookie, KEY_ONBOARDING } from "@/lib/utils";
+import { getCookie, KEY_ONBOARDING, setCookie } from "@/lib/utils";
 import {
   createContext,
   useContext,
@@ -79,8 +79,12 @@ export function GameProvider({ children }: { children: ReactNode }) {
   function closeOnboarding() {
     setScreenStep("game");
     setTimerStep("start");
-    setHasOnboarding(true);
     setOnboardingOpen(false);
+
+    if (hasOnboarding) {
+      setHasOnboarding(true);
+      setCookie(KEY_ONBOARDING, "true");
+    }
   }
 
   function runScenario() {
@@ -95,8 +99,10 @@ export function GameProvider({ children }: { children: ReactNode }) {
         const nextStep = screenSteps[currentIndex + 1];
 
         if (nextStep === "onboarding" && hasOnboarding) {
+          console.log("Onboarding Stopper");
           clearInterval(interval);
-          return prev; // Stay at current step if onboarding is already done
+          closeOnboarding();
+          return "game"; // Stay at current step if onboarding is already done
         }
 
         return nextStep as TScreenStep;
