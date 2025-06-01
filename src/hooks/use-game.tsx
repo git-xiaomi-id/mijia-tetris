@@ -99,9 +99,10 @@ export function GameProvider({ children }: { children: ReactNode }) {
         const nextStep = screenSteps[currentIndex + 1];
 
         if (nextStep === "onboarding" && hasOnboarding) {
+          console.log("Onboarding Stopper");
           clearInterval(interval);
           closeOnboarding();
-          return prev; // Stay at current step if onboarding is already done
+          return "game"; // Stay at current step if onboarding is already done
         }
 
         return nextStep as TScreenStep;

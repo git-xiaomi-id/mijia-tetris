@@ -1,7 +1,7 @@
 import "./game-dock.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-import "swiper/css";
+import "swiper/swiper-bundle.css";
 import refrigeratorItems from "@/lib/refrigerator-items";
 import arrow from "./arrow-right.webp";
 import useClickSound from "@/hooks/use-click-sound";
