@@ -1,10 +1,30 @@
 .game-dock {
-  @apply relative flex flex-col gap-3 items-center;
+  @apply relative flex flex-col gap-3 items-center   w-full max-w-md mx-auto;
 }
 
 .gd-row {
   @apply w-full h-20 text-center;
-  background: url("/illustration/dock-food.webp") repeat-x;
+  background: url("/illustration/dock-food.webp") no-repeat;
   background-size: contain;
   background-position: bottom center;
+}
+
+.gd-item .gd-item-count {
+  @apply absolute -right-2 -bottom-2 p-1.5 text-white font-[630] text-xs rounded-full w-7 h-7;
+  background: linear-gradient(180deg, #50a7fe 0%, #378ce1 69.71%, #065baf 100%);
+  border: 1px solid #065baf66;
+}
+
+.gd-row .gd-nav {
+  @apply absolute top-[50%] -translate-y-[50%] w-8 h-fit z-[1];
+  @apply transition-all active:scale-90;
+}
+.gd-row .gd-nav.prev {
+  @apply -left-5;
+}
+.gd-row .gd-nav.prev img {
+  @apply rotate-180;
+}
+.gd-row .gd-nav.next {
+  @apply -right-5;
 }
