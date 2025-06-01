@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -17,9 +16,10 @@ export default function OnboardingModal() {
     setOnboardingStep: setStep,
     onboardingOpen,
     closeOnboarding,
+    hasOnboarding,
+    setHasOnboarding,
   } = useGameProvider();
   //   const [step, setStep] = useState<number>(0);
-  const [dontShowAgain, setDontShowAgain] = useState(false);
 
   let title = "Klik bagian yang ingin diisi";
   let description =
@@ -54,8 +54,8 @@ export default function OnboardingModal() {
   const footer = (
     <AlertDialogFooter className="flex flex-row !justify-between items-center">
       <AppCheckbox
-        checked={dontShowAgain}
-        onCheckedChange={(checked) => setDontShowAgain(checked as boolean)}
+        checked={hasOnboarding}
+        onCheckedChange={(checked) => setHasOnboarding(checked as boolean)}
         className="pl-0"
       >
         <div className=" text-[10px] text-[#888]">Jangan tampilkan lagi</div>

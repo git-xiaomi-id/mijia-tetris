@@ -1,4 +1,4 @@
-import { getCookie, KEY_ONBOARDING } from "@/lib/utils";
+import { getCookie, KEY_ONBOARDING, setCookie } from "@/lib/utils";
 import {
   createContext,
   useContext,
@@ -79,8 +79,12 @@ export function GameProvider({ children }: { children: ReactNode }) {
   function closeOnboarding() {
     setScreenStep("game");
     setTimerStep("start");
-    setHasOnboarding(true);
     setOnboardingOpen(false);
+
+    if (hasOnboarding) {
+      setHasOnboarding(true);
+      setCookie(KEY_ONBOARDING, "true");
+    }
   }
 
   function runScenario() {
