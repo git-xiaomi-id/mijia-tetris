@@ -11,10 +11,14 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
   variant?: "orange" | "blue" | "ghost-red" | "red" | "white";
   loading?: boolean;
+  size?: "sm" | "md";
 }
 
 const AppButton = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ children, onClick, variant = "orange", loading, ...props }, ref) => {
+  (
+    { children, onClick, variant = "orange", loading, size = "md", ...props },
+    ref
+  ) => {
     const { clickPlay } = useClickSound();
 
     function click(e: MouseEvent<HTMLButtonElement>) {
@@ -26,7 +30,7 @@ const AppButton = forwardRef<HTMLButtonElement, ButtonProps>(
       <Button
         {...props}
         ref={ref}
-        className={`app-styled-button ${variant}`}
+        className={`app-styled-button ${variant} ${size}`}
         onClick={click}
         disabled={loading || props.disabled}
       >

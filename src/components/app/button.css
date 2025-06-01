@@ -15,7 +15,12 @@
   color: var(--text-color);
 
   @apply border-2 active:scale-95 transition-all w-full font-bold text-2xl h-auto rounded-2xl;
+}
+.app-styled-button.md {
   @apply py-[14px] px-5;
+}
+.app-styled-button.sm {
+  @apply py-[14px] px-3;
 }
 .app-styled-button:active {
   background: linear-gradient(
