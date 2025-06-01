@@ -51,21 +51,24 @@ export default function GameScreenContent() {
 
         {/* 2 */}
         <div className="relative w-full flex flex-1 items-center justify-center">
-          {assets.map((asset, index) => (
-            <img
-              key={asset.key}
-              alt={asset?.key || ""}
-              src={asset?.src || ""}
-              className={[
-                "size-full object-contain  gs-image-wrap absolute left-0 top-0",
-                screenStep === asset.key ||
-                screenSteps.findIndex((n) => n === asset.key) >= 2
-                  ? "active"
-                  : "hidden",
-              ].join(" ")}
-              onLoad={index === 0 ? runScenario : undefined}
-            />
-          ))}
+          {assets.map((asset, index) => {
+            const isKey = screenStep === asset.key;
+            const isGameList =
+              screenStep === "game" &&
+              screenSteps.findIndex((n) => n === asset.key) >= 2;
+            return (
+              <img
+                key={asset.key}
+                alt={asset?.key || ""}
+                src={asset?.src || ""}
+                className={[
+                  "size-full object-contain  gs-image-wrap absolute left-0 top-0",
+                  isKey || isGameList ? "active" : "hidden",
+                ].join(" ")}
+                onLoad={index === 0 ? runScenario : undefined}
+              />
+            );
+          })}
 
           {onboardingStep === 1 && (
             <>
