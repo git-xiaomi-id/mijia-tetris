@@ -10,16 +10,16 @@ import { useState } from "react";
 function DockItem({
   item,
   isActive,
-  onClick,
+  onClickItem,
 }: {
   item: (typeof refrigeratorItems)[0];
   isActive: boolean;
-  onClick: (id: (typeof refrigeratorItems)[0]["id"]) => void;
+  onClickItem: (id: (typeof refrigeratorItems)[0]["id"]) => void;
 }) {
   const activeClass = isActive ? "scale-150" : "";
   return (
     <div
-      onClick={() => onClick(item.id)}
+      onClick={() => onClickItem(item.id)}
       className="py-2 transition-all active:scale-90"
     >
       <div className="mx-auto size-14 aspect-square rounded-md relative gd-item">
@@ -42,15 +42,16 @@ function DockItem({
 }
 
 function DockRow({
+  items,
   dock,
   active,
-  onClick,
+  onClickItem,
 }: {
+  items: typeof refrigeratorItems;
   dock: (typeof refrigeratorItems)[0]["dock"];
   active: (typeof refrigeratorItems)[0]["id"] | null;
-  onClick: (id: (typeof refrigeratorItems)[0]["id"]) => void;
+  onClickItem: (id: (typeof refrigeratorItems)[0]["id"]) => void;
 }) {
-  const itemsSet = refrigeratorItems.filter((i) => i.dock === dock);
   const nav = { next: `.next-row-${dock}`, prev: `.prev-row-${dock}` };
   const { clickPlay } = useClickSound();
   return (
@@ -71,17 +72,15 @@ function DockRow({
           }}
           className="w-[90%] mx-auto relative"
         >
-          {itemsSet
-            .filter((i) => i.dock === "top")
-            .map((item, n) => (
-              <SwiperSlide key={n} title={item.name}>
-                <DockItem
-                  item={item}
-                  isActive={active === item.id}
-                  onClick={onClick}
-                />
-              </SwiperSlide>
-            ))}
+          {items.map((item, n) => (
+            <SwiperSlide key={n} title={item.name}>
+              <DockItem
+                item={item}
+                isActive={active === item.id}
+                onClickItem={onClickItem}
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
 
         <button
@@ -116,17 +115,35 @@ export default function ItemDock() {
     (typeof refrigeratorItems)[0]["id"] | null
   >(null);
 
+  const [topItem, setTopItem] = useState<typeof refrigeratorItems | []>(
+    refrigeratorItems.filter((item) => item.dock === "top")
+  );
+  const [bottomItem, setBottomItem] = useState<typeof refrigeratorItems | []>(
+    refrigeratorItems.filter((item) => item.dock === "bottom")
+  );
+
+  console.log({ topItem, bottomItem });
   const { clickPlay } = useClickSound();
 
-  function onClick(id: (typeof refrigeratorItems)[0]["id"]) {
+  function onClickItem(id: (typeof refrigeratorItems)[0]["id"]) {
     clickPlay();
     setActive(active === id ? null : id);
   }
 
   return (
     <div className="game-dock">
-      <DockRow dock="top" active={active} onClick={onClick} />
-      <DockRow dock="bottom" active={active} onClick={onClick} />
+      <DockRow
+        items={topItem}
+        dock="top"
+        active={active}
+        onClickItem={onClickItem}
+      />
+      <DockRow
+        items={bottomItem}
+        dock="bottom"
+        active={active}
+        onClickItem={onClickItem}
+      />
     </div>
   );
 }
