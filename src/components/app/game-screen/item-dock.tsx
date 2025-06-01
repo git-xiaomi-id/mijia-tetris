@@ -115,10 +115,10 @@ export default function ItemDock() {
     (typeof refrigeratorItems)[0]["id"] | null
   >(null);
 
-  const [topItem, setTopItem] = useState<typeof refrigeratorItems | []>(
+  const [topItem] = useState<typeof refrigeratorItems | []>(
     refrigeratorItems.filter((item) => item.dock === "top")
   );
-  const [bottomItem, setBottomItem] = useState<typeof refrigeratorItems | []>(
+  const [bottomItem] = useState<typeof refrigeratorItems | []>(
     refrigeratorItems.filter((item) => item.dock === "bottom")
   );
 
