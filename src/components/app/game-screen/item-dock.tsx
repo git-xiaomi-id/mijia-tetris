@@ -5,7 +5,41 @@ import "swiper/css";
 import refrigeratorItems from "@/lib/refrigerator-items";
 import arrow from "./arrow-right.webp";
 import useClickSound from "@/hooks/use-click-sound";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+
+function DockItem({
+  item,
+  isActive,
+  onClick,
+}: {
+  item: (typeof refrigeratorItems)[0];
+  isActive: boolean;
+  onClick: (id: (typeof refrigeratorItems)[0]["id"]) => void;
+}) {
+  const activeClass = isActive ? "scale-150" : "";
+  return (
+    <div
+      onClick={() => onClick(item.id)}
+      className="py-2 transition-all active:scale-90"
+    >
+      <div className="mx-auto size-14 aspect-square rounded-md relative gd-item">
+        {item.image ? (
+          <img
+            alt={item.name}
+            src={item.image}
+            className={[
+              "size-full object-contain transition-all",
+              activeClass,
+            ].join(" ")}
+          />
+        ) : (
+          <div className="size-full object-contain bg-gray-200" />
+        )}
+        <div className={["gd-item-count"].join(" ")}>{item.totalQty}</div>
+      </div>
+    </div>
+  );
+}
 
 function DockRow({
   dock,
@@ -41,27 +75,11 @@ function DockRow({
             .filter((i) => i.dock === "top")
             .map((item, n) => (
               <SwiperSlide key={n} title={item.name}>
-                <div onClick={() => onClick(item.id)} className="py-2">
-                  <div className="mx-auto size-14 aspect-square rounded-md relative gd-item">
-                    {/* <div className="line-clamp-1 truncate">{item.name}</div> */}
-                    {item.image ? (
-                      <img
-                        alt={item.name}
-                        src={item.image}
-                        className={[
-                          "size-full object-contain transition-all",
-                          "active:scale-90",
-                          active === item.id
-                            ? "scale-150 active:scale-125"
-                            : "",
-                        ].join(" ")}
-                      />
-                    ) : (
-                      <div className="size-full object-contain bg-gray-200" />
-                    )}
-                    <div className="gd-item-count">{item.totalQty}</div>
-                  </div>
-                </div>
+                <DockItem
+                  item={item}
+                  isActive={active === item.id}
+                  onClick={onClick}
+                />
               </SwiperSlide>
             ))}
         </Swiper>
