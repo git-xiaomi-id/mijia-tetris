@@ -96,6 +96,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
 
         if (nextStep === "onboarding" && hasOnboarding) {
           clearInterval(interval);
+          closeOnboarding();
           return prev; // Stay at current step if onboarding is already done
         }
 
