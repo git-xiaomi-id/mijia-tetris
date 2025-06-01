@@ -52,7 +52,7 @@ export default function OnboardingModal() {
   }
 
   const footer = (
-    <AlertDialogFooter className="flex flex-row justify-between items-center">
+    <AlertDialogFooter className="flex flex-row !justify-between items-center">
       <AppCheckbox
         checked={dontShowAgain}
         onCheckedChange={(checked) => setDontShowAgain(checked as boolean)}
