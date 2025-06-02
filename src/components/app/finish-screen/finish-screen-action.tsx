@@ -10,14 +10,18 @@ import FinishShareIG from "./finish-share-ig";
 
 export default function FinishScreenAction() {
   const {
+    time,
     setTime,
     setTimerStep,
     setScreenStep,
     runScenario,
     setOnboardingStep,
   } = useGameProvider();
-  const { setScreen } = useAppProvider();
-  const { generateUltraQualityImage } = FinishShareIG();
+  const { user, setScreen } = useAppProvider();
+  const { generateUltraQualityImage } = FinishShareIG({
+    time,
+    username: user?.username_ig,
+  });
 
   function doResetGame() {
     setTime(0);

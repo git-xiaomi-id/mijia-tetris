@@ -1,16 +1,19 @@
 import domtoimage from "dom-to-image-more";
 import { useCallback, useState } from "react";
 import FinishShareBG from "./finish-share-bg";
-import TetrisKulkas from "./tetris-kulkas";
 import RefrigeratorName from "./refrigerator-name";
 import RefrigeratorPrice from "./refrigerator-price";
+import { formatTime } from "@/utils/format-time";
+import { toast } from "sonner";
 
 interface ShareCardProps {
   isVisible: boolean;
+  time?: number;
+  username?: string | null;
   scale?: number;
 }
 
-function ShareCard({ isVisible, scale = 4 }: ShareCardProps) {
+function ShareCard({ isVisible, scale = 4, time, username }: ShareCardProps) {
   const baseWidth = 288;
   const baseHeight = 400;
   const scaledWidth = baseWidth * scale;
@@ -29,7 +32,7 @@ function ShareCard({ isVisible, scale = 4 }: ShareCardProps) {
         transform: `scale(${1 / scale})`,
         transformOrigin: "top left",
         background:
-          "linear-gradient(180deg, #EDF0F5 0%, #EDF0F5 80%, #F36B22 80%, #F36B22 100%)",
+          "linear-gradient(180deg, #EDF0F5 0%, #EDF0F5 80%, white 80%, white 100%)",
         fontFamily:
           "MiSans, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
         // Ultra quality font rendering
@@ -40,31 +43,43 @@ function ShareCard({ isVisible, scale = 4 }: ShareCardProps) {
         fontVariantLigatures: "none",
       }}
     >
-      {/* Ultra quality title with enhanced typography */}
-      <h1
+      <div
         style={{
-          position: "relative",
-          zIndex: 10,
-          fontSize: `${16 * scale}px`,
+          paddingTop: `${20 * scale}px`,
+          paddingBottom: `${20 * scale}px`,
           color: "#F36B22",
-          fontWeight: "700", // Slightly bolder for ultra quality
+          fontWeight: "630",
           maxWidth: `${152 * scale}px`,
-          paddingTop: `${40 * scale}px`,
-          paddingBottom: `${40 * scale}px`,
-          whiteSpace: "pre-line",
-          lineHeight: "1.2",
+          position: "relative",
           letterSpacing: `${0.5 * scale}px`,
-          // Ultra quality text rendering
           WebkitFontSmoothing: "antialiased",
           MozOsxFontSmoothing: "grayscale",
           textRendering: "geometricPrecision",
           fontFeatureSettings: '"kern" 1, "liga" 0',
+          zIndex: 10,
         }}
       >
-        {"Aku berhasil\nnyusun barang\ndi Kulkas Xiaomi!"}
-      </h1>
+        <h1
+          style={{
+            fontSize: `${24 * scale}px`,
+            whiteSpace: "pre-line",
+            lineHeight: "1.2",
+          }}
+        >
+          Yes!
+        </h1>
+        <h2
+          style={{
+            fontSize: `${16 * scale}px`,
+            maxWidth: `${152 * scale}px`,
+            whiteSpace: "pre-line",
+            lineHeight: "1.2",
+          }}
+        >
+          {"Aku berhasil\nnyusun barang\ndi Kulkas Xiaomi!"}
+        </h2>
+      </div>
 
-      {/* Background with ultra quality scaling */}
       <div
         style={{
           position: "absolute",
@@ -90,10 +105,6 @@ function ShareCard({ isVisible, scale = 4 }: ShareCardProps) {
           height: `${120 * scale}px`,
           objectFit: "contain",
           zIndex: 20,
-          // Ultra quality image rendering
-          // imageRendering: "-webkit-optimize-contrast",
-          // imageOrientation: "from-image",
-          // filter: "contrast(1.05) saturate(1.1)",
         }}
         crossOrigin="anonymous"
         loading="eager"
@@ -116,7 +127,7 @@ function ShareCard({ isVisible, scale = 4 }: ShareCardProps) {
             textRendering: "geometricPrecision",
           }}
         >
-          00:00:00
+          {formatTime(time || 0)}
         </div>
         <div
           style={{
@@ -132,7 +143,7 @@ function ShareCard({ isVisible, scale = 4 }: ShareCardProps) {
             textRendering: "geometricPrecision",
           }}
         >
-          @faizmasdr
+          @{username}
         </div>
       </div>
 
@@ -161,13 +172,23 @@ function ShareCard({ isVisible, scale = 4 }: ShareCardProps) {
           >
             Ayo ikut main di:
           </p>
-          <div style={{ marginLeft: "-2px" }}>
-            <TetrisKulkas />
-          </div>
+          <p
+            style={{
+              margin: "0",
+              padding: "0",
+              lineHeight: "1",
+              fontSize: "16px",
+              fontWeight: "700",
+              color: "#378CE1",
+              WebkitFontSmoothing: "antialiased",
+              textRendering: "geometricPrecision",
+            }}
+          >
+            tetriskulkas.com
+          </p>
         </div>
       </div>
 
-      {/* Ultra quality refrigerator image */}
       <div
         style={{
           position: "absolute",
@@ -194,7 +215,6 @@ function ShareCard({ isVisible, scale = 4 }: ShareCardProps) {
             zIndex: 20,
             transform: `scale(3)`,
             transformOrigin: "bottom left",
-            // Ultra quality image settings
             imageRendering: "-webkit-optimize-contrast",
             filter: "contrast(1.02) saturate(1.05)",
           }}
@@ -240,23 +260,23 @@ function ShareCard({ isVisible, scale = 4 }: ShareCardProps) {
   );
 }
 
-export default function FinishShareIG() {
-  const [debugResult, setDebugResult] = useState<any>(null);
+export default function FinishShareIG({
+  time,
+  username,
+}: Pick<ShareCardProps, "time" | "username">) {
   const [isGenerating, setIsGenerating] = useState(false);
 
   const generateUltraQualityImage = useCallback(async () => {
     if (isGenerating) return;
 
     setIsGenerating(true);
-    const startTime = Date.now();
     let tempContainer: HTMLDivElement | null = null;
     let root: any = null;
 
-    // Ultra quality settings - optimized for maximum sharpness
     const ULTRA_SCALE = 4;
     const OUTPUT_WIDTH = 1080; // Instagram optimal
     const OUTPUT_HEIGHT = 1350; // 4:5 aspect ratio
-    const PIXEL_RATIO = 3; // Ultra high pixel density
+    const PIXEL_RATIO = 3;
 
     try {
       console.log("🚀 Generating ULTRA QUALITY image...");
@@ -284,14 +304,17 @@ export default function FinishShareIG() {
 
       // Render ultra quality component
       await new Promise<void>((resolve, reject) => {
-        root.render(<ShareCard isVisible={true} scale={ULTRA_SCALE} />);
+        root.render(
+          <ShareCard
+            isVisible={true}
+            scale={ULTRA_SCALE}
+            time={time}
+            username={username}
+          />
+        );
 
-        // Extended wait time for ultra quality
         setTimeout(async () => {
           try {
-            console.log("⏳ Loading ultra quality assets...");
-
-            // Wait for all images with extended timeout
             const images = Array.from(tempContainer!.querySelectorAll("img"));
             await Promise.allSettled(
               images.map(
@@ -312,22 +335,19 @@ export default function FinishShareIG() {
               )
             );
 
-            // Additional stability wait for ultra quality
             await new Promise((resolve) => setTimeout(resolve, 1000));
-            console.log("✅ Ultra quality assets loaded");
             resolve();
           } catch (error) {
             reject(error);
           }
-        }, 2000);
+        }, 1000);
       });
 
       const shareCardElement = tempContainer.querySelector(
         "#share-card-element"
       ) as HTMLElement;
-      if (!shareCardElement) throw new Error("Share card element not found");
 
-      console.log("🎨 Converting to ULTRA QUALITY PNG...");
+      if (!shareCardElement) throw new Error("Share card element not found");
 
       // Ultra quality conversion settings
       const ultraQualityOptions = {
@@ -380,22 +400,7 @@ export default function FinishShareIG() {
         shareCardElement,
         ultraQualityOptions
       );
-      const dataUrl = await domtoimage.toPng(
-        shareCardElement,
-        ultraQualityOptions
-      );
 
-      const conversionTime = Date.now() - startTime;
-
-      console.log("🌟 ULTRA QUALITY image generated:", {
-        size: `${(blob.size / 1024).toFixed(2)} KB`,
-        dimensions: `${OUTPUT_WIDTH}x${OUTPUT_HEIGHT}`,
-        pixelRatio: PIXEL_RATIO,
-        time: `${conversionTime}ms`,
-        scale: ULTRA_SCALE,
-      });
-
-      // Auto-download ultra quality image
       const objectUrl = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = objectUrl;
@@ -405,35 +410,30 @@ export default function FinishShareIG() {
       document.body.removeChild(link);
       URL.revokeObjectURL(objectUrl);
 
-      setDebugResult({
-        success: true,
-        dataUrl,
-        blob,
-        debugInfo: {
-          elementFound: true,
-          imagesLoaded: true,
-          blobSize: blob.size,
-          conversionTime,
-          actualDimensions: { width: OUTPUT_WIDTH, height: OUTPUT_HEIGHT },
-          scale: ULTRA_SCALE,
-          pixelRatio: PIXEL_RATIO,
-          qualityLevel: "ULTRA",
-        },
-      });
+      const isMobile =
+        /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        );
+
+      if (isMobile) {
+        setTimeout(() => {
+          try {
+            window.location.href = "instagram://story-camera";
+          } catch (error) {
+            toast.success(
+              "Image saved! Open Instagram and share from your gallery 📱"
+            );
+          }
+        }, 1500);
+      } else {
+        toast.success(
+          "Image saved! Open Instagram and share from your gallery 📱"
+        );
+      }
     } catch (error) {
-      console.error("❌ Ultra quality generation failed:", error);
-      setDebugResult({
-        success: false,
-        error: error instanceof Error ? error.message : "Unknown error",
-        debugInfo: {
-          elementFound: false,
-          imagesLoaded: false,
-          conversionTime: Date.now() - startTime,
-          qualityLevel: "ULTRA",
-        },
-      });
+      toast.error("❌ Error generating image");
+      throw error;
     } finally {
-      // Cleanup
       setTimeout(() => {
         try {
           if (root) root.unmount();
@@ -446,298 +446,7 @@ export default function FinishShareIG() {
 
       setIsGenerating(false);
     }
-  }, [isGenerating]);
+  }, [isGenerating, time, username]);
 
   return { generateUltraQualityImage };
-
-  // return (
-  //   <>
-  //     <div className="space-y-4">
-  //       {/* Ultra Quality Generator */}
-  //       <div className="p-6 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg border">
-  //         <h2 className="text-xl font-bold mb-4 text-purple-800">
-  //           🚀 Ultra Quality Generator
-  //         </h2>
-  //         <button
-  //           onClick={generateUltraQualityImage}
-  //           disabled={isGenerating}
-  //           className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-  //             isGenerating
-  //               ? "bg-gray-400 cursor-not-allowed"
-  //               : "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg"
-  //           }`}
-  //         >
-  //           {isGenerating
-  //             ? "🔄 Generating Ultra Quality..."
-  //             : "🌟 Generate Ultra Quality Image"}
-  //         </button>
-  //       </div>
-
-  //       {debugResult?.success && debugResult.dataUrl && !isGenerating && (
-  //         <div className="p-6 bg-white rounded-lg border shadow-lg">
-  //           <h3 className="text-xl font-bold mb-4 text-green-800">
-  //             ✅ Image Generated Successfully!
-  //           </h3>
-
-  //           <img
-  //             src={debugResult.dataUrl}
-  //             alt="Generated Mijia Tetris Share Image"
-  //             className="w-full max-w-sm mx-auto rounded-lg shadow border"
-  //             style={{
-  //               aspectRatio: "1080/1350",
-  //               objectFit: "contain",
-  //             }}
-  //           />
-  //         </div>
-  //       )}
-
-  //       {/* Processing Status */}
-  //       {isGenerating && (
-  //         <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-  //           <div className="flex items-center space-x-3">
-  //             <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
-  //             <div>
-  //               <h3 className="font-semibold text-blue-800">
-  //                 Processing Ultra Quality Image...
-  //               </h3>
-  //               <p className="text-sm text-blue-600">
-  //                 This may take 5-15 seconds for maximum quality
-  //               </p>
-  //             </div>
-  //           </div>
-  //           <div className="mt-3 bg-blue-200 rounded-full h-2">
-  //             <div
-  //               className="bg-blue-600 h-2 rounded-full animate-pulse"
-  //               style={{ width: "60%" }}
-  //             ></div>
-  //           </div>
-  //         </div>
-  //       )}
-
-  //       {/* Ultra Quality Results */}
-  //       {debugResult && (
-  //         <div className="p-6 bg-white rounded-lg border shadow-sm">
-  //           <h3 className="text-lg font-bold mb-4">
-  //             {debugResult.success
-  //               ? "🌟 Ultra Quality Results"
-  //               : "❌ Generation Failed"}
-  //           </h3>
-
-  //           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-  //             {/* Stats Panel */}
-  //             <div className="space-y-3">
-  //               <div className="p-4 bg-gray-50 rounded-lg">
-  //                 <h4 className="font-semibold mb-3 text-gray-800">
-  //                   📊 Generation Stats
-  //                 </h4>
-  //                 <div className="space-y-2 text-sm">
-  //                   <div className="flex justify-between">
-  //                     <span>Status:</span>
-  //                     <span
-  //                       className={`font-semibold ${
-  //                         debugResult.success
-  //                           ? "text-green-600"
-  //                           : "text-red-600"
-  //                       }`}
-  //                     >
-  //                       {debugResult.success ? "✅ Success" : "❌ Failed"}
-  //                     </span>
-  //                   </div>
-  //                   <div className="flex justify-between">
-  //                     <span>Quality Level:</span>
-  //                     <span className="font-semibold text-purple-600">
-  //                       🌟 {debugResult.debugInfo.qualityLevel || "ULTRA"}
-  //                     </span>
-  //                   </div>
-  //                   <div className="flex justify-between">
-  //                     <span>Scale Factor:</span>
-  //                     <span className="font-mono text-blue-600">
-  //                       {debugResult.debugInfo.scale || 4}x
-  //                     </span>
-  //                   </div>
-  //                   <div className="flex justify-between">
-  //                     <span>Pixel Ratio:</span>
-  //                     <span className="font-mono text-blue-600">
-  //                       {debugResult.debugInfo.pixelRatio || 3}x
-  //                     </span>
-  //                   </div>
-  //                   <div className="flex justify-between">
-  //                     <span>Processing Time:</span>
-  //                     <span className="font-mono">
-  //                       {debugResult.debugInfo.conversionTime}ms
-  //                     </span>
-  //                   </div>
-  //                   {debugResult.debugInfo.actualDimensions && (
-  //                     <div className="flex justify-between">
-  //                       <span>Output Size:</span>
-  //                       <span className="font-mono text-green-600">
-  //                         {debugResult.debugInfo.actualDimensions.width}×
-  //                         {debugResult.debugInfo.actualDimensions.height}px
-  //                       </span>
-  //                     </div>
-  //                   )}
-  //                   {debugResult.debugInfo.blobSize && (
-  //                     <div className="flex justify-between">
-  //                       <span>File Size:</span>
-  //                       <span className="font-mono text-orange-600">
-  //                         {(debugResult.debugInfo.blobSize / 1024).toFixed(2)}{" "}
-  //                         KB
-  //                       </span>
-  //                     </div>
-  //                   )}
-  //                 </div>
-  //               </div>
-
-  //               {/* Quality Assessment */}
-  //               {debugResult.success && debugResult.debugInfo.blobSize && (
-  //                 <div className="p-4 bg-green-50 rounded-lg border border-green-200">
-  //                   <h4 className="font-semibold mb-3 text-green-800">
-  //                     🎯 Quality Assessment
-  //                   </h4>
-  //                   <div className="space-y-2 text-sm">
-  //                     <div className="flex justify-between">
-  //                       <span>Image Quality:</span>
-  //                       <span className="font-semibold">
-  //                         {debugResult.debugInfo.blobSize > 300000
-  //                           ? "🌟 Exceptional"
-  //                           : debugResult.debugInfo.blobSize > 200000
-  //                           ? "⭐ Excellent"
-  //                           : debugResult.debugInfo.blobSize > 100000
-  //                           ? "✨ Very Good"
-  //                           : "📱 Good"}
-  //                       </span>
-  //                     </div>
-  //                     <div className="flex justify-between">
-  //                       <span>Instagram Ready:</span>
-  //                       <span className="text-green-600 font-semibold">
-  //                         ✅ Optimized
-  //                       </span>
-  //                     </div>
-  //                     <div className="flex justify-between">
-  //                       <span>Print Quality:</span>
-  //                       <span className="text-green-600 font-semibold">
-  //                         ✅ High DPI
-  //                       </span>
-  //                     </div>
-  //                     <div className="flex justify-between">
-  //                       <span>Text Clarity:</span>
-  //                       <span className="text-green-600 font-semibold">
-  //                         ✅ Crisp
-  //                       </span>
-  //                     </div>
-  //                   </div>
-  //                 </div>
-  //               )}
-
-  //               {/* Error Display */}
-  //               {debugResult.error && (
-  //                 <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-  //                   <h4 className="font-semibold text-red-800 mb-2">
-  //                     ❌ Error Details
-  //                   </h4>
-  //                   <p className="text-sm text-red-600">{debugResult.error}</p>
-  //                 </div>
-  //               )}
-  //             </div>
-
-  //             {/* Preview Panel */}
-  //             {debugResult.dataUrl && (
-  //               <div className="space-y-3">
-  //                 <div className="p-4 bg-gray-50 rounded-lg">
-  //                   <h4 className="font-semibold mb-3 text-gray-800">
-  //                     📸 Ultra Quality Preview
-  //                   </h4>
-  //                   <div className="bg-white p-4 rounded border shadow-inner">
-  //                     <img
-  //                       src={debugResult.dataUrl}
-  //                       alt="Ultra Quality Generated Image"
-  //                       className="w-full max-w-xs mx-auto rounded border shadow-sm"
-  //                       style={{
-  //                         aspectRatio: "1080/1350",
-  //                         objectFit: "contain",
-  //                       }}
-  //                     />
-  //                     <p className="text-xs text-gray-500 mt-3 text-center">
-  //                       Preview scaled for display • Actual output is full{" "}
-  //                       {debugResult.debugInfo.actualDimensions?.width}×
-  //                       {debugResult.debugInfo.actualDimensions?.height}{" "}
-  //                       resolution
-  //                     </p>
-  //                   </div>
-  //                 </div>
-
-  //                 {/* Download Actions */}
-  //                 <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-  //                   <h4 className="font-semibold mb-3 text-blue-800">
-  //                     💾 Download Options
-  //                   </h4>
-  //                   <div className="space-y-2">
-  //                     <button
-  //                       onClick={() => {
-  //                         if (debugResult.blob) {
-  //                           const url = URL.createObjectURL(debugResult.blob);
-  //                           const link = document.createElement("a");
-  //                           link.href = url;
-  //                           link.download = `mijia-tetris-ultra-${Date.now()}.png`;
-  //                           link.click();
-  //                           URL.revokeObjectURL(url);
-  //                         }
-  //                       }}
-  //                       className="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
-  //                     >
-  //                       📱 Download for Instagram
-  //                     </button>
-  //                     <button
-  //                       onClick={() => {
-  //                         if (debugResult.dataUrl) {
-  //                           const link = document.createElement("a");
-  //                           link.href = debugResult.dataUrl;
-  //                           link.download = `mijia-tetris-ultra-dataurl-${Date.now()}.png`;
-  //                           link.click();
-  //                         }
-  //                       }}
-  //                       className="w-full px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
-  //                     >
-  //                       🖼️ Download PNG
-  //                     </button>
-  //                   </div>
-  //                 </div>
-  //               </div>
-  //             )}
-  //           </div>
-  //         </div>
-  //       )}
-
-  //       {/* Technical Details */}
-  //       <details className="p-4 bg-gray-50 rounded-lg border">
-  //         <summary className="font-semibold text-gray-800 cursor-pointer hover:text-gray-600">
-  //           🔧 Technical Implementation Details
-  //         </summary>
-  //         <div className="mt-4 space-y-2 text-sm text-gray-600">
-  //           <div>
-  //             <strong>Rendering Engine:</strong> React DOM with high-DPI scaling
-  //           </div>
-  //           <div>
-  //             <strong>Image Processing:</strong> dom-to-image-more with canvas
-  //             optimization
-  //           </div>
-  //           <div>
-  //             <strong>Font Rendering:</strong> Geometric precision with
-  //             antialiasing
-  //           </div>
-  //           <div>
-  //             <strong>Color Space:</strong> sRGB with enhanced contrast
-  //           </div>
-  //           <div>
-  //             <strong>Compression:</strong> PNG with optimal quality settings
-  //           </div>
-  //           <div>
-  //             <strong>Memory Usage:</strong> ~50-100MB during processing
-  //             (automatically cleaned)
-  //           </div>
-  //         </div>
-  //       </details>
-  //     </div>
-  //   </>
-  // );
 }
