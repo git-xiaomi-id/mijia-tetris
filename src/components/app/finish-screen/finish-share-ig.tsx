@@ -423,6 +423,7 @@ export default function FinishShareIG({
             toast.success(
               "Image saved! Open Instagram and share from your gallery 📱"
             );
+            throw error;
           }
         }, 1500);
       } else {

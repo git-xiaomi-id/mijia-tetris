@@ -1,9 +1,11 @@
-import { useGameProvider } from "@/hooks/use-game";
-import { useMemo } from "react";
-import FinishTimer from "./finish-timer";
 import { useAppProvider } from "@/hooks/use-context";
+import { useGameProvider } from "@/hooks/use-game";
 import { Instagram } from "lucide-react";
+import { useMemo } from "react";
 import FinishHeading from "./finish-heading";
+import FinishTimer from "./finish-timer";
+import LivesFill from "./icons/lives-fill";
+import LivesOut from "./icons/lives-out";
 
 function UsernameDisplay({ username }: { username: string }) {
   return (
@@ -12,6 +14,25 @@ function UsernameDisplay({ username }: { username: string }) {
         <Instagram size={16} />
       </div>
       <div className="font-[520] text-sm truncate">@{username}</div>
+    </div>
+  );
+}
+
+function ChancePlay({ lives }: { lives: number }) {
+  const maxLives = 3;
+  const emptyLives = maxLives - lives;
+
+  return (
+    <div className="flex items-center gap-2">
+      <p className="font-[520] text-[10px]">Kesempatan main:</p>
+      <div className="flex items-center gap-1">
+        {Array.from({ length: emptyLives }, (_, index) => (
+          <LivesOut key={`empty-${index}`} />
+        ))}
+        {Array.from({ length: lives }, (_, index) => (
+          <LivesFill key={`filled-${index}`} />
+        ))}
+      </div>
     </div>
   );
 }
@@ -49,21 +70,26 @@ export default function FinishScreenView() {
   }, [minutes]);
 
   return (
-    <div className="finish-screen-view">
-      <div className="flex flex-col items-center justify-center gap-3">
-        <div className="flex flex-col items-center justify-center">
-          <FinishHeading />
-          <p className="text-center text-[#5F5F5F]">{completion.text}</p>
+    <div className="fs-view">
+      <ChancePlay lives={2} />
+      <div className="fs-view-card">
+        <div className="flex flex-col items-center justify-center gap-3">
+          <div className="flex flex-col items-center justify-center">
+            <FinishHeading />
+            <p className="text-center text-[#5F5F5F]">{completion.text}</p>
+          </div>
+          <div className="size-[160px] mx-auto relative animate-headscaling">
+            <img
+              alt="restart-illustration"
+              src={completion.image}
+              className="size-full object-contain"
+            />
+          </div>
         </div>
-        <div className="size-[160px] mx-auto relative animate-headscaling">
-          <img
-            alt="restart-illustration"
-            src={completion.image}
-            className="size-full object-contain"
-          />
+        <div className="space-y-3">
+          <FinishTimer />
+          <UsernameDisplay username={user?.username_ig ?? ""} />
         </div>
-        <FinishTimer />
-        <UsernameDisplay username={user?.username_ig ?? ""} />
       </div>
     </div>
   );
