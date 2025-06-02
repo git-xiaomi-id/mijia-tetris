@@ -320,7 +320,7 @@ const refrigeratorItems: IItem[] = [
     view_front: true,
     view_front_upper: true,
     category: "Food",
-    image: "",
+    image: "/items/dumpling-front-view.webp",
     dock: "top",
   },
   {
@@ -362,8 +362,8 @@ const refrigeratorItems: IItem[] = [
     dock: "top",
   },
   {
-    id: "fish",
-    name: "Fish",
+    id: "ikan",
+    name: "Ikan",
     blockWidth: 1,
     blockHeight: 3,
     placementSet: "vertical",
@@ -377,7 +377,7 @@ const refrigeratorItems: IItem[] = [
     view_front: true,
     view_front_upper: true,
     category: "Food",
-    image: "",
+    image: "/items/fish-front-view.webp",
     dock: "top",
   },
   {

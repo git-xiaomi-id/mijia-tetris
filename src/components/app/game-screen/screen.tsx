@@ -5,7 +5,8 @@ import GameTimer from "./game-timer";
 import ButtonTimer from "./button-timer";
 import OnboardingModal from "./onboarding-modal";
 import ItemDock from "./item-dock";
-// import GameInteract from "./game-interact";
+import OnboardingOverlay from "./onboarding-overlay";
+import GameInteract from "./game-interact";
 
 function UsernameDisplay({ username }: { username: string }) {
   return (
@@ -19,16 +20,10 @@ function UsernameDisplay({ username }: { username: string }) {
 }
 
 export default function GameScreenContent() {
-  const {
-    screenStep,
-    screenSteps,
-    assets,
-    runScenario,
-    onboardingStep,
-    onboardingOpen,
-  } = useGameProvider();
+  const { screenStep, screenSteps, assets, runScenario, onboardingOpen } =
+    useGameProvider();
   const { user } = useAppProvider();
-  console.log({ screenStep });
+
   return (
     <div className="h-screen relative flex flex-col items-start">
       {/* JANGAN ADA FIXED DLL, GRID COL BAGI RATA */}
@@ -53,11 +48,11 @@ export default function GameScreenContent() {
         <div className="relative w-full flex flex-1 items-center justify-center">
           {assets.map((asset, index) => {
             const isKey = screenStep === asset.key;
-            // const isGameList = false;
+            const isGameList = false;
             //   (screenStep === "onboarding" || screenStep === "game") &&
-            const isGameList =
-              screenSteps.findIndex((n) => n === screenStep) >= 2 &&
-              screenSteps.findIndex((n) => n === asset.key) >= 2;
+            // const isGameList =
+            //   screenSteps.findIndex((n) => n === screenStep) >= 2 &&
+            //   screenSteps.findIndex((n) => n === asset.key) >= 2;
 
             return (
               <div className="absolute left-0 top-0 size-full" key={asset.key}>
@@ -67,7 +62,7 @@ export default function GameScreenContent() {
                     alt={asset?.key || ""}
                     src={asset?.src || ""}
                     className={[
-                      "h-full object-contain block mx-auto  gs-image-wrap border border-yellow-500",
+                      "h-full object-contain block mx-auto gs-image-wrap",
                       isKey || isGameList ? "active" : "hidden",
                     ].join(" ")}
                     onLoad={index === 0 ? runScenario : undefined}
@@ -77,41 +72,11 @@ export default function GameScreenContent() {
             );
           })}
 
-          {/* {screenStep === "game" && <GameInteract />} */}
+          {/* Only shown in 'game' screenStep */}
+          <GameInteract />
 
-          {screenStep === "onboarding" && (
-            <div className="z-[1] absolute left-0 top-0 size-full border border-green-800">
-              <div className="w-fit h-full relative mx-auto">
-                <img
-                  key={assets[assets.length - 1].key}
-                  alt={assets[assets.length - 1]?.key || ""}
-                  src={assets[assets.length - 1]?.src || ""}
-                  className={[
-                    "h-full object-contain block mx-auto border border-yellow-500 opacity-0",
-                  ].join(" ")}
-                />
-                {onboardingStep === 1 && (
-                  <>
-                    <div className="gs-mask-door-top door-left " />
-                    <div className="gs-mask-door-top door-middle  " />
-                    <div className="gs-mask-door-top door-right  " />
-
-                    <div className="gs-mask-door-middle door-left  " />
-                    <div className="gs-mask-door-middle door-right  " />
-
-                    <div className="gs-mask-door-bottom left" />
-                    <div className="gs-mask-door-bottom right" />
-
-                    <div className="gs-mask-door-freezerbottom left" />
-                    <div className="gs-mask-door-freezerbottom right" />
-
-                    {/* <div className="gs-mask-door-freezerbottom sec2 left" />
-                    <div className="gs-mask-door-freezerbottom sec2 right" /> */}
-                  </>
-                )}
-              </div>
-            </div>
-          )}
+          {/* Only shown in 'onboarding' screenStep */}
+          <OnboardingOverlay />
         </div>
 
         {/* 3 */}
