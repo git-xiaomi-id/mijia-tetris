@@ -42,7 +42,7 @@ export default function GameInteract() {
 
               <button
                 type="button"
-                className="gs-mask-door-dashed-middle door-left  "
+                className="gs-mask-door-dashed-middle door-left  !bg-blue-600"
               />
               <button
                 type="button"

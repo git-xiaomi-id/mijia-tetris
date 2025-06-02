@@ -119,11 +119,11 @@
 }
 
 .gs-mask-door-top.door-left {
-  @apply top-8 left-[19%] h-[160px];
+  @apply top-8 left-[19%] h-[160px] border;
   background-image: url("/illustration/door-top-left.webp");
 }
 .gs-mask-door-top.door-right {
-  @apply top-8 right-[19%] h-[160px];
+  @apply top-8 right-[19%] h-[160px] border;
   background-image: url("/illustration/door-top-right.webp");
 }
 .gs-mask-door-top.door-middle {
@@ -133,7 +133,7 @@
   background-size: cover;
 }
 .gs-mask-door-middle {
-  @apply w-[60px] h-[40px] aspect-square absolute top-[57.5%] rounded-md;
+  @apply w-[60px] h-[40px] aspect-square absolute top-[43%] rounded-md;
   background-size: contain;
   background-repeat: no-repeat;
   background-image: url("/illustration/laci-fresh.webp");
@@ -146,20 +146,20 @@
   @apply right-[32.3%];
 }
 .gs-mask-door-bottom {
-  @apply w-[60px] h-[40px] aspect-square absolute top-[66.2%] rounded-md;
+  @apply w-[60px] h-[40px] aspect-square absolute top-[57%] rounded-md;
   background-size: contain;
   background-repeat: no-repeat;
   background-image: url("/illustration/laci-freezer.webp");
   background-position: center center;
 }
 .gs-mask-door-bottom.left {
-  @apply left-[31.5%];
+  @apply left-[32%];
 }
 .gs-mask-door-bottom.right {
-  @apply right-[32.3%];
+  @apply right-[32.3%]  -scale-x-100;
 }
 .gs-mask-door-freezerbottom {
-  @apply w-[58px] h-[50px] aspect-square absolute top-[74.5%] rounded-md;
+  @apply w-[16%] h-[9.35%] aspect-square absolute top-[66%] rounded;
   background-size: contain;
   background-repeat: no-repeat;
   background-image: url("/illustration/laci-freeze-box.webp");
@@ -172,7 +172,7 @@
   @apply right-[32.5%];
 }
 .gs-mask-door-freezerbottom.sec2 {
-  @apply top-[412px];
+  @apply top-[76%];
 }
 
 @keyframes blink {
