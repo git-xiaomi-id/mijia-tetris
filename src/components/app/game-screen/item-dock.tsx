@@ -5,17 +5,27 @@ import "swiper/swiper-bundle.css";
 import refrigeratorItems from "@/lib/refrigerator-items";
 import arrow from "./arrow-right.webp";
 import useClickSound from "@/hooks/use-click-sound";
-import { useState } from "react";
+import { useGameProvider } from "@/hooks/use-game";
 
-function DockItem({
-  item,
-  isActive,
-  onClickItem,
-}: {
-  item: (typeof refrigeratorItems)[0];
+type items = typeof refrigeratorItems;
+type item = items[0];
+type id = item["id"];
+type dock = item["dock"];
+
+interface IDockItem {
+  item: item;
   isActive: boolean;
-  onClickItem: (id: (typeof refrigeratorItems)[0]["id"]) => void;
-}) {
+  onClickItem: (id: id) => void;
+}
+
+interface IDockRow {
+  items: items;
+  dock: dock;
+  active: id | null;
+  onClickItem: (id: id) => void;
+}
+
+function DockItem({ item, isActive, onClickItem }: IDockItem) {
   const activeClass = isActive ? "scale-150" : "";
   return (
     <div
@@ -33,7 +43,9 @@ function DockItem({
             ].join(" ")}
           />
         ) : (
-          <div className="size-full object-contain bg-gray-200" />
+          <div className="bg-gray-50 text-[10px] p-0.5 line-clamp-2 size-full aspect-square flex items-center justify-center rounded-md">
+            {item.name}
+          </div>
         )}
         <div className={["gd-item-count"].join(" ")}>{item.totalQty}</div>
       </div>
@@ -41,17 +53,7 @@ function DockItem({
   );
 }
 
-function DockRow({
-  items,
-  dock,
-  active,
-  onClickItem,
-}: {
-  items: typeof refrigeratorItems;
-  dock: (typeof refrigeratorItems)[0]["dock"];
-  active: (typeof refrigeratorItems)[0]["id"] | null;
-  onClickItem: (id: (typeof refrigeratorItems)[0]["id"]) => void;
-}) {
+function DockRow({ items, dock, active, onClickItem }: IDockRow) {
   const nav = { next: `.next-row-${dock}`, prev: `.prev-row-${dock}` };
   const { clickPlay } = useClickSound();
   return (
@@ -111,18 +113,13 @@ function DockRow({
 }
 
 export default function ItemDock() {
-  const [active, setActive] = useState<
-    (typeof refrigeratorItems)[0]["id"] | null
-  >(null);
+  const {
+    itemActive: active,
+    setItemActive: setActive,
+    topItem,
+    bottomItem,
+  } = useGameProvider();
 
-  const [topItem] = useState<typeof refrigeratorItems | []>(
-    refrigeratorItems.filter((item) => item.dock === "top")
-  );
-  const [bottomItem] = useState<typeof refrigeratorItems | []>(
-    refrigeratorItems.filter((item) => item.dock === "bottom")
-  );
-
-  console.log({ topItem, bottomItem });
   const { clickPlay } = useClickSound();
 
   function onClickItem(id: (typeof refrigeratorItems)[0]["id"]) {

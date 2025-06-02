@@ -81,7 +81,7 @@ export default function ButtonTimer() {
           <button
             type="button"
             onClick={_onClick}
-            className="size-10 aspect-square transition-all active:scale-90   absolute right-0 -bottom-14 z-10"
+            className="size-10 aspect-square transition-all active:scale-90   absolute right-0 -bottom-7 z-10"
           >
             {timerStep === "start" ? (
               <PauseIcon size={40} />
