@@ -238,23 +238,6 @@ function ShareCard({ isVisible, scale = 4, time, username }: ShareCardProps) {
           </div>
           <RefrigeratorPrice />
         </div>
-        {/* <img
-          src="/illustration/refrigerator.png"
-          alt="Refrigerator"
-          style={{
-            position: "absolute",
-            bottom: "0",
-            width: "100%",
-            height: "100%",
-            objectFit: "contain",
-            zIndex: 20,
-            // Ultra quality image settings
-            imageRendering: "-webkit-optimize-contrast",
-            filter: "contrast(1.02) saturate(1.05)",
-          }}
-          crossOrigin="anonymous"
-          loading="eager"
-        /> */}
       </div>
     </div>
   );
