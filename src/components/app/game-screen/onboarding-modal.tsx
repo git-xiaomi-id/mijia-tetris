@@ -46,10 +46,6 @@ export default function OnboardingModal() {
       const newValue = curr + 1;
       if (newValue > 1) {
         setTimeout(closeOnboarding, 350);
-        window.scrollTo({
-          top: document.body.scrollHeight,
-          behavior: "smooth",
-        });
       }
       return newValue;
     });

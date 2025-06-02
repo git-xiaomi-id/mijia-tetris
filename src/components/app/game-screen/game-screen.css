@@ -133,20 +133,20 @@
   background-size: cover;
 }
 .gs-mask-door-middle {
-  @apply w-[90px] h-[50px] aspect-square absolute top-[220px] rounded-md;
+  @apply w-[60px] h-[40px] aspect-square absolute top-[250px] rounded-md;
   background-size: contain;
   background-repeat: no-repeat;
   background-image: url("/illustration/laci-fresh.webp");
   background-position: center center;
 }
 .gs-mask-door-middle.door-left {
-  @apply left-[31.5%];
+  @apply left-[32%];
 }
 .gs-mask-door-middle.door-right {
-  @apply right-[31.5%];
+  @apply right-[32.3%];
 }
 .gs-mask-door-bottom {
-  @apply w-[85px] h-[40px] aspect-square absolute top-[310px] rounded-md;
+  @apply w-[60px] h-[40px] aspect-square absolute top-[292px] rounded-md;
   background-size: contain;
   background-repeat: no-repeat;
   background-image: url("/illustration/laci-freezer.webp");
@@ -156,20 +156,20 @@
   @apply left-[31.5%];
 }
 .gs-mask-door-bottom.right {
-  @apply right-[32%];
+  @apply right-[32.3%];
 }
 .gs-mask-door-freezerbottom {
-  @apply w-[85px] h-[50px] aspect-square absolute top-[355px] rounded-md;
+  @apply w-[58px] h-[50px] aspect-square absolute top-[330px] rounded-md;
   background-size: contain;
   background-repeat: no-repeat;
   background-image: url("/illustration/laci-freeze-box.webp");
   background-position: center center;
 }
 .gs-mask-door-freezerbottom.left {
-  @apply left-[31.5%];
+  @apply left-[32%];
 }
 .gs-mask-door-freezerbottom.right {
-  @apply right-[32%];
+  @apply right-[32.5%];
 }
 .gs-mask-door-freezerbottom.sec2 {
   @apply top-[412px];
