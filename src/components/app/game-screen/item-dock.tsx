@@ -5,7 +5,7 @@ import "swiper/swiper-bundle.css";
 import refrigeratorItems from "@/lib/refrigerator-items";
 import arrow from "./arrow-right.webp";
 import useClickSound from "@/hooks/use-click-sound";
-import { useState } from "react";
+import { useGameProvider } from "@/hooks/use-game";
 
 type items = typeof refrigeratorItems;
 type item = items[0];
@@ -113,16 +113,12 @@ function DockRow({ items, dock, active, onClickItem }: IDockRow) {
 }
 
 export default function ItemDock() {
-  const [active, setActive] = useState<
-    (typeof refrigeratorItems)[0]["id"] | null
-  >(null);
-
-  const [topItem] = useState<typeof refrigeratorItems | []>(
-    refrigeratorItems.filter((item) => item.dock === "top")
-  );
-  const [bottomItem] = useState<typeof refrigeratorItems | []>(
-    refrigeratorItems.filter((item) => item.dock === "bottom")
-  );
+  const {
+    itemActive: active,
+    setItemActive: setActive,
+    topItem,
+    bottomItem,
+  } = useGameProvider();
 
   const { clickPlay } = useClickSound();
 
