@@ -32,11 +32,14 @@
 }
 
 .gs-item-drawer {
-  background: url("/dock-bg.jpg") no-repeat;
-  background-size: cover;
+  /* background: url("/dock-bg.jpg") no-repeat; */
+  /* background-size: cover; */
+  @apply bg-[#D7DAE0CC] backdrop-blur-[2px];
+  background-image: url("/bg-dock.png");
+  background-size: contain;
 
   /* @apply absolute left-0 bottom-0; */
-  @apply w-full h-fit rounded-t-xl p-4 pb-16  border-2 border-gray-200;
+  @apply w-full h-fit rounded-t-2xl p-4 pb-16  border-4 border-gray-200;
 
   @apply translate-y-10 opacity-0 transition-all;
 }
