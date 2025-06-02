@@ -74,17 +74,17 @@
 @keyframes image-hidden {
   0% {
     opacity: 1;
-    transform: scale(1);
+    /* transform: scale(1); */
   }
   100% {
     opacity: 0;
-    transform: scale(1.1);
+    /* transform: scale(1.1); */
   }
 }
 
 .gs-image-wrap {
   opacity: 0;
-  transform: scale(1.1);
+  /* transform: scale(1.1); */
 }
 
 .gs-image-hide.hidden {
@@ -113,22 +113,22 @@
 }
 
 .gs-mask-door-top {
-  @apply w-[64px] h-[200px] aspect-square absolute top-4 rounded-lg;
+  @apply w-[50px] h-[200px] aspect-square absolute top-4 rounded-md;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .gs-mask-door-top.door-left {
-  @apply left-[19%];
+  @apply top-8 left-[19%] h-[160px];
   background-image: url("/illustration/door-top-left.webp");
 }
 .gs-mask-door-top.door-right {
-  @apply right-[19%];
+  @apply top-8 right-[19%] h-[160px];
   background-image: url("/illustration/door-top-right.webp");
 }
 .gs-mask-door-top.door-middle {
-  @apply top-[9.1%] left-[34%];
-  @apply w-[160px] h-[160px];
+  @apply top-[13%] left-[34%];
+  @apply w-[32%] h-[110px] border;
   background-image: url("/illustration/door-top-middle.webp");
   background-size: cover;
 }
