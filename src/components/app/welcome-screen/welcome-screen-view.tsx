@@ -39,6 +39,7 @@ export default function WelcomeScreenView({
   }, [username]);
 
   async function clickStart() {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     setLoading(true);
     const res = await tapStartUser(username.trim());
     setLoading(false);
