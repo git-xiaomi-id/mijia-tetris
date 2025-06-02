@@ -175,27 +175,52 @@
   @apply top-[412px];
 }
 
+@keyframes blink {
+  0% {
+    /* opacity: 1; */
+    @apply border-slate-600;
+  }
+  50% {
+    /* opacity: 0.5; */
+    @apply border-transparent;
+  }
+  100% {
+    /* opacity: 1; */
+    @apply border-slate-600;
+  }
+}
+
 /*  */
 /* Dashed border doors without background */
 .gs-mask-door-dashed {
-  @apply w-[50px] h-[200px] aspect-square absolute top-4 rounded-md;
+  @apply w-[50px] h-[200px] aspect-square absolute top-4 rounded;
   border: 2px dashed #666;
-  @apply bg-white/50 border border-dashed border-slate-500;
+  @apply bg-white/50 border border-dashed border-slate-500 hover:border-orange-600 hover:bg-orange-600/30 active:scale-90 transition-all;
+
+  animation: blink 1.5s ease-in-out infinite;
 }
 .gs-mask-door-dashed.door-left {
-  @apply top-8 left-[20%] h-[160px];
+  @apply top-8 left-[27%] h-[160px];
 }
 .gs-mask-door-dashed.door-right {
-  @apply top-8 right-[19%] h-[160px];
+  @apply top-8 right-[27%] h-[160px];
 }
 .gs-mask-door-dashed.door-middle {
-  @apply top-[13%] left-[37.5%];
-  @apply w-[24.5%] h-[110px];
+  @apply top-[9.5%] left-[38%];
+  @apply w-[23.5%] h-[24px];
+}
+.gs-mask-door-dashed.door-middle2 {
+  @apply top-[18%] left-[38%];
+  @apply w-[23.5%] h-[24px];
+}
+.gs-mask-door-dashed.door-middle3 {
+  @apply top-[27.5%] left-[38%];
+  @apply w-[23.5%] h-[24px];
 }
 .gs-mask-door-dashed-middle {
   /* MARK */
-  @apply w-[60px] h-[40px] aspect-square absolute top-[57.5%] rounded-md;
-  @apply bg-white/50 border border-dashed border-slate-500;
+  @apply w-[60px] h-[40px] aspect-square absolute top-[57.5%] rounded;
+  @apply bg-white/30 border border-dashed border-slate-500 hover:border-orange-600 hover:bg-orange-600/30 active:scale-90 transition-all;
 }
 .gs-mask-door-dashed-middle.door-left {
   @apply left-[32%];
@@ -205,8 +230,8 @@
 }
 .gs-mask-door-dashed-bottom {
   /* MARK */
-  @apply w-[60px] h-[40px] aspect-square absolute top-[66.2%] rounded-md;
-  @apply bg-white/50 border border-dashed border-slate-500;
+  @apply w-[60px] h-[40px] aspect-square absolute top-[66.2%] rounded;
+  @apply bg-white/30 border border-dashed border-slate-500 hover:border-orange-600 hover:bg-orange-600/30 active:scale-90 transition-all;
 }
 .gs-mask-door-dashed-bottom.left {
   @apply left-[31.5%];
@@ -216,8 +241,8 @@
 }
 .gs-mask-door-dashed-freezerbottom {
   /* MARK */
-  @apply w-[58px] h-[50px] aspect-square absolute top-[74.5%] rounded-md;
-  @apply bg-white/30 border border-dashed border-slate-500;
+  @apply w-[58px] h-[50px] aspect-square absolute top-[74.5%] rounded;
+  @apply bg-white/30 border border-dashed border-slate-500 hover:border-orange-600 hover:bg-orange-600/30 active:scale-90 transition-all;
 }
 .gs-mask-door-dashed-freezerbottom.left {
   @apply left-[32%];
