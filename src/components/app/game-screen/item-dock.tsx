@@ -33,7 +33,9 @@ function DockItem({
             ].join(" ")}
           />
         ) : (
-          <div className="size-full object-contain bg-gray-200" />
+          <div className="bg-gray-50 text-[10px] p-0.5 line-clamp-2 size-full aspect-square flex items-center justify-center rounded-md">
+            {item.name}
+          </div>
         )}
         <div className={["gd-item-count"].join(" ")}>{item.totalQty}</div>
       </div>
@@ -122,7 +124,6 @@ export default function ItemDock() {
     refrigeratorItems.filter((item) => item.dock === "bottom")
   );
 
-  console.log({ topItem, bottomItem });
   const { clickPlay } = useClickSound();
 
   function onClickItem(id: (typeof refrigeratorItems)[0]["id"]) {

@@ -130,7 +130,7 @@ const refrigeratorItems: IItem[] = [
     view_front: true,
     view_front_upper: false,
     category: "Food",
-    image: "",
+    image: "/items/cheese-front-view.webp",
     dock: "bottom",
   },
   {
@@ -149,7 +149,7 @@ const refrigeratorItems: IItem[] = [
     view_front: true,
     view_front_upper: false,
     category: "Food",
-    image: "",
+    image: "/items/bread-front-view.webp",
     dock: "top",
   },
   {
@@ -168,7 +168,7 @@ const refrigeratorItems: IItem[] = [
     view_front: true,
     view_front_upper: true,
     category: "Food",
-    image: "",
+    image: "/items/carrot-front-view.webp",
     dock: "bottom",
   },
   {
@@ -187,7 +187,7 @@ const refrigeratorItems: IItem[] = [
     view_front: true,
     view_front_upper: true,
     category: "Food",
-    image: "",
+    image: "/items/potato-front-view.webp",
     dock: "top",
   },
   {
@@ -225,7 +225,7 @@ const refrigeratorItems: IItem[] = [
     view_front: true,
     view_front_upper: false,
     category: "Drink",
-    image: "/items/water-front-view.webp",
+    image: "/items/bottle-front-view.webp",
     dock: "top",
   },
   {
@@ -244,7 +244,7 @@ const refrigeratorItems: IItem[] = [
     view_front: true,
     view_front_upper: false,
     category: "Drink",
-    image: "",
+    image: "/items/milk-front-view.webp",
     dock: "bottom",
   },
   {
@@ -263,7 +263,7 @@ const refrigeratorItems: IItem[] = [
     view_front: true,
     view_front_upper: false,
     category: "Food",
-    image: "",
+    image: "/items/jar-front-view.webp",
     dock: "top",
   },
   {
@@ -339,7 +339,7 @@ const refrigeratorItems: IItem[] = [
     view_front: true,
     view_front_upper: true,
     category: "Food",
-    image: "",
+    image: "/items/chicken-front-view.webp",
     dock: "top",
   },
   {
@@ -396,7 +396,7 @@ const refrigeratorItems: IItem[] = [
     view_front: true,
     view_front_upper: true,
     category: "Food",
-    image: "",
+    image: "/items/meat-front-view.webp",
     dock: "top",
   },
 ];
