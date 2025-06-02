@@ -1,0 +1,58 @@
+.finish-screen {
+  @apply max-w-sm min-h-screen flex flex-col items-center justify-center gap-8 m-auto px-6;
+  /* Added px-4 for horizontal padding to prevent edge overflow */
+}
+
+.finish-screen-action {
+  @apply w-full; /* Ensure actions container takes full width */
+}
+
+.finish-screen-view {
+  @apply py-8 px-5 flex flex-col gap-8 items-center justify-center bg-white border-2 border-[#D8D8D899] rounded-2xl w-full;
+  background-image: url("/bg-finished.png");
+  /* Added w-full to match parent width */
+}
+
+.fs-timer-area {
+  @apply relative;
+}
+
+.fs-timer-area .fs-time-box {
+  @apply rounded-lg min-w-[148px] py-2 pl-8 pr-4 border border-[#388DE3];
+  background: linear-gradient(180deg, #89c4ff 0%, #378ce1 69.71%, #3399ff 100%);
+}
+
+.fs-icon-clock {
+  @apply size-10  absolute -left-3 top-[50%] translate-y-[-50%];
+}
+
+.fs-icon-clock img {
+  @apply size-full object-contain block;
+}
+
+.fs-usernameIg {
+  --color1: #ff813e;
+  --color2: #ff630f;
+  --color3: #d34a00;
+  background: linear-gradient(
+    180deg,
+    var(--color1) 0%,
+    var(--color2) 65.87%,
+    var(--color3) 100%
+  );
+
+  @apply p-2 flex gap-1 items-center text-white rounded-lg w-fit;
+}
+
+.fs-usernameIg .fs-usernameIg-text {
+  @apply text-ellipsis line-clamp-1;
+}
+
+.fs-usernameIg .fs-usernameIg-icon {
+  background: linear-gradient(180deg, #bf4ecc 0%, #ed5b5e 100%);
+  @apply rounded-lg p-0.5;
+}
+
+.fs-btn-action {
+  padding-inline: 12px;
+}

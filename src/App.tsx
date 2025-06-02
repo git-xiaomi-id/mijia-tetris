@@ -1,11 +1,16 @@
+import { Route, Routes } from "react-router";
 import { ToasterSonner } from "./components/ui/sonner";
 import { AppProvider } from "./hooks/use-context";
 import ScreenWrapper from "./screen-wrapper";
+import Leaderboard from "./leaderboard";
 
 export default function App() {
   return (
     <AppProvider>
-      <ScreenWrapper />
+      <Routes>
+        <Route path="/" element={<ScreenWrapper />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
+      </Routes>
       <ToasterSonner
         toastOptions={{
           classNames: {

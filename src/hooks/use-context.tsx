@@ -17,7 +17,7 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [screen, setScreen] = useState<Screen>("welcome");
+  const [screen, setScreen] = useState<Screen>("finished");
 
   const { data, isLoading } = useSWR("user", tapCheckUser);
 
