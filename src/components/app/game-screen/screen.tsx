@@ -34,7 +34,7 @@ export default function GameScreenContent() {
           <div
             className={[
               "flex flex-col items-end gap-4 relative h-14",
-              screenStep.includes("game")
+              screenStep?.includes("game")
                 ? ""
                 : "opacity-0 pointer-events-none",
             ].join(" ")}

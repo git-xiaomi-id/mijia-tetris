@@ -1,4 +1,7 @@
-import refrigeratorItems, { rackArea } from "@/lib/refrigerator-items";
+import refrigeratorItems, {
+  rackArea,
+  type IItemPlaced,
+} from "@/lib/refrigerator-items";
 import { getCookie, KEY_ONBOARDING, setCookie } from "@/lib/utils";
 import {
   createContext,
@@ -45,6 +48,7 @@ interface GameContextType {
   bottomItem: typeof refrigeratorItems | [];
   setBottomItem: Dispatch<SetStateAction<typeof refrigeratorItems | []>>;
   doResetGame: () => void;
+  placeItem: (rowIndex: number, colIndex: number) => void;
 }
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
@@ -158,6 +162,88 @@ export function GameProvider({ children }: { children: ReactNode }) {
     shuffleItems();
   }
 
+  function placeItem(rowIndex: number, colIndex: number) {
+    if (!itemActive || !areaActive) return;
+
+    const item = [...topItem, ...bottomItem].find((i) => i.id === itemActive);
+    if (!item) return;
+
+    // Check if the item can be placed in this area
+    if (item.rack !== areaActive.area) return;
+
+    // Create a copy of the items array
+    const newItems = areaActive.items.map((row) => [...row]);
+
+    // Check if the space is available
+    const canPlace = checkSpaceAvailability(newItems, rowIndex, colIndex, item);
+    if (!canPlace) return;
+
+    // Place the item
+    const placedItem: IItemPlaced = {
+      id: item.id,
+      name: item.name,
+      image: item.image.startsWith("/") ? item.image : `/${item.image}`,
+      amount: 1,
+    };
+
+    // Update the grid with the placed item
+    for (let i = 0; i < item.blockHeight; i++) {
+      for (let j = 0; j < item.blockWidth; j++) {
+        if (
+          rowIndex + i < newItems.length &&
+          colIndex + j < newItems[0].length
+        ) {
+          newItems[rowIndex + i][colIndex + j] = placedItem;
+        }
+      }
+    }
+
+    // Update the area's items
+    setAreaActive({
+      ...areaActive,
+      items: newItems,
+    });
+
+    // Update item quantity in topItem or bottomItem
+    if (item.dock === "top") {
+      setTopItem((prev) =>
+        prev.map((i) =>
+          i.id === item.id ? { ...i, totalQty: Math.max(0, i.totalQty - 1) } : i
+        )
+      );
+    } else {
+      setBottomItem((prev) =>
+        prev.map((i) =>
+          i.id === item.id ? { ...i, totalQty: Math.max(0, i.totalQty - 1) } : i
+        )
+      );
+    }
+
+    // Deselect the item
+    setItemActive(null);
+  }
+
+  function checkSpaceAvailability(
+    grid: (IItemPlaced | null)[][],
+    rowIndex: number,
+    colIndex: number,
+    item: (typeof refrigeratorItems)[0]
+  ): boolean {
+    // Check if the space is available
+    for (let i = 0; i < item.blockHeight; i++) {
+      for (let j = 0; j < item.blockWidth; j++) {
+        if (
+          rowIndex + i >= grid.length ||
+          colIndex + j >= grid[0].length ||
+          grid[rowIndex + i][colIndex + j] !== null
+        ) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
   return (
     <GameContext.Provider
       value={{
@@ -187,6 +273,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
         bottomItem,
         setBottomItem,
         doResetGame,
+        placeItem,
       }}
     >
       {children}

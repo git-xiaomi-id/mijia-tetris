@@ -60,7 +60,7 @@ export default function ButtonTimer() {
   return (
     <>
       <AlertDialog
-        open={timerStep === "pause" && screenStep.includes("game") && !pop}
+        open={timerStep === "pause" && screenStep?.includes("game") && !pop}
       >
         <AlertDialogTrigger asChild>
           <button

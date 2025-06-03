@@ -325,7 +325,7 @@
 }
 .gra-top-middle {
   @apply absolute top-[35%] left-[15%] h-2 w-full max-w-sm py-2;
-  @apply bg-slate-400/30 backdrop-blur-[2px] rounded;
+  /* @apply bg-slate-400/30 backdrop-blur-[2px] rounded  border border-red-500; */
   transform: rotateX(0deg) rotateY(0deg);
   transform-style: preserve-3d;
   clip-path: polygon(0 0, 100% 0, 87% 100%, 12% 100%);
@@ -341,8 +341,8 @@
   
 } */
 .gra-top-middle-row {
-  @apply w-full border rounded-sm;
-  @apply flex gap-2 h-16 w-fit;
+  @apply w-full rounded-sm;
+  @apply flex gap-3 h-[68px] w-full max-w-xs;
   background-image: url("/rack/rack-top-middle.png");
   background-size: contain;
   background-repeat: no-repeat;
@@ -350,7 +350,16 @@
 }
 .gra-grid-item {
   @apply h-[80%] border border-dashed border-slate-500 rounded-sm;
+  @apply flex items-center justify-center;
+  /* @apply min-h-[60px] min-w-[60px]; */
+  @apply bg-white/50;
 }
+
+.gra-grid-item img {
+  @apply size-full;
+  @apply object-contain;
+}
+
 @keyframes showningDoorTop {
   0% {
     opacity: 0;

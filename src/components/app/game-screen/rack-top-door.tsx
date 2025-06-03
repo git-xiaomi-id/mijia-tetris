@@ -1,4 +1,6 @@
 import type { IItemPlaced, IRackArea } from "@/lib/refrigerator-items";
+import { useGameProvider } from "@/hooks/use-game";
+import useClickSound from "@/hooks/use-click-sound";
 
 export default function RackTopDoor({
   items,
@@ -9,13 +11,40 @@ export default function RackTopDoor({
   absolute?: boolean;
   type?: IRackArea["areaId"];
 }) {
+  const { itemActive, areaActive, placeItem } = useGameProvider();
+  const { clickPlay } = useClickSound();
+
+  const handleGridClick = (rowIndex: number, colIndex: number) => {
+    clickPlay();
+    if (itemActive && areaActive) {
+      placeItem(rowIndex, colIndex);
+    }
+  };
+
+  console.log({ items });
+
   const view = (
     <div className="gra-area">
       {/* <div className="size-full flex flex-col gap-20"> */}
       {items.map((row, rowIndex) => (
         <div key={rowIndex} className="gra-top-door-row">
-          {row.map((_, colIndex) => (
-            <div key={colIndex} className="gra-grid-item" />
+          {row.map((item, colIndex) => (
+            <div
+              key={colIndex}
+              className={`gra-grid-item`}
+              onClick={() => handleGridClick(rowIndex, colIndex)}
+            >
+              {item && (
+                <div className="relative size-full">
+                  <img src={item.image} alt={item.name} />
+                  {/* {item.amount > 1 && (
+                    <div className="absolute bottom-0 right-0 bg-blue-500 text-white text-xs px-1 rounded-tl">
+                      {item.amount}
+                    </div>
+                  )} */}
+                </div>
+              )}
+            </div>
           ))}
         </div>
       ))}
