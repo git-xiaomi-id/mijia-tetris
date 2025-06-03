@@ -87,3 +87,19 @@ export async function checkValidUser(
     .eq("id", id)
     .maybeSingle();
 }
+
+export async function getLeaderboardWithUserInfo() {
+  return await clientSupabase
+    .from("game")
+    .select(
+      `
+      user!inner(username_ig),
+      duration,
+      score,
+      finish_at,
+      start_at
+    `
+    )
+    .order("duration", { ascending: true })
+    .limit(15);
+}

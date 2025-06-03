@@ -1,0 +1,134 @@
+.leaderboard-screen {
+  @apply max-w-sm h-screen overflow-hidden flex flex-col m-auto;
+}
+
+.ls-heading {
+  box-shadow: 0px 4px 20px 0px rgba(156, 156, 156, 0.1);
+  background: linear-gradient(180deg, #ffffff 0%, #f6f6f6 88.46%, #e8e8e8 100%);
+  @apply flex items-center justify-center pt-6 pb-5 w-full rounded-2xl px-6;
+}
+
+.ls-action-container {
+  @apply px-3 py-4;
+}
+
+.ls-action {
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  @apply flex items-center gap-5 p-3 rounded-xl;
+}
+
+.ls-scrollable {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+}
+
+.ls-scrollable::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ls-scrollable::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ls-scrollable::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+}
+
+.ls-scrollable::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.ls-top3-heading {
+  background: linear-gradient(180deg, #ff813e 0%, #ff630f 65.87%, #d34a00 100%);
+  box-shadow: 0px 4px 2px 0px rgba(211, 74, 0, 0.2);
+  @apply flex items-center justify-between gap-2.5 rounded-2xl py-3.5 px-5 w-full;
+}
+
+.ls-board-1 {
+  background: linear-gradient(180deg, #fffbe9 0%, #ffdfb0 100%);
+}
+
+.ls-board-2 {
+  background: linear-gradient(180deg, #fcfcfc 0%, #e6e6e6 100%);
+}
+
+.ls-board-3 {
+  background: linear-gradient(180deg, #ffece1 0%, #ffd7c0 100%);
+}
+
+.ls-board-others {
+  background: linear-gradient(
+    180deg,
+    rgba(252, 252, 252, 0.8) 0%,
+    rgba(230, 230, 230, 0.8) 100%
+  );
+  @apply rounded-lg;
+}
+
+.ls-time-box-top3 {
+  @apply rounded-lg py-0.5 px-1.5 text-white;
+  background: linear-gradient(180deg, #f7b946 0%, #e78434 100%);
+}
+
+.ls-time-box-other {
+  @apply rounded-lg py-0.5 px-1.5 text-white;
+  background: linear-gradient(180deg, #89c4ff 0%, #378ce1 69.71%, #3399ff 100%);
+}
+
+.ls-shiny-gradient {
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    #fcb834 0%,
+    rgba(252, 184, 52, 0.1) 71.63%,
+    rgba(255, 235, 196, 0) 100%
+  );
+}
+
+@keyframes headShakingWithOffsetRight {
+  0% {
+    transform: translateY(50%) rotate(12deg);
+  }
+  25% {
+    transform: translateY(50%) rotate(7deg);
+  }
+  50% {
+    transform: translateY(50%) rotate(12deg);
+  }
+  75% {
+    transform: translateY(50%) rotate(17deg);
+  }
+  100% {
+    transform: translateY(50%) rotate(12deg);
+  }
+}
+
+@keyframes headShakingWithOffsetLeft {
+  0% {
+    transform: translateY(50%) rotate(-12deg);
+  }
+  25% {
+    transform: translateY(50%) rotate(-7deg);
+  }
+  50% {
+    transform: translateY(50%) rotate(-12deg);
+  }
+  75% {
+    transform: translateY(50%) rotate(-17deg);
+  }
+  100% {
+    transform: translateY(50%) rotate(-12deg);
+  }
+}
+
+.animate-headshaking-offset-right {
+  animation: headShakingWithOffsetRight 0.75s linear infinite;
+}
+
+.animate-headshaking-offset-left {
+  animation: headShakingWithOffsetLeft 0.75s linear infinite;
+}
