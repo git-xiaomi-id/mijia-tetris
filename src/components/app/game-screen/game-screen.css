@@ -369,9 +369,11 @@
     transform: translate(-50%, 0%);
   }
 }
+.gra-top-door-set {
+  @apply absolute top-[0%] left-[50%] w-64 max-w-sm px-4 min-h-[600px];
+}
 .gra-top-door {
-  @apply absolute top-[10%] left-[50%] w-72 max-w-sm py-2 px-4;
-  @apply bg-white shadow-inner rounded-md border-4 border-gray-500/60;
+  @apply shadow-inner;
   /* transform: rotateX(5deg) rotateY(-20deg); */
   /* transform-style: preserve-3d; */
   opacity: 0;
@@ -379,13 +381,26 @@
   animation: showningDoorTop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)
     forwards;
 }
+.gra-top-door-bg {
+  transform: translate(-50%, 0%);
+  @apply w-full h-full;
+  background-image: url("/illustration/door-refri.webp");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.gra-top-door-bg.top-right {
+  transform: translate(-50%, 0%) scaleX(-1);
+}
 .gra-top-door-row {
-  @apply w-full aspect-[4/1.25] relative;
+  @apply w-[95%] aspect-[4/1.25] relative;
   @apply px-6 flex gap-2;
   background-image: url("/rack/rack-door-back.webp");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+
+  @apply mt-10;
 }
 .gra-top-door-row:nth-of-type(2) {
   @apply mt-4;

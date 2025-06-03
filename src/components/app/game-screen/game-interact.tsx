@@ -55,16 +55,13 @@ export default function GameInteract() {
 
             {/*  */}
 
-            {areaActive.areaId === "top-left" && (
-              <RackTopDoor items={areaActive.items} />
+            {(areaActive.areaId === "top-left" ||
+              areaActive.areaId === "top-right") && (
+              <RackTopDoor items={areaActive.items} type={areaActive.areaId} />
             )}
 
             {areaActive.areaId.includes("top-middle") && (
               <RackTopMiddle items={areaActive.items} />
-            )}
-
-            {areaActive.areaId === "top-right" && (
-              <RackTopDoor items={areaActive.items} />
             )}
 
             {(areaActive.areaId === "middle-left" ||

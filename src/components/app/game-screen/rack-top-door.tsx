@@ -1,11 +1,13 @@
-import type { IItemPlaced } from "@/lib/refrigerator-items";
+import type { IItemPlaced, IRackArea } from "@/lib/refrigerator-items";
 
 export default function RackTopDoor({
   items,
   absolute = true,
+  type,
 }: {
   items: IItemPlaced[][];
   absolute?: boolean;
+  type?: IRackArea["areaId"];
 }) {
   const view = (
     <div className="gra-area">
@@ -20,6 +22,13 @@ export default function RackTopDoor({
       {/* </div> */}
     </div>
   );
-  if (absolute) return <div className="gra-top-door">{view}</div>;
+  if (absolute)
+    return (
+      <div className="gra-top-door gra-top-door-set">
+        <div className={`gra-top-door-bg gra-top-door-set ${type}`} />
+
+        {view}
+      </div>
+    );
   return view;
 }
