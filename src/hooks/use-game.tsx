@@ -163,6 +163,8 @@ export function GameProvider({ children }: { children: ReactNode }) {
   }
 
   function placeItem(rowIndex: number, colIndex: number) {
+    console.log("handleGridClick: ", { rowIndex, colIndex, itemActive });
+
     if (!itemActive || !areaActive) return;
 
     const item = [...topItem, ...bottomItem].find((i) => i.id === itemActive);
