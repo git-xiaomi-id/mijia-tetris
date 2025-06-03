@@ -1,4 +1,4 @@
-import refrigeratorItems from "@/lib/refrigerator-items";
+import refrigeratorItems, { rackArea } from "@/lib/refrigerator-items";
 import { getCookie, KEY_ONBOARDING, setCookie } from "@/lib/utils";
 import {
   createContext,
@@ -38,8 +38,8 @@ interface GameContextType {
   setHasOnboarding: Dispatch<SetStateAction<boolean>>;
   itemActive: string | null;
   setItemActive: Dispatch<SetStateAction<string | null>>;
-  areaActive: string | null;
-  setAreaActive: Dispatch<SetStateAction<string | null>>;
+  areaActive: (typeof rackArea)[0] | null;
+  setAreaActive: Dispatch<SetStateAction<(typeof rackArea)[0] | null>>;
   topItem: typeof refrigeratorItems | [];
   setTopItem: Dispatch<SetStateAction<typeof refrigeratorItems | []>>;
   bottomItem: typeof refrigeratorItems | [];
@@ -90,7 +90,9 @@ export function GameProvider({ children }: { children: ReactNode }) {
     refrigeratorItems.filter((item) => item.dock === "bottom")
   );
   const [itemActive, setItemActive] = useState<string | null>(null);
-  const [areaActive, setAreaActive] = useState<string | null>(null);
+  const [areaActive, setAreaActive] = useState<(typeof rackArea)[0] | null>(
+    null
+  );
 
   function togglingStep() {
     setTimerStep(timerStep === "start" ? "pause" : "start");
@@ -139,7 +141,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     setTimerStep("pause");
     setScreenStep("intro1");
     setOnboardingStep(0);
-    setAreaActive("");
+    setAreaActive(null);
   }
 
   return (

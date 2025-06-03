@@ -2,7 +2,7 @@ import "./game-dock.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/swiper-bundle.css";
-import refrigeratorItems from "@/lib/refrigerator-items";
+import refrigeratorItems, { type IRackArea } from "@/lib/refrigerator-items";
 import arrow from "./arrow-right.webp";
 import useClickSound from "@/hooks/use-click-sound";
 import { useGameProvider } from "@/hooks/use-game";
@@ -18,7 +18,7 @@ interface IDockItem {
   item: item;
   itemActive: string | null;
   onClickItem: (item: item) => void;
-  areaActive: string | null;
+  areaActive: IRackArea;
 }
 
 interface IDockRow {
@@ -26,7 +26,7 @@ interface IDockRow {
   dock: dock;
   active: id | null;
   onClickItem: (item: item) => void;
-  areaActive: string | null;
+  areaActive: IRackArea;
 }
 
 function DockItem({ item, itemActive, onClickItem }: IDockItem) {
@@ -137,16 +137,16 @@ export default function ItemDock() {
     clickPlay();
 
     if (areaActive) {
-      if (item.rack !== areaActive && active !== item.id)
+      if (item.rack !== areaActive.area && active !== item.id)
         toast.error(`Oops!`, {
-          description: `${item.name} tidak bisa ditaruh di ${areaActive}`,
+          description: `${item.name} tidak bisa ditaruh di ${areaActive.area}`,
         });
       setActive(active === item.id ? null : item.id);
     }
   }
 
   function closeArea() {
-    setAreaActive("");
+    setAreaActive(null);
   }
 
   return (
@@ -168,14 +168,14 @@ export default function ItemDock() {
         dock="top"
         active={active}
         onClickItem={onClickItem}
-        areaActive={areaActive}
+        areaActive={areaActive!}
       />
       <DockRow
         items={bottomItem}
         dock="bottom"
         active={active}
         onClickItem={onClickItem}
-        areaActive={areaActive}
+        areaActive={areaActive!}
       />
     </div>
   );

@@ -266,6 +266,7 @@
 
 /*  */
 /*  */
+/*  */
 .gs-gameActive-overlay {
   @apply fixed left-0 top-0 size-full;
   background: radial-gradient(
@@ -320,12 +321,50 @@
 }
 .gra-top-middle {
   @apply absolute top-[35%] left-[15%] h-2 w-full max-w-sm py-2;
-  @apply bg-slate-400/30 backdrop-blur-[2px] rounded-md;
+  @apply bg-slate-400/30 backdrop-blur-[2px] rounded;
   transform: rotateX(0deg) rotateY(0deg);
   transform-style: preserve-3d;
   clip-path: polygon(0 0, 100% 0, 87% 100%, 12% 100%);
 }
 .gra-top-middle::after {
   content: "";
-  @apply absolute left-0 top-0 h-2 w-full bg-white rounded;
+  @apply absolute left-0 top-0 h-4 w-full border rounded-sm;
+  background-image: url("/rack/rack-top-middle.png");
+  background-size: cover;
+}
+.gra-grid-item {
+  @apply h-[80%] border border-dashed border-slate-500 rounded-sm;
+}
+@keyframes showning {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0%);
+  }
+}
+.gra-top-door {
+  @apply absolute top-[10%] left-[50%] w-72 max-w-sm py-2 px-4;
+  @apply bg-white shadow-inner rounded-md border-4 border-gray-500/60;
+  /* transform: rotateX(5deg) rotateY(-20deg); */
+  /* transform-style: preserve-3d; */
+  opacity: 0;
+  transform: translate(-50%, 50%);
+  animation: showning 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+.gra-top-door-row {
+  @apply w-full aspect-[4/1.25] relative;
+  @apply px-6 flex gap-2;
+  background-image: url("/rack/rack-door-back.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.gra-top-door-row .gra-grid-item {
+  @apply w-1/4;
+}
+.gra-top-door-row::after {
+  @apply absolute bottom-0 left-0 w-full h-[80%];
 }

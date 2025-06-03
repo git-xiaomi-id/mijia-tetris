@@ -19,6 +19,17 @@ export interface IItem {
   rack: TRack;
 }
 
+export interface IItemPlaced extends Pick<IItem, "id" | "name" | "image"> {
+  amount: number;
+}
+
+export interface IRackArea {
+  area: TRack;
+  areaId: TAreaId;
+  className: string;
+  items: IItemPlaced[];
+}
+
 export type TRack =
   | "top-left-door"
   | "top-middle-door"
@@ -31,6 +42,21 @@ export type TRack =
   | "freezer-right-door"
   | "freezer-sec2-left-door"
   | "freezer-sec2-right-door";
+
+export type TAreaId =
+  | "top-left"
+  | "top-middle1"
+  | "top-middle2"
+  | "top-middle3"
+  | "top-right"
+  | "middle-left"
+  | "middle-right"
+  | "bottom-left"
+  | "bottom-right"
+  | "freezer-left"
+  | "freezer-right"
+  | "freezer-sec2-left"
+  | "freezer-sec2-right";
 
 const refrigeratorItems: IItem[] = [
   {
@@ -432,6 +458,87 @@ const refrigeratorItems: IItem[] = [
     image: "/items/meat-front-view.webp",
     dock: "top",
     rack: "freezer-sec2-left-door",
+  },
+];
+
+export const rackArea: IRackArea[] = [
+  {
+    area: "top-left-door",
+    areaId: "top-left",
+    className: "gs-mask-door-dashed door-left",
+    items: [],
+  },
+  {
+    area: "top-middle-door",
+    areaId: "top-middle1",
+    className: "gs-mask-door-dashed door-middle",
+    items: [],
+  },
+  {
+    area: "top-middle-door",
+    areaId: "top-middle2",
+    className: "gs-mask-door-dashed door-middle second",
+    items: [],
+  },
+  {
+    area: "top-middle-door",
+    areaId: "top-middle3",
+    className: "gs-mask-door-dashed door-middle third",
+    items: [],
+  },
+  {
+    area: "top-right-door",
+    areaId: "top-right",
+    className: "gs-mask-door-dashed door-right",
+    items: [],
+  },
+  {
+    area: "middle-left-door",
+    areaId: "middle-left",
+    className: "gs-mask-door-dashed-middle door-left",
+    items: [],
+  },
+  {
+    area: "middle-right-door",
+    areaId: "middle-right",
+    className: "gs-mask-door-dashed-middle door-right",
+    items: [],
+  },
+  {
+    area: "bottom-left-door",
+    areaId: "bottom-left",
+    className: "gs-mask-door-dashed-bottom left",
+    items: [],
+  },
+  {
+    area: "bottom-right-door",
+    areaId: "bottom-right",
+    className: "gs-mask-door-dashed-bottom right",
+    items: [],
+  },
+  {
+    area: "freezer-left-door",
+    areaId: "freezer-left",
+    className: "gs-mask-door-dashed-freezerbottom left",
+    items: [],
+  },
+  {
+    area: "freezer-right-door",
+    areaId: "freezer-right",
+    className: "gs-mask-door-dashed-freezerbottom right",
+    items: [],
+  },
+  {
+    area: "freezer-sec2-left-door",
+    areaId: "freezer-sec2-left",
+    className: "gs-mask-door-dashed-freezerbottom sec2 left",
+    items: [],
+  },
+  {
+    area: "freezer-sec2-right-door",
+    areaId: "freezer-sec2-right",
+    className: "gs-mask-door-dashed-freezerbottom sec2 right",
+    items: [],
   },
 ];
 
