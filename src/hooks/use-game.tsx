@@ -83,16 +83,28 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const [hasOnboarding, setHasOnboarding] = useState<boolean>(
     getCookie(KEY_ONBOARDING) === "true"
   );
-  const [topItem, setTopItem] = useState<typeof refrigeratorItems | []>(
-    refrigeratorItems.filter((item) => item.dock === "top")
-  );
+  const [topItem, setTopItem] = useState<typeof refrigeratorItems | []>([]);
   const [bottomItem, setBottomItem] = useState<typeof refrigeratorItems | []>(
-    refrigeratorItems.filter((item) => item.dock === "bottom")
+    []
   );
   const [itemActive, setItemActive] = useState<string | null>(null);
   const [areaActive, setAreaActive] = useState<(typeof rackArea)[0] | null>(
     null
   );
+
+  function shuffleItems() {
+    const shuffledItems = [...refrigeratorItems].sort(
+      () => Math.random() - 0.5
+    );
+    const halfLength = Math.floor(shuffledItems.length / 2);
+
+    setTopItem(shuffledItems.slice(0, halfLength));
+    setBottomItem(shuffledItems.slice(halfLength));
+  }
+
+  useEffect(() => {
+    shuffleItems();
+  }, []);
 
   function togglingStep() {
     setTimerStep(timerStep === "start" ? "pause" : "start");
@@ -142,6 +154,8 @@ export function GameProvider({ children }: { children: ReactNode }) {
     setScreenStep("intro1");
     setOnboardingStep(0);
     setAreaActive(null);
+
+    shuffleItems();
   }
 
   return (
