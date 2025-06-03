@@ -44,6 +44,7 @@ interface GameContextType {
   setTopItem: Dispatch<SetStateAction<typeof refrigeratorItems | []>>;
   bottomItem: typeof refrigeratorItems | [];
   setBottomItem: Dispatch<SetStateAction<typeof refrigeratorItems | []>>;
+  doResetGame: () => void;
 }
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
@@ -70,6 +71,8 @@ const assets = [
     src: "/illustration/refrigerator-naked.webp",
   },
 ];
+
+// const area = ["top-left", "top-right", "top-middle1", "top-middle2", "top-middle3", "middle-left", "middle-right", ""]
 
 export function GameProvider({ children }: { children: ReactNode }) {
   const [screenStep, setScreenStep] = useState<TScreenStep>("intro1");
@@ -116,7 +119,6 @@ export function GameProvider({ children }: { children: ReactNode }) {
         const nextStep = screenSteps[currentIndex + 1];
 
         if (nextStep === "onboarding" && hasOnboarding) {
-          console.log("Onboarding Stopper");
           clearInterval(interval);
           closeOnboarding();
           return "game"; // Stay at current step if onboarding is already done
@@ -131,6 +133,14 @@ export function GameProvider({ children }: { children: ReactNode }) {
     if (screenStep === "onboarding") setOnboardingOpen(true);
     else setOnboardingOpen(false);
   }, [screenStep]);
+
+  function doResetGame() {
+    setTime(0);
+    setTimerStep("pause");
+    setScreenStep("intro1");
+    setOnboardingStep(0);
+    setAreaActive("");
+  }
 
   return (
     <GameContext.Provider
@@ -160,6 +170,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
         setTopItem,
         bottomItem,
         setBottomItem,
+        doResetGame,
       }}
     >
       {children}

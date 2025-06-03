@@ -16,7 +16,21 @@ export interface IItem {
   view_front_upper: boolean;
   category: string;
   dock: "top" | "bottom";
+  rack: TRack;
 }
+
+export type TRack =
+  | "top-left-door"
+  | "top-middle-door"
+  | "top-right-door"
+  | "middle-left-door"
+  | "middle-right-door"
+  | "bottom-left-door"
+  | "bottom-right-door"
+  | "freezer-left-door"
+  | "freezer-right-door"
+  | "freezer-sec2-left-door"
+  | "freezer-sec2-right-door";
 
 const refrigeratorItems: IItem[] = [
   {
@@ -37,6 +51,7 @@ const refrigeratorItems: IItem[] = [
     category: "Food",
     image: "/items/egg-front-view.webp",
     dock: "top",
+    rack: "top-left-door",
   },
   {
     id: "puding",
@@ -56,6 +71,7 @@ const refrigeratorItems: IItem[] = [
     category: "Food",
     image: "/items/pudding-front-view.webp",
     dock: "bottom",
+    rack: "bottom-left-door",
   },
   {
     id: "strawberry",
@@ -75,6 +91,7 @@ const refrigeratorItems: IItem[] = [
     category: "Food",
     image: "/items/strawberry-front-view.webp",
     dock: "top",
+    rack: "top-middle-door",
   },
   {
     id: "banana",
@@ -94,6 +111,7 @@ const refrigeratorItems: IItem[] = [
     category: "Food",
     image: "/items/banana-front-view.webp",
     dock: "bottom",
+    rack: "middle-left-door",
   },
   {
     id: "brownies",
@@ -113,6 +131,7 @@ const refrigeratorItems: IItem[] = [
     category: "Food",
     image: "/items/brownie-front-view.webp",
     dock: "top",
+    rack: "top-right-door",
   },
   {
     id: "cheese",
@@ -132,6 +151,7 @@ const refrigeratorItems: IItem[] = [
     category: "Food",
     image: "/items/cheese-front-view.webp",
     dock: "bottom",
+    rack: "bottom-right-door",
   },
   {
     id: "roti_tawar",
@@ -151,6 +171,7 @@ const refrigeratorItems: IItem[] = [
     category: "Food",
     image: "/items/bread-front-view.webp",
     dock: "top",
+    rack: "top-left-door",
   },
   {
     id: "wortel",
@@ -170,6 +191,7 @@ const refrigeratorItems: IItem[] = [
     category: "Food",
     image: "/items/carrot-front-view.webp",
     dock: "bottom",
+    rack: "bottom-left-door",
   },
   {
     id: "kentang",
@@ -189,6 +211,7 @@ const refrigeratorItems: IItem[] = [
     category: "Food",
     image: "/items/potato-front-view.webp",
     dock: "top",
+    rack: "top-middle-door",
   },
   {
     id: "jagung",
@@ -208,6 +231,7 @@ const refrigeratorItems: IItem[] = [
     category: "Food",
     image: "",
     dock: "bottom",
+    rack: "middle-right-door",
   },
   {
     id: "botol",
@@ -227,6 +251,7 @@ const refrigeratorItems: IItem[] = [
     category: "Drink",
     image: "/items/bottle-front-view.webp",
     dock: "top",
+    rack: "top-right-door",
   },
   {
     id: "susu_karton",
@@ -246,6 +271,7 @@ const refrigeratorItems: IItem[] = [
     category: "Drink",
     image: "/items/milk-front-view.webp",
     dock: "bottom",
+    rack: "bottom-right-door",
   },
   {
     id: "jar",
@@ -265,6 +291,7 @@ const refrigeratorItems: IItem[] = [
     category: "Food",
     image: "/items/jar-front-view.webp",
     dock: "top",
+    rack: "top-left-door",
   },
   {
     id: "ice_cream",
@@ -284,6 +311,7 @@ const refrigeratorItems: IItem[] = [
     category: "Drink",
     image: "/items/ice-cream-front-view.webp",
     dock: "bottom",
+    rack: "freezer-left-door",
   },
   {
     id: "ice_stick_kiko",
@@ -303,6 +331,7 @@ const refrigeratorItems: IItem[] = [
     category: "Drink",
     image: "",
     dock: "top",
+    rack: "freezer-right-door",
   },
   {
     id: "dumpling",
@@ -322,6 +351,7 @@ const refrigeratorItems: IItem[] = [
     category: "Food",
     image: "/items/dumpling-front-view.webp",
     dock: "top",
+    rack: "freezer-sec2-left-door",
   },
   {
     id: "ayam",
@@ -341,6 +371,7 @@ const refrigeratorItems: IItem[] = [
     category: "Food",
     image: "/items/chicken-front-view.webp",
     dock: "top",
+    rack: "freezer-sec2-right-door",
   },
   {
     id: "sausage",
@@ -359,7 +390,8 @@ const refrigeratorItems: IItem[] = [
     view_front_upper: true,
     category: "Food",
     image: "",
-    dock: "top",
+    dock: "bottom",
+    rack: "freezer-left-door",
   },
   {
     id: "ikan",
@@ -378,7 +410,8 @@ const refrigeratorItems: IItem[] = [
     view_front_upper: true,
     category: "Food",
     image: "/items/fish-front-view.webp",
-    dock: "top",
+    dock: "bottom",
+    rack: "freezer-right-door",
   },
   {
     id: "daging",
@@ -398,6 +431,7 @@ const refrigeratorItems: IItem[] = [
     category: "Food",
     image: "/items/meat-front-view.webp",
     dock: "top",
+    rack: "freezer-sec2-left-door",
   },
 ];
 

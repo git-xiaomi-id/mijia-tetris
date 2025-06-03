@@ -23,16 +23,8 @@ import RestartGameHeading from "./restart-game-heading";
 import ExitGameHeading from "./exit-game-heading";
 
 export default function ButtonTimer() {
-  const {
-    screenStep,
-    timerStep,
-    togglingStep,
-    setTime,
-    setTimerStep,
-    setScreenStep,
-    runScenario,
-    setOnboardingStep,
-  } = useGameProvider();
+  const { screenStep, timerStep, togglingStep, runScenario, doResetGame } =
+    useGameProvider();
   const { setScreen } = useAppProvider();
 
   const { clickPlay } = useClickSound();
@@ -50,13 +42,6 @@ export default function ButtonTimer() {
 
   function popRestart() {
     setPop("restart");
-  }
-
-  function doResetGame() {
-    setTime(0);
-    setTimerStep("pause");
-    setScreenStep("intro1");
-    setOnboardingStep(0);
   }
 
   function doExitGame() {
@@ -81,7 +66,7 @@ export default function ButtonTimer() {
           <button
             type="button"
             onClick={_onClick}
-            className="size-10 aspect-square transition-all active:scale-90   absolute right-0 -bottom-7 z-10"
+            className="size-10 aspect-square transition-all active:scale-90   absolute right-0 -bottom-7"
           >
             {timerStep === "start" ? (
               <PauseIcon size={40} />

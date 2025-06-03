@@ -39,7 +39,7 @@
   background-size: contain;
 
   /* @apply absolute left-0 bottom-0; */
-  @apply w-full h-fit rounded-t-2xl p-4 pb-16  border-4 border-gray-200;
+  @apply w-full h-fit rounded-t-2xl p-4 pb-16  border-t-4 border-gray-200;
 
   @apply translate-y-10 opacity-0 transition-all;
 }
@@ -175,6 +175,15 @@
   @apply top-[76%];
 }
 
+.gs-mask-door-top.tap-orange,
+.gs-mask-door-middle.tap-orange,
+.gs-mask-door-bottom.tap-orange,
+.gs-mask-door-freezerbottom.tap-orange {
+  @apply border-[1.5px] border-dashed border-orange-600;
+  @apply hover:border-solid border-orange-600 !important;
+  animation: blink 1.5s ease-in-out infinite;
+}
+
 @keyframes blink {
   0% {
     /* opacity: 1; */
@@ -182,7 +191,7 @@
   }
   50% {
     /* opacity: 0.5; */
-    @apply border-transparent;
+    @apply border-slate-600/50;
   }
   100% {
     /* opacity: 1; */
@@ -191,58 +200,59 @@
 }
 
 /*  */
+/*  */
 /* Dashed border doors without background */
 .gs-mask-door-dashed {
-  @apply w-[50px] h-[200px] aspect-square absolute top-4 rounded;
+  @apply w-[10%] h-[200px] aspect-square absolute top-4 rounded;
   border: 2px dashed #666;
   @apply bg-white/50 border border-dashed border-slate-500 hover:border-orange-600 hover:bg-orange-600/30 active:scale-90 transition-all;
-
   animation: blink 1.5s ease-in-out infinite;
 }
 .gs-mask-door-dashed.door-left {
-  @apply top-8 left-[27%] h-[160px];
+  @apply top-[9%] left-[22%] h-[33%];
 }
 .gs-mask-door-dashed.door-right {
-  @apply top-8 right-[27%] h-[160px];
+  @apply top-[9%] right-[22%] h-[33%];
 }
 .gs-mask-door-dashed.door-middle {
-  @apply top-[9.5%] left-[38%];
-  @apply w-[23.5%] h-[24px];
+  @apply top-[12%] left-[35%];
+  @apply w-[29.5%] h-[6%];
 }
-.gs-mask-door-dashed.door-middle2 {
-  @apply top-[18%] left-[38%];
-  @apply w-[23.5%] h-[24px];
+.gs-mask-door-dashed.door-middle.second {
+  @apply top-[20.5%];
 }
-.gs-mask-door-dashed.door-middle3 {
-  @apply top-[27.5%] left-[38%];
-  @apply w-[23.5%] h-[24px];
+.gs-mask-door-dashed.door-middle.third {
+  @apply top-[28.5%];
 }
 .gs-mask-door-dashed-middle {
   /* MARK */
-  @apply w-[60px] h-[40px] aspect-square absolute top-[57.5%] rounded;
+  @apply w-[17%] h-[7.5%] aspect-square absolute top-[43.5%] rounded;
   @apply bg-white/30 border border-dashed border-slate-500 hover:border-orange-600 hover:bg-orange-600/30 active:scale-90 transition-all;
+  animation: blink 1.5s ease-in-out infinite;
 }
 .gs-mask-door-dashed-middle.door-left {
-  @apply left-[32%];
+  @apply left-[31.5%];
 }
 .gs-mask-door-dashed-middle.door-right {
-  @apply right-[32.3%];
+  @apply right-[32%];
 }
 .gs-mask-door-dashed-bottom {
   /* MARK */
-  @apply w-[60px] h-[40px] aspect-square absolute top-[66.2%] rounded;
+  @apply w-[16%] h-[7%] aspect-square absolute top-[58.2%] rounded;
   @apply bg-white/30 border border-dashed border-slate-500 hover:border-orange-600 hover:bg-orange-600/30 active:scale-90 transition-all;
+  animation: blink 1.5s ease-in-out infinite;
 }
 .gs-mask-door-dashed-bottom.left {
-  @apply left-[31.5%];
+  @apply left-[32%];
 }
 .gs-mask-door-dashed-bottom.right {
-  @apply right-[32.3%];
+  @apply right-[32.5%];
 }
 .gs-mask-door-dashed-freezerbottom {
   /* MARK */
-  @apply w-[58px] h-[50px] aspect-square absolute top-[74.5%] rounded;
+  @apply w-[58px] h-[7.1%] aspect-square absolute top-[67.5%] rounded;
   @apply bg-white/30 border border-dashed border-slate-500 hover:border-orange-600 hover:bg-orange-600/30 active:scale-90 transition-all;
+  animation: blink 1.5s ease-in-out infinite;
 }
 .gs-mask-door-dashed-freezerbottom.left {
   @apply left-[32%];
@@ -251,5 +261,71 @@
   @apply right-[32.5%];
 }
 .gs-mask-door-dashed-freezerbottom.sec2 {
-  @apply top-[412px];
+  @apply top-[77.5%];
+}
+
+/*  */
+/*  */
+.gs-gameActive-overlay {
+  @apply fixed left-0 top-0 size-full;
+  background: radial-gradient(
+      circle at 20% 30%,
+      rgba(139, 130, 120, 0.4) 0%,
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 70% 20%,
+      rgba(160, 150, 140, 0.3) 0%,
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 40% 70%,
+      rgba(120, 110, 100, 0.5) 0%,
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(145, 135, 125, 0.4) 0%,
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 10% 80%,
+      rgba(130, 120, 110, 0.45) 0%,
+      transparent 32%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(101, 91, 81, 0.8) 0%,
+      rgba(139, 130, 120, 0.6) 25%,
+      rgba(160, 150, 140, 0.4) 50%,
+      rgba(120, 110, 100, 0.7) 75%,
+      rgba(145, 135, 125, 0.5) 100%
+    );
+  backdrop-filter: blur(4px);
+}
+
+.item-rack {
+  /* transform: rotateX(55deg) rotateY(10deg); */
+  /* transform-style: preserve-3d; */
+  width: 300px;
+  height: 150px;
+  transform: perspective(600px) rotateX(65deg);
+}
+
+.game-rack-area {
+  @apply absolute left-[0] top-[0%] size-full;
+}
+.gra-area {
+  @apply relative size-full;
+}
+.gra-top-middle {
+  @apply absolute top-[35%] left-[15%] h-2 w-full max-w-sm py-2;
+  @apply bg-slate-400/30 backdrop-blur-[2px] rounded-md;
+  transform: rotateX(0deg) rotateY(0deg);
+  transform-style: preserve-3d;
+  clip-path: polygon(0 0, 100% 0, 87% 100%, 12% 100%);
+}
+.gra-top-middle::after {
+  content: "";
+  @apply absolute left-0 top-0 h-2 w-full bg-white rounded;
 }

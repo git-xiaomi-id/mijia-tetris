@@ -11,12 +11,20 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
   variant?: "orange" | "blue" | "ghost-red" | "red" | "white";
   loading?: boolean;
+<<<<<<< Updated upstream
   size?: "sm" | "md";
+=======
+  size?: "md" | "sm";
+>>>>>>> Stashed changes
 }
 
 const AppButton = forwardRef<HTMLButtonElement, ButtonProps>(
   (
+<<<<<<< Updated upstream
     { children, onClick, variant = "orange", loading, size = "md", ...props },
+=======
+    { children, onClick, variant = "orange", size = "md", loading, ...props },
+>>>>>>> Stashed changes
     ref
   ) => {
     const { clickPlay } = useClickSound();

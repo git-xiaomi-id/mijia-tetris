@@ -29,7 +29,7 @@ export default function GameScreenContent() {
       {/* JANGAN ADA FIXED DLL, GRID COL BAGI RATA */}
       <div className="gs-gamearea">
         {/* 1 */}
-        <div className="gs-toparea">
+        <div className="gs-toparea z-10">
           <UsernameDisplay username={user?.username_ig ?? ""} />
           <div
             className={[
