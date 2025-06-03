@@ -1,15 +1,24 @@
+import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router";
 import { ToasterSonner } from "./components/ui/sonner";
 import { AppProvider } from "./hooks/use-context";
 import ScreenWrapper from "./screen-wrapper";
-import Leaderboard from "./leaderboard";
+
+const Leaderboard = lazy(() => import("./leaderboard"));
 
 export default function App() {
   return (
     <AppProvider>
       <Routes>
         <Route path="/" element={<ScreenWrapper />} />
-        <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route
+          path="/leaderboard"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <Leaderboard />
+            </Suspense>
+          }
+        />
       </Routes>
       <ToasterSonner
         toastOptions={{
