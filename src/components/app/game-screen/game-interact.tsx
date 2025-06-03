@@ -1,6 +1,9 @@
 import useClickSound from "@/hooks/use-click-sound";
 import { useGameProvider } from "@/hooks/use-game";
 import { rackArea } from "@/lib/refrigerator-items";
+import RackTopMiddle from "./rack-top-middle";
+import RackTopDoor from "./rack-top-door";
+import RackBoxMiddle from "./rack-box-middle";
 
 export default function GameInteract() {
   const { clickPlay } = useClickSound();
@@ -38,7 +41,9 @@ export default function GameInteract() {
                     onClick={() => clickArea(area)}
                     type="button"
                     className={area.className}
-                  />
+                  >
+                    <span className="text-[10px]">{area?.name}</span>
+                  </button>
                 ))
             }
           </div>
@@ -49,49 +54,28 @@ export default function GameInteract() {
             <div className="gs-gameActive-overlay" />
 
             {/*  */}
-            {areaActive.areaId.includes("top-middle") && (
-              <div className="gra-top-middle">
-                <div className="gra-area"></div>
-              </div>
-            )}
 
             {areaActive.areaId === "top-left" && (
-              <div className="gra-top-door">
-                <div className="gra-area">
-                  {/* <div className="size-full flex flex-col gap-20"> */}
-                  <div className="gra-top-door-row" />
-                  <div className="gra-top-door-row mt-4" />
-                  <div className="gra-top-door-row mt-12" />
-                  {/* </div> */}
-                </div>
-              </div>
+              <RackTopDoor items={areaActive.items} />
+            )}
+
+            {areaActive.areaId.includes("top-middle") && (
+              <RackTopMiddle items={areaActive.items} />
             )}
 
             {areaActive.areaId === "top-right" && (
-              <div className="gra-top-door">
-                <div className="gra-area">
-                  {/* <div className="size-full flex flex-col gap-20"> */}
-                  <div className="gra-top-door-row ">
-                    <div className="gra-grid-item" />
-                    <div className="gra-grid-item" />
-                    <div className="gra-grid-item" />
-                    <div className="gra-grid-item" />
-                  </div>
-                  <div className="gra-top-door-row mt-4">
-                    <div className="gra-grid-item" />
-                    <div className="gra-grid-item" />
-                    <div className="gra-grid-item" />
-                    <div className="gra-grid-item" />
-                  </div>
-                  <div className="gra-top-door-row mt-12">
-                    <div className="gra-grid-item" />
-                    <div className="gra-grid-item" />
-                    <div className="gra-grid-item" />
-                    <div className="gra-grid-item" />
-                  </div>
-                  {/* </div> */}
-                </div>
-              </div>
+              <RackTopDoor items={areaActive.items} />
+            )}
+
+            {(areaActive.areaId === "middle-left" ||
+              areaActive.areaId === "middle-right" ||
+              areaActive.areaId === "bottom-left" ||
+              areaActive.areaId === "bottom-right" ||
+              areaActive.areaId === "freezer-left" ||
+              areaActive.areaId === "freezer-right" ||
+              areaActive.areaId === "freezer-sec2-left" ||
+              areaActive.areaId === "freezer-sec2-right") && (
+              <RackBoxMiddle items={areaActive.items} />
             )}
 
             {/*  */}

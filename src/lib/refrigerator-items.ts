@@ -27,7 +27,8 @@ export interface IRackArea {
   area: TRack;
   areaId: TAreaId;
   className: string;
-  items: IItemPlaced[];
+  items: IItemPlaced[][];
+  name: string;
 }
 
 export type TRack =
@@ -48,6 +49,7 @@ export type TAreaId =
   | "top-middle1"
   | "top-middle2"
   | "top-middle3"
+  | "top-middle4"
   | "top-right"
   | "middle-left"
   | "middle-right"
@@ -466,79 +468,99 @@ export const rackArea: IRackArea[] = [
     area: "top-left-door",
     areaId: "top-left",
     className: "gs-mask-door-dashed door-left",
-    items: [],
+    items: Array.from({ length: 3 }, () => Array(4).fill(null)),
+    name: "Door",
   },
   {
     area: "top-middle-door",
     areaId: "top-middle1",
     className: "gs-mask-door-dashed door-middle",
-    items: [],
+    items: Array.from({ length: 1 }, () => Array(6).fill(null)),
+    name: "Main Rak",
   },
   {
     area: "top-middle-door",
     areaId: "top-middle2",
     className: "gs-mask-door-dashed door-middle second",
-    items: [],
+    items: Array.from({ length: 1 }, () => Array(6).fill(null)),
+    name: "Main Rak",
   },
   {
     area: "top-middle-door",
     areaId: "top-middle3",
     className: "gs-mask-door-dashed door-middle third",
-    items: [],
+    items: Array.from({ length: 1 }, () => Array(6).fill(null)),
+    name: "Main Rak",
+  },
+  {
+    area: "top-middle-door",
+    areaId: "top-middle4",
+    className: "gs-mask-door-dashed door-middle fourth",
+    items: Array.from({ length: 1 }, () => Array(6).fill(null)),
+    name: "Main Rak",
   },
   {
     area: "top-right-door",
     areaId: "top-right",
     className: "gs-mask-door-dashed door-right",
-    items: [],
+    items: Array.from({ length: 3 }, () => Array(4).fill(null)),
+    name: "Door",
   },
   {
     area: "middle-left-door",
     areaId: "middle-left",
     className: "gs-mask-door-dashed-middle door-left",
-    items: [],
+    items: Array.from({ length: 1 }, () => Array(4).fill(null)),
+    name: "Drawer Atas",
   },
   {
     area: "middle-right-door",
     areaId: "middle-right",
     className: "gs-mask-door-dashed-middle door-right",
-    items: [],
+    items: Array.from({ length: 1 }, () => Array(4).fill(null)),
+    name: "Drawer Bawah",
   },
   {
     area: "bottom-left-door",
     areaId: "bottom-left",
     className: "gs-mask-door-dashed-bottom left",
     items: [],
+    name: "Freezer 1",
   },
   {
     area: "bottom-right-door",
     areaId: "bottom-right",
     className: "gs-mask-door-dashed-bottom right",
     items: [],
+    name: "Freezer 2",
   },
   {
     area: "freezer-left-door",
     areaId: "freezer-left",
     className: "gs-mask-door-dashed-freezerbottom left",
     items: [],
+    name: "Freezer 3",
   },
   {
     area: "freezer-right-door",
     areaId: "freezer-right",
     className: "gs-mask-door-dashed-freezerbottom right",
     items: [],
+    name: "Freezer 4",
   },
   {
     area: "freezer-sec2-left-door",
     areaId: "freezer-sec2-left",
     className: "gs-mask-door-dashed-freezerbottom sec2 left",
     items: [],
+    name: "Freezer 5",
   },
   {
     area: "freezer-sec2-right-door",
     areaId: "freezer-sec2-right",
     className: "gs-mask-door-dashed-freezerbottom sec2 right",
     items: [],
+    name: "Freezer 6",
   },
 ];
 
