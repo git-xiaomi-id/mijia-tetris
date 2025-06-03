@@ -2,31 +2,26 @@ import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router";
 import { ToasterSonner } from "./components/ui/sonner";
 import { AppProvider } from "./hooks/use-context";
-import ScreenWrapper from "./screen-wrapper";
 import { Loader } from "lucide-react";
 
 const Leaderboard = lazy(() => import("./leaderboard"));
+const ScreenWrapper = lazy(() => import("./screen-wrapper"));
+
+const LoadingFallback = () => (
+  <div className="w-screen h-screen flex items-center justify-center">
+    <Loader className="animate-spin size-5" />
+  </div>
+);
 
 export default function App() {
   return (
     <AppProvider>
-      <Routes>
-        <Route path="/" element={<ScreenWrapper />} />
-        <Route
-          path="/leaderboard"
-          element={
-            <Suspense
-              fallback={
-                <div className="w-screen h-screen flex items-center justify-center">
-                  <Loader className="animate-spin size-5" />
-                </div>
-              }
-            >
-              <Leaderboard />
-            </Suspense>
-          }
-        />
-      </Routes>
+      <Suspense fallback={<LoadingFallback />}>
+        <Routes>
+          <Route path="/" element={<ScreenWrapper />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+        </Routes>
+      </Suspense>
       <ToasterSonner
         toastOptions={{
           classNames: {
