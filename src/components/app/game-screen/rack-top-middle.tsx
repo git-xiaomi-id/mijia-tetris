@@ -7,13 +7,12 @@ export default function RackTopMiddle({
   items: IItemPlaced[][];
   absolute?: boolean;
 }) {
+  console.log("rack-top-middle", { items });
+
   const view = (
-    <div className="gra-area  flex gap-2">
+    <div className="gra-area  flex flex-col gap-4 items-center">
       {items.map((row, rowIndex) => (
-        <div
-          key={rowIndex}
-          className="absolute left-[50%] -translate-x-[50%] top-[19%]  flex gap-2 h-20 w-fit"
-        >
+        <div key={rowIndex} className="gra-top-middle-row">
           {row.map((_, colIndex) => (
             <div
               key={colIndex}

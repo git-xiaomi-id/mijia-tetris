@@ -1,3 +1,5 @@
+import { generateGridArray } from "./utils";
+
 export interface IItem {
   id: string;
   name: string;
@@ -468,56 +470,40 @@ export const rackArea: IRackArea[] = [
     area: "top-left-door",
     areaId: "top-left",
     className: "gs-mask-door-dashed door-left",
-    items: Array.from({ length: 3 }, () => Array(4).fill(null)),
+    // items: Array.from({ length: 3 }, () => Array(4).fill(null)),
+    items: generateGridArray(3, 4),
     name: "Door",
   },
   {
     area: "top-middle-door",
     areaId: "top-middle1",
     className: "gs-mask-door-dashed door-middle",
-    items: Array.from({ length: 1 }, () => Array(6).fill(null)),
-    name: "Main Rak",
-  },
-  {
-    area: "top-middle-door",
-    areaId: "top-middle2",
-    className: "gs-mask-door-dashed door-middle second",
-    items: Array.from({ length: 1 }, () => Array(6).fill(null)),
-    name: "Main Rak",
-  },
-  {
-    area: "top-middle-door",
-    areaId: "top-middle3",
-    className: "gs-mask-door-dashed door-middle third",
-    items: Array.from({ length: 1 }, () => Array(6).fill(null)),
-    name: "Main Rak",
-  },
-  {
-    area: "top-middle-door",
-    areaId: "top-middle4",
-    className: "gs-mask-door-dashed door-middle fourth",
-    items: Array.from({ length: 1 }, () => Array(6).fill(null)),
+    // items: Array.from({ length: 4 }, () => Array(6).fill(null)),
+    items: generateGridArray(4, 6),
     name: "Main Rak",
   },
   {
     area: "top-right-door",
     areaId: "top-right",
     className: "gs-mask-door-dashed door-right",
-    items: Array.from({ length: 3 }, () => Array(4).fill(null)),
+    // items: Array.from({ length: 3 }, () => Array(4).fill(null)),
+    items: generateGridArray(3, 4),
     name: "Door",
   },
   {
     area: "middle-left-door",
     areaId: "middle-left",
     className: "gs-mask-door-dashed-middle door-left",
-    items: Array.from({ length: 1 }, () => Array(4).fill(null)),
+    // items: Array.from({ length: 1 }, () => Array(4).fill(null)),
+    items: generateGridArray(1, 4),
     name: "Drawer Atas",
   },
   {
     area: "middle-right-door",
     areaId: "middle-right",
     className: "gs-mask-door-dashed-middle door-right",
-    items: Array.from({ length: 1 }, () => Array(4).fill(null)),
+    // items: Array.from({ length: 1 }, () => Array(4).fill(null)),
+    items: generateGridArray(1, 4),
     name: "Drawer Bawah",
   },
   {

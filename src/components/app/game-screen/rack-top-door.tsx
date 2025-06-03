@@ -26,7 +26,6 @@ export default function RackTopDoor({
     return (
       <div className="gra-top-door gra-top-door-set">
         <div className={`gra-top-door-bg gra-top-door-set ${type}`} />
-
         {view}
       </div>
     );

@@ -215,24 +215,9 @@
   @apply top-[9%] right-[22%] h-[33%];
 }
 .gs-mask-door-dashed.door-middle {
-  @apply top-[12%] left-[35%];
-  @apply w-[29.5%] h-[6%];
+  @apply top-[12%] left-[34%];
+  @apply w-[32%] h-[29.75%];
 }
-.gs-mask-door-dashed.door-middle:nth-of-type(2) {
-  @apply top-[20.5%];
-}
-.gs-mask-door-dashed.door-middle:nth-of-type(3) {
-  @apply top-[28.5%];
-}
-.gs-mask-door-dashed.door-middle:nth-of-type(4) {
-  @apply top-[36%];
-}
-/* .gs-mask-door-dashed.door-middle.second {
-  @apply top-[20.5%];
-}
-.gs-mask-door-dashed.door-middle.third {
-  @apply top-[28.5%];
-} */
 .gs-mask-door-dashed-middle {
   /* MARK */
   @apply w-[17%] h-[7.5%] aspect-square absolute top-[43.5%] rounded;
@@ -350,11 +335,18 @@
   animation: showningDoorMiddle 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)
     forwards;
 }
-.gra-top-middle::after {
+/* .gra-top-middle::after {
   content: "";
-  @apply absolute left-0 top-0 h-4 w-full border rounded-sm;
+  @apply absolute left-0 top-0 ;
+  
+} */
+.gra-top-middle-row {
+  @apply w-full border rounded-sm;
+  @apply flex gap-2 h-16 w-fit;
   background-image: url("/rack/rack-top-middle.png");
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom center;
 }
 .gra-grid-item {
   @apply h-[80%] border border-dashed border-slate-500 rounded-sm;
