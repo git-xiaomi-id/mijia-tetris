@@ -179,7 +179,9 @@ export function GameProvider({ children }: { children: ReactNode }) {
     );
     if (lastIndex === -1) {
       setItemActive(null);
-      return toast.error("Opps, tidak cukup ruang untuk menaruh item");
+      return toast.error("Opps", {
+        description: "Tidak cukup ruang untuk menaruh item",
+      });
     }
     newItems[rowIndex][lastIndex] = {
       id: itemActive,
