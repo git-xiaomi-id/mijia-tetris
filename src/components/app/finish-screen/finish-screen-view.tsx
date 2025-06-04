@@ -18,9 +18,10 @@ function UsernameDisplay({ username }: { username: string }) {
   );
 }
 
-function ChancePlay({ lives }: { lives: number }) {
+function ChancePlay({ gameCount }: { gameCount: number }) {
   const maxLives = 3;
-  const emptyLives = maxLives - lives;
+  const emptyLives = Math.min(Math.max(gameCount, 0), maxLives);
+  const filledLives = maxLives - emptyLives;
 
   return (
     <div className="flex items-center gap-2">
@@ -29,7 +30,7 @@ function ChancePlay({ lives }: { lives: number }) {
         {Array.from({ length: emptyLives }, (_, index) => (
           <LivesOut key={`empty-${index}`} />
         ))}
-        {Array.from({ length: lives }, (_, index) => (
+        {Array.from({ length: filledLives }, (_, index) => (
           <LivesFill key={`filled-${index}`} />
         ))}
       </div>
@@ -39,7 +40,7 @@ function ChancePlay({ lives }: { lives: number }) {
 
 export default function FinishScreenView() {
   const { time } = useGameProvider();
-  const { user } = useAppProvider();
+  const { user, gamesCount } = useAppProvider();
 
   const minutes = useMemo(() => {
     return Math.floor(time / 60);
@@ -71,7 +72,7 @@ export default function FinishScreenView() {
 
   return (
     <div className="fs-view">
-      <ChancePlay lives={2} />
+      <ChancePlay gameCount={gamesCount} />
       <div className="fs-view-card">
         <div className="flex flex-col items-center justify-center gap-3">
           <div className="flex flex-col items-center justify-center">

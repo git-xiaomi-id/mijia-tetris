@@ -20,11 +20,11 @@
 }
 
 .fs-timer-area {
-  @apply relative;
+  @apply relative flex items-center justify-center;
 }
 
 .fs-timer-area .fs-time-box {
-  @apply rounded-lg min-w-[148px] py-2 pl-8 pr-4 border border-[#388DE3];
+  @apply rounded-lg min-w-[148px] py-2 pl-8 pr-4 border border-[#388DE3] w-fit;
   background: linear-gradient(180deg, #89c4ff 0%, #378ce1 69.71%, #3399ff 100%);
 }
 

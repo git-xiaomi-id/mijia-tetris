@@ -17,10 +17,10 @@
   @apply flex items-center justify-center gap-1.5;
   @apply border-2 active:scale-95 transition-all w-full font-bold text-2xl h-auto rounded-2xl;
 }
-.app-styled-button.md {
+.app-styled-button.lg {
   @apply py-[14px] px-5;
 }
-.app-styled-button.sm {
+.app-styled-button.md {
   @apply py-[14px] px-3;
 }
 .app-styled-button:active {

@@ -22,6 +22,7 @@ interface IAppModalProps {
   loadingConfirm?: boolean;
   textConfirm?: string;
   onOpenChange?: (open: boolean) => void;
+  onConfirmClick?: () => void;
   onCancelClick?: () => void;
   textCancel?: string;
   footer?: ReactNode;
@@ -37,6 +38,7 @@ export default function AppModal({
   loadingConfirm,
   textConfirm,
   onOpenChange: onOpenChangeProp,
+  onConfirmClick,
   onCancelClick,
   textCancel,
   footer,
@@ -90,13 +92,22 @@ export default function AppModal({
                   </RegularButton>
                 </AlertDialogCancel>
               ))}
-            {textConfirm && (
-              <AlertDialogAction asChild noBaseClass>
-                <RegularButton variant="ghost-blue" className="ml-auto">
+            {textConfirm &&
+              (onConfirmClick ? (
+                <RegularButton
+                  variant="ghost-blue"
+                  className="ml-auto"
+                  onClick={onConfirmClick}
+                >
                   {textConfirm}
                 </RegularButton>
-              </AlertDialogAction>
-            )}
+              ) : (
+                <AlertDialogAction asChild noBaseClass>
+                  <RegularButton variant="ghost-blue" className="ml-auto">
+                    {textConfirm}
+                  </RegularButton>
+                </AlertDialogAction>
+              ))}
           </AlertDialogFooter>
         )}
       </AlertDialogContent>
