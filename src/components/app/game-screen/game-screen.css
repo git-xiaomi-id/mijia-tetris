@@ -324,16 +324,21 @@
   }
 }
 .gra-top-middle {
-  @apply absolute top-[35%] left-[15%] h-2 w-full max-w-sm py-2;
+  @apply absolute top-[5%] left-[17.5%] w-[65%] max-w-sm pt-12 rounded overflow-hidden;
   /* @apply bg-slate-400/30 backdrop-blur-[2px] rounded  border border-red-500; */
-  transform: rotateX(0deg) rotateY(0deg);
-  transform-style: preserve-3d;
-  clip-path: polygon(0 0, 100% 0, 87% 100%, 12% 100%);
+  /* transform: rotateX(0deg) rotateY(0deg); */
+  /* transform-style: preserve-3d; */
+  /* clip-path: polygon(0 0, 100% 0, 87% 100%, 12% 100%); */
 
   opacity: 0;
   transform: translate(0%, 50%);
   animation: showningDoorMiddle 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)
     forwards;
+
+  background-image: url("/illustration/refri-upper.webp");
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 /* .gra-top-middle::after {
   content: "";
@@ -347,6 +352,19 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: bottom center;
+
+  opacity: 0;
+  transform: translate(0%, 50%);
+  animation: showningDoorMiddle 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+    0.25s forwards;
+}
+.gra-top-middle-row:nth-of-type(2) {
+  animation: showningDoorMiddle 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+    0.5s forwards;
+}
+.gra-top-middle-row:nth-of-type(3) {
+  animation: showningDoorMiddle 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+    0.75s forwards;
 }
 .gra-grid-item {
   @apply h-[80%] border border-dashed border-slate-500 rounded-sm;

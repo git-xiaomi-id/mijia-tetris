@@ -21,8 +21,6 @@ export default function RackTopDoor({
     }
   };
 
-  console.log({ items });
-
   const view = (
     <div className="gra-area">
       {/* <div className="size-full flex flex-col gap-20"> */}

@@ -479,7 +479,7 @@ export const rackArea: IRackArea[] = [
     areaId: "top-middle1",
     className: "gs-mask-door-dashed door-middle",
     // items: Array.from({ length: 4 }, () => Array(6).fill(null)),
-    items: generateGridArray(4, 6),
+    items: generateGridArray(3, 6),
     name: "Main Rak",
   },
   {
