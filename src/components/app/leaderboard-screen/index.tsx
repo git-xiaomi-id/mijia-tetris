@@ -45,7 +45,7 @@ function LeaderboardIllustration() {
 }
 
 export default function LeaderboardScreen() {
-  const { user } = useAppProvider();
+  const { user, userLoading } = useAppProvider();
   const navigate = useNavigate();
   const { setTime, setTimerStep, setScreenStep, setOnboardingStep } =
     useGameProvider();
@@ -66,10 +66,10 @@ export default function LeaderboardScreen() {
   }
 
   useEffect(() => {
-    if (!user) {
+    if (!user && !userLoading) {
       setShowLoginModal(true);
     }
-  }, [user]);
+  }, [user, userLoading]);
 
   const handleModalClose = useCallback((open: boolean) => {
     setShowLoginModal(open);
