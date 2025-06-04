@@ -167,6 +167,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     shuffleItems();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   function placeItem(rowIndex: number, colIndex?: number) {
     if (!itemActive) return toast.error("Pilih item terlebih dahulu");
     if (!areaActive) return;
