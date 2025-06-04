@@ -167,13 +167,20 @@ export function GameProvider({ children }: { children: ReactNode }) {
     shuffleItems();
   }
 
-  function placeItem(rowIndex: number, colIndex: number) {
+  function placeItem(rowIndex: number, colIndex?: number) {
     if (!itemActive) return toast.error("Pilih item terlebih dahulu");
     if (!areaActive) return;
 
     const newItems = areaActive.items.map((row) => [...row]);
     const item = refrigeratorItems.find((item) => item.id === itemActive);
-    newItems[rowIndex][colIndex] = {
+    const lastIndex = newItems[rowIndex].findIndex(
+      (item) => typeof item === "string"
+    );
+    if (lastIndex === -1) {
+      setItemActive(null);
+      return toast.error("Opps, tidak cukup ruang untuk menaruh item");
+    }
+    newItems[rowIndex][lastIndex] = {
       id: itemActive,
       name: item?.name || "",
       image: item?.image || "",
