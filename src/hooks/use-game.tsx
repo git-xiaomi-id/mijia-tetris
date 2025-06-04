@@ -168,7 +168,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  function placeItem(rowIndex: number, colIndex?: number) {
+  function placeItem(rowIndex: number) {
     if (!itemActive) return toast.error("Pilih item terlebih dahulu");
     if (!areaActive) return;
 
