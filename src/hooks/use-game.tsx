@@ -232,7 +232,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
   function onClickItem(item: (typeof refrigeratorItems)[0]) {
     if (areaActive) {
       if (item.rack !== areaActive.area && itemActive !== item.id)
-        toast.error(`Oops!`, {
+        return toast.error(`Oops!`, {
           description: `${item.name} tidak bisa ditaruh di ${areaActive.name}`,
         });
       else toast.dismiss();

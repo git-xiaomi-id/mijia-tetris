@@ -15,7 +15,7 @@ export default function App() {
         toastOptions={{
           classNames: {
             toast:
-              " py-2 px-3 rounded-[12px] flex items-center justify-center gap-4 border  shadow-lg",
+              " py-2 px-3 rounded-[12px] flex items-center gap-4 border  shadow-lg",
             error:
               " bg-gradient-to-b from-[#FFFFFF] to-[#EFEFEF] border-[#d04141] text-[#232322] shadow-[0px_4px_12px_0px_#C4090966] font-[450]",
             success:

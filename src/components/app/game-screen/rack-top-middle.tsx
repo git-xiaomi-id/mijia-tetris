@@ -44,7 +44,7 @@ export default function RackTopMiddle({
                       className={[i > 0 ? "-mt-1.5" : ""].join(" ")}
                       style={{
                         scale:
-                          item.amount > 1 ? (i > 0 ? 0.9 + 0.05 * i : 0.9) : 1,
+                          item.amount > 1 ? (i > 0 ? 0.9 + 0.1 * i : 0.9) : 1,
                       }}
                     />
                   ))}
