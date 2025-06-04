@@ -1,8 +1,14 @@
 import refrigeratorItems, {
   rackArea,
+  type IItem,
   type IRackArea,
 } from "@/lib/refrigerator-items";
-import { getCookie, KEY_ONBOARDING, setCookie } from "@/lib/utils";
+import {
+  generateGridArray,
+  getCookie,
+  KEY_ONBOARDING,
+  setCookie,
+} from "@/lib/utils";
 import {
   createContext,
   useContext,
@@ -48,7 +54,7 @@ interface GameContextType {
   setTopItem: Dispatch<SetStateAction<typeof refrigeratorItems | []>>;
   bottomItem: typeof refrigeratorItems | [];
   setBottomItem: Dispatch<SetStateAction<typeof refrigeratorItems | []>>;
-  doResetGame: () => void;
+  doResetGame: (callback?: (...args: unknown[]) => void) => void;
   placeItem: (rowIndex: number, colIndex: number) => void;
   onClickItem: (item: (typeof refrigeratorItems)[0]) => void;
   rackState: IRackArea[];
@@ -100,7 +106,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const [areaActive, setAreaActive] = useState<(typeof rackArea)[0] | null>(
     null
   );
-  const [rackState, setRackState] = useState<IRackArea[] | []>(rackArea);
+  const [rackState, setRackState] = useState<IRackArea[] | []>([...rackArea]);
 
   function shuffleItems() {
     const shuffledItems = [...refrigeratorItems].sort(
@@ -158,25 +164,52 @@ export function GameProvider({ children }: { children: ReactNode }) {
     else setOnboardingOpen(false);
   }, [screenStep]);
 
-  function doResetGame() {
+  function doResetGame(callback?: () => void) {
     setTime(0);
     setTimerStep("pause");
     setScreenStep("intro1");
     setOnboardingStep(0);
-    setAreaActive(null);
+
+    //
 
     shuffleItems();
+    setAreaActive(null);
+    setItemActive(null);
+    setTimeout(() => {
+      setRackState(
+        rackArea.map((rack) => ({
+          ...rack,
+          items: generateGridArray(rack.rows, rack.columns),
+        }))
+      );
+    }, 100);
+
+    if (callback) setTimeout(callback, 200);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  function placeItem(rowIndex: number) {
-    if (!itemActive) return toast.error("Pilih item terlebih dahulu");
+  function placeItem(rowIndex: number, colIndex: number) {
     if (!areaActive) return;
+    if (!itemActive) return toast.error("Pilih item terlebih dahulu");
+
+    const item = refrigeratorItems.find((item) => item.id === itemActive)!;
+    if (item.rack !== areaActive.area) {
+      setItemActive(null);
+      toast.error(`Oops!`, {
+        description: `${item.name} tidak bisa ditaruh di ${areaActive.name}`,
+      });
+      return;
+    } else toast.dismiss();
+
+    function count(item: IItem) {
+      const count = item.totalQty - item.placementAmount;
+      return count;
+    }
 
     const newItems = areaActive.items.map((row) => [...row]);
-    const item = refrigeratorItems.find((item) => item.id === itemActive);
+    // const item = refrigeratorItems.find((item) => item.id === itemActive);
     const lastIndex = newItems[rowIndex].findIndex(
-      (item) => typeof item === "string"
+      (i) => typeof i === "string"
     );
     if (lastIndex === -1) {
       setItemActive(null);
@@ -196,12 +229,9 @@ export function GameProvider({ children }: { children: ReactNode }) {
     };
 
     // UPDATE RACK INFORMATION
-    setAreaActive({
-      ...areaActive,
-      items: newItems,
-    });
+    setAreaActive({ ...areaActive, items: newItems });
     setRackState((curr) => {
-      const newData = curr;
+      const newData = [...curr];
       newData[newData.findIndex((i) => i.areaId === areaActive.areaId)].items =
         newItems;
       return newData;
@@ -209,25 +239,24 @@ export function GameProvider({ children }: { children: ReactNode }) {
 
     // UPDATE ITEM INFORMATION
     const inTop = topItem.findIndex((i) => i.id === itemActive);
+
     if (inTop >= 0) {
+      // Item ada di topItem - update secara immutable
       setTopItem((prev) => {
-        const news = prev;
-        news[inTop].totalQty = Math.max(
-          0,
-          news[inTop].totalQty - news[inTop].placementAmount
+        return prev.map((item, index) =>
+          index === inTop ? { ...item, totalQty: count(item) } : item
         );
-        return news;
       });
     } else {
+      // Item ada di bottomItem - update secara immutable
       const inBottom = bottomItem.findIndex((i) => i.id === itemActive);
-      setBottomItem((prev) => {
-        const news = prev;
-        news[inBottom].totalQty = Math.max(
-          0,
-          news[inBottom].totalQty - news[inBottom].placementAmount
-        );
-        return news;
-      });
+      if (inBottom >= 0) {
+        setBottomItem((prev) => {
+          return prev.map((item, index) =>
+            index === inBottom ? { ...item, totalQty: count(item) } : item
+          );
+        });
+      }
     }
 
     setItemActive(null);
@@ -235,11 +264,6 @@ export function GameProvider({ children }: { children: ReactNode }) {
 
   function onClickItem(item: (typeof refrigeratorItems)[0]) {
     if (areaActive) {
-      if (item.rack !== areaActive.area && itemActive !== item.id)
-        return toast.error(`Oops!`, {
-          description: `${item.name} tidak bisa ditaruh di ${areaActive.name}`,
-        });
-      else toast.dismiss();
       setItemActive(itemActive === item.id ? null : item.id);
     }
   }

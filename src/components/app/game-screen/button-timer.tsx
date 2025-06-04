@@ -44,16 +44,18 @@ export default function ButtonTimer() {
     setPop("restart");
   }
 
-  function doExitGame() {
-    doResetGame();
-    setScreen("welcome");
+  function callReset(callback?: () => void) {
+    doResetGame(callback);
     setPop("");
   }
 
+  async function doExitGame() {
+    callReset();
+    setScreen("welcome");
+  }
+
   function doRestartGame() {
-    doResetGame();
-    // setTimerStep("start");
-    setPop("");
+    callReset();
     runScenario();
   }
 

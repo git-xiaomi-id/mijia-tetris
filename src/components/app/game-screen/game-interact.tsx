@@ -27,8 +27,8 @@ export default function GameInteract() {
         <div className="absolute left-0 top-0 size-full">
           <div
             className={[
-              "h-full w-fit mx-auto relative",
-              screenStep === "game" ? "transition-all scale-110" : "",
+              "h-full w-fit mx-auto relative transition-all",
+              screenStep === "game" ? "scale-110" : "",
             ].join(" ")}
           >
             <img
