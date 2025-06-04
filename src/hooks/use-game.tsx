@@ -91,6 +91,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const [hasOnboarding, setHasOnboarding] = useState<boolean>(
     getCookie(KEY_ONBOARDING) === "true"
   );
+
   const [topItem, setTopItem] = useState<typeof refrigeratorItems | []>([]);
   const [bottomItem, setBottomItem] = useState<typeof refrigeratorItems | []>(
     []
