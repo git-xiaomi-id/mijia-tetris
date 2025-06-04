@@ -207,6 +207,16 @@ export function GameProvider({ children }: { children: ReactNode }) {
         );
         return news;
       });
+    } else {
+      const inBottom = bottomItem.findIndex((i) => i.id === itemActive);
+      setBottomItem((prev) => {
+        const news = prev;
+        news[inBottom].totalQty = Math.max(
+          0,
+          news[inBottom].totalQty - news[inBottom].placementAmount
+        );
+        return news;
+      });
     }
 
     setItemActive(null);
