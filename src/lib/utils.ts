@@ -22,6 +22,8 @@ export const KEY_USERNAME_LOCAL = "mijia-game-username";
 export const KEY_ID_LOCAL = "mijia-game-id";
 export const KEY_TOKEN = "mijia-game-token";
 export const KEY_ONBOARDING = "mijia-game-onboarding";
+export const KEY_PLAY_COUNT = "mijia-game-count";
+export const KEY_PRIZE_INFO = "mijia-game-prize-info";
 
 export function generateGridArray<T = string>(
   rows: number = 0,

@@ -7,11 +7,14 @@ import {
   removeUserToken,
   removeTokenFromUser,
   checkValidUser,
+  getUserGamesCountToday,
 } from "./supabase-client";
 import {
   delCookie,
   getCookie,
   KEY_ID_LOCAL,
+  KEY_PLAY_COUNT,
+  KEY_PRIZE_INFO,
   KEY_TOKEN,
   KEY_USERNAME_LOCAL,
   setCookie,
@@ -48,6 +51,8 @@ export async function clearCookieData() {
   setCookie(KEY_ID_LOCAL, "");
   setCookie(KEY_USERNAME_LOCAL, "");
   setCookie(KEY_TOKEN, "");
+  setCookie(KEY_PLAY_COUNT, "");
+  setCookie(KEY_PRIZE_INFO, "");
 }
 
 export async function tapLogoutUser() {
@@ -61,6 +66,22 @@ export async function tapCheckUser() {
   const token = getCookie(KEY_TOKEN) ?? "";
   const currentUserByToken = await getUserByToken(token);
   return currentUserByToken;
+}
+
+export async function tapCheckUserGames() {
+  let username = getCookie(KEY_USERNAME_LOCAL);
+
+  if (!username) {
+    const userCheck = await tapCheckUser();
+    if (userCheck?.data?.username_ig) {
+      username = userCheck.data.username_ig;
+      setCookie(KEY_USERNAME_LOCAL, username);
+    } else {
+      return { error: { message: "No valid user found" }, count: 0 };
+    }
+  }
+
+  return await getUserGamesCountToday(username);
 }
 
 export async function tapStartUser(usernameIG: string) {

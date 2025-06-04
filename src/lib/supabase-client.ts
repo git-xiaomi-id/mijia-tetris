@@ -103,3 +103,32 @@ export async function getLeaderboardWithUserInfo() {
     .order("duration", { ascending: true })
     .limit(15);
 }
+
+export async function getUserGamesCountToday(username: string) {
+  if (!username) return null;
+
+  const today = new Date();
+  const startOfDay = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate()
+  ).toISOString();
+  const endOfDay = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() + 1
+  ).toISOString();
+
+  const { data, error, count } = await clientSupabase
+    .from("game")
+    .select("*", { count: "exact", head: true })
+    .eq("username_ig", username)
+    .gte("created_at", startOfDay)
+    .lt("created_at", endOfDay);
+
+  if (error) {
+    return { data: null, error, count: 0 };
+  }
+
+  return { data, error: null, count: count || 0 };
+}
