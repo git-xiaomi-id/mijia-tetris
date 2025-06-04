@@ -7,7 +7,6 @@ import arrow from "./arrow-right.webp";
 import useClickSound from "@/hooks/use-click-sound";
 import { useGameProvider } from "@/hooks/use-game";
 import AppButton from "../button";
-import { toast } from "sonner";
 
 type items = typeof refrigeratorItems;
 type item = items[0];
@@ -37,7 +36,7 @@ function DockItem({ item, itemActive, onClickItem }: IDockItem) {
       onClick={() => onClickItem(item)}
       className={[
         "py-2 transition-all active:scale-90",
-        // areaActive && areaActive === item.rack ? "" : "grayscale",
+        item.totalQty < 1 ? "grayscale opacity-75 pointer-events-none" : "",
       ].join(" ")}
     >
       <div className="mx-auto size-14 aspect-square rounded-md relative gd-item">
@@ -124,25 +123,18 @@ function DockRow({ items, dock, active, onClickItem, areaActive }: IDockRow) {
 export default function ItemDock() {
   const {
     itemActive: active,
-    setItemActive: setActive,
     topItem,
     bottomItem,
     areaActive,
     setAreaActive,
+    onClickItem,
   } = useGameProvider();
 
   const { clickPlay } = useClickSound();
 
-  function onClickItem(item: item) {
+  function doClickItem(item: item) {
     clickPlay();
-
-    if (areaActive) {
-      if (item.rack !== areaActive.area && active !== item.id)
-        toast.error(`Oops!`, {
-          description: `${item.name} tidak bisa ditaruh di ${areaActive.area}`,
-        });
-      setActive(active === item.id ? null : item.id);
-    }
+    onClickItem(item);
   }
 
   function closeArea() {
@@ -167,14 +159,14 @@ export default function ItemDock() {
         items={topItem}
         dock="top"
         active={active}
-        onClickItem={onClickItem}
+        onClickItem={doClickItem}
         areaActive={areaActive!}
       />
       <DockRow
         items={bottomItem}
         dock="bottom"
         active={active}
-        onClickItem={onClickItem}
+        onClickItem={doClickItem}
         areaActive={areaActive!}
       />
     </div>

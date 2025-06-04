@@ -347,7 +347,7 @@
 } */
 .gra-top-middle-row {
   @apply w-full rounded-sm;
-  @apply flex gap-3 h-[68px] w-full max-w-xs;
+  @apply flex h-[68px] w-full max-w-xs;
   background-image: url("/rack/rack-top-middle.png");
   background-size: contain;
   background-repeat: no-repeat;

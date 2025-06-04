@@ -21,8 +21,15 @@ export interface IItem {
   rack: TRack;
 }
 
-export interface IItemPlaced extends Pick<IItem, "id" | "name" | "image"> {
+export interface IItemPlaced
+  extends Pick<IItem, "id" | "name" | "image" | "blockWidth" | "blockHeight"> {
   amount: number;
+  rack: TRack;
+  dock: "top" | "bottom";
+  position?: {
+    row: number;
+    col: number;
+  };
 }
 
 export interface IRackArea {
@@ -31,6 +38,8 @@ export interface IRackArea {
   className: string;
   items: IItemPlaced[][];
   name: string;
+  columns: number;
+  rows: number;
 }
 
 export type TRack =
@@ -81,7 +90,7 @@ const refrigeratorItems: IItem[] = [
     category: "Food",
     image: "/items/egg-front-view.webp",
     dock: "top",
-    rack: "top-left-door",
+    rack: "top-middle-door",
   },
   {
     id: "puding",
@@ -101,7 +110,7 @@ const refrigeratorItems: IItem[] = [
     category: "Food",
     image: "/items/pudding-front-view.webp",
     dock: "bottom",
-    rack: "bottom-left-door",
+    rack: "top-middle-door",
   },
   {
     id: "strawberry",
@@ -109,7 +118,7 @@ const refrigeratorItems: IItem[] = [
     blockWidth: 1,
     blockHeight: 1,
     placementSet: "horizontal",
-    placementAmount: 12,
+    placementAmount: 3,
     totalQty: 12,
     place_main_rak: true,
     place_drawer_atas: true,
@@ -141,7 +150,7 @@ const refrigeratorItems: IItem[] = [
     category: "Food",
     image: "/items/banana-front-view.webp",
     dock: "bottom",
-    rack: "middle-left-door",
+    rack: "top-middle-door",
   },
   {
     id: "brownies",
@@ -161,7 +170,7 @@ const refrigeratorItems: IItem[] = [
     category: "Food",
     image: "/items/brownie-front-view.webp",
     dock: "top",
-    rack: "top-right-door",
+    rack: "top-middle-door",
   },
   {
     id: "cheese",
@@ -181,7 +190,7 @@ const refrigeratorItems: IItem[] = [
     category: "Food",
     image: "/items/cheese-front-view.webp",
     dock: "bottom",
-    rack: "bottom-right-door",
+    rack: "top-middle-door",
   },
   {
     id: "roti_tawar",
@@ -472,6 +481,8 @@ export const rackArea: IRackArea[] = [
     className: "gs-mask-door-dashed door-left",
     // items: Array.from({ length: 3 }, () => Array(4).fill(null)),
     items: generateGridArray(3, 4),
+    columns: 4,
+    rows: 3,
     name: "Door",
   },
   {
@@ -480,6 +491,8 @@ export const rackArea: IRackArea[] = [
     className: "gs-mask-door-dashed door-middle",
     // items: Array.from({ length: 4 }, () => Array(6).fill(null)),
     items: generateGridArray(3, 6),
+    columns: 6,
+    rows: 4,
     name: "Main Rak",
   },
   {
@@ -488,6 +501,8 @@ export const rackArea: IRackArea[] = [
     className: "gs-mask-door-dashed door-right",
     // items: Array.from({ length: 3 }, () => Array(4).fill(null)),
     items: generateGridArray(3, 4),
+    columns: 4,
+    rows: 3,
     name: "Door",
   },
   {
@@ -496,6 +511,8 @@ export const rackArea: IRackArea[] = [
     className: "gs-mask-door-dashed-middle door-left",
     // items: Array.from({ length: 1 }, () => Array(4).fill(null)),
     items: generateGridArray(1, 4),
+    columns: 4,
+    rows: 1,
     name: "Drawer Atas",
   },
   {
@@ -504,48 +521,62 @@ export const rackArea: IRackArea[] = [
     className: "gs-mask-door-dashed-middle door-right",
     // items: Array.from({ length: 1 }, () => Array(4).fill(null)),
     items: generateGridArray(1, 4),
+    columns: 4,
+    rows: 1,
     name: "Drawer Bawah",
   },
   {
     area: "bottom-left-door",
     areaId: "bottom-left",
     className: "gs-mask-door-dashed-bottom left",
-    items: [],
+    items: generateGridArray(1, 4),
+    columns: 4,
+    rows: 1,
     name: "Freezer 1",
   },
   {
     area: "bottom-right-door",
     areaId: "bottom-right",
     className: "gs-mask-door-dashed-bottom right",
-    items: [],
+    items: generateGridArray(1, 4),
+    columns: 4,
+    rows: 1,
     name: "Freezer 2",
   },
   {
     area: "freezer-left-door",
     areaId: "freezer-left",
     className: "gs-mask-door-dashed-freezerbottom left",
-    items: [],
+    items: generateGridArray(1, 4),
+    columns: 4,
+    rows: 1,
     name: "Freezer 3",
   },
   {
     area: "freezer-right-door",
     areaId: "freezer-right",
     className: "gs-mask-door-dashed-freezerbottom right",
-    items: [],
+    items: generateGridArray(1, 4),
+    columns: 4,
+    rows: 1,
     name: "Freezer 4",
   },
   {
     area: "freezer-sec2-left-door",
     areaId: "freezer-sec2-left",
     className: "gs-mask-door-dashed-freezerbottom sec2 left",
-    items: [],
+    items: generateGridArray(1, 4),
+    columns: 4,
+    rows: 1,
     name: "Freezer 5",
   },
   {
     area: "freezer-sec2-right-door",
     areaId: "freezer-sec2-right",
     className: "gs-mask-door-dashed-freezerbottom sec2 right",
-    items: [],
+    items: generateGridArray(1, 4),
+    columns: 4,
+    rows: 1,
     name: "Freezer 6",
   },
 ];

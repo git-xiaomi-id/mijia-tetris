@@ -1,17 +1,22 @@
 import useClickSound from "@/hooks/use-click-sound";
 import { useGameProvider } from "@/hooks/use-game";
-import { rackArea } from "@/lib/refrigerator-items";
 import RackTopMiddle from "./rack-top-middle";
 import RackTopDoor from "./rack-top-door";
 import RackBoxMiddle from "./rack-box-middle";
 
 export default function GameInteract() {
   const { clickPlay } = useClickSound();
-  const { screenStep, screenSteps, assets, areaActive, setAreaActive } =
-    useGameProvider();
+  const {
+    screenStep,
+    screenSteps,
+    assets,
+    areaActive,
+    setAreaActive,
+    rackState,
+  } = useGameProvider();
   const asset = assets[assets.length - 1];
 
-  function clickArea(area: (typeof rackArea)[0]) {
+  function clickArea(area: (typeof rackState)[0]) {
     clickPlay();
     setAreaActive(area);
   }
@@ -35,7 +40,7 @@ export default function GameInteract() {
             {
               // Clickable Area
               screenStep === "game" &&
-                rackArea.map((area, index) => (
+                rackState.map((area, index) => (
                   <button
                     key={index}
                     onClick={() => clickArea(area)}
@@ -53,29 +58,36 @@ export default function GameInteract() {
           <>
             <div className="gs-gameActive-overlay" />
 
-            {/*  */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              {(areaActive.areaId === "top-left" ||
+                areaActive.areaId === "top-right") && (
+                <div className="w-[80%] h-[80%]">
+                  <RackTopDoor
+                    items={areaActive.items}
+                    type={areaActive.areaId}
+                  />
+                </div>
+              )}
 
-            {(areaActive.areaId === "top-left" ||
-              areaActive.areaId === "top-right") && (
-              <RackTopDoor items={areaActive.items} type={areaActive.areaId} />
-            )}
+              {areaActive.areaId.includes("top-middle") && (
+                <div className="w-[80%] h-[80%]">
+                  <RackTopMiddle items={areaActive.items} />
+                </div>
+              )}
 
-            {areaActive.areaId.includes("top-middle") && (
-              <RackTopMiddle items={areaActive.items} />
-            )}
-
-            {(areaActive.areaId === "middle-left" ||
-              areaActive.areaId === "middle-right" ||
-              areaActive.areaId === "bottom-left" ||
-              areaActive.areaId === "bottom-right" ||
-              areaActive.areaId === "freezer-left" ||
-              areaActive.areaId === "freezer-right" ||
-              areaActive.areaId === "freezer-sec2-left" ||
-              areaActive.areaId === "freezer-sec2-right") && (
-              <RackBoxMiddle items={areaActive.items} />
-            )}
-
-            {/*  */}
+              {(areaActive.areaId === "middle-left" ||
+                areaActive.areaId === "middle-right" ||
+                areaActive.areaId === "bottom-left" ||
+                areaActive.areaId === "bottom-right" ||
+                areaActive.areaId === "freezer-left" ||
+                areaActive.areaId === "freezer-right" ||
+                areaActive.areaId === "freezer-sec2-left" ||
+                areaActive.areaId === "freezer-sec2-right") && (
+                <div className="w-[80%] h-[80%]">
+                  <RackBoxMiddle items={areaActive.items} />
+                </div>
+              )}
+            </div>
           </>
         )}
       </>

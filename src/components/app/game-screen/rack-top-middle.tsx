@@ -1,6 +1,7 @@
 import type { IItemPlaced } from "@/lib/refrigerator-items";
 import { useGameProvider } from "@/hooks/use-game";
 import useClickSound from "@/hooks/use-click-sound";
+import { useEffect } from "react";
 
 export default function RackTopMiddle({
   items,
@@ -9,7 +10,7 @@ export default function RackTopMiddle({
   items: IItemPlaced[][];
   absolute?: boolean;
 }) {
-  const { itemActive, areaActive, placeItem } = useGameProvider();
+  const { itemActive, areaActive, placeItem, rackState } = useGameProvider();
   const { clickPlay } = useClickSound();
 
   const handleGridClick = (rowIndex: number, colIndex: number) => {
@@ -19,7 +20,9 @@ export default function RackTopMiddle({
     }
   };
 
-  console.log("rack-top-middle", { items, itemActive });
+  useEffect(() => {
+    console.log("rackState: ", rackState);
+  }, [rackState]);
 
   const view = (
     <div className="gra-area flex flex-col gap-5 items-center">
@@ -36,11 +39,6 @@ export default function RackTopMiddle({
               {item && (
                 <div className="relative w-full h-full">
                   <img src={item.image} alt={item.name} />
-                  {/* {item.amount > 1 && (
-                    <div className="absolute bottom-0 right-0 bg-blue-500 text-white text-xs px-1 rounded-tl">
-                      {item.amount}
-                    </div>
-                  )} */}
                 </div>
               )}
             </div>

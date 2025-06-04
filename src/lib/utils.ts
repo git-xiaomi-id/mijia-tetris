@@ -24,8 +24,8 @@ export const KEY_TOKEN = "mijia-game-token";
 export const KEY_ONBOARDING = "mijia-game-onboarding";
 
 export function generateGridArray<T = string>(
-  rows: number,
-  cols: number,
+  rows: number = 0,
+  cols: number = 0,
   generator?: (rowIndex: number, colIndex: number) => T
 ): T[][] {
   return Array.from({ length: rows }, (_, rowIndex) =>

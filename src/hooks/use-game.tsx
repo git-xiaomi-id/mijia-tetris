@@ -1,6 +1,6 @@
 import refrigeratorItems, {
   rackArea,
-  type IItemPlaced,
+  type IRackArea,
 } from "@/lib/refrigerator-items";
 import { getCookie, KEY_ONBOARDING, setCookie } from "@/lib/utils";
 import {
@@ -12,6 +12,7 @@ import {
   type ReactNode,
   type SetStateAction,
 } from "react";
+import { toast } from "sonner";
 
 export type TScreenStep =
   | "intro1"
@@ -49,6 +50,9 @@ interface GameContextType {
   setBottomItem: Dispatch<SetStateAction<typeof refrigeratorItems | []>>;
   doResetGame: () => void;
   placeItem: (rowIndex: number, colIndex: number) => void;
+  onClickItem: (item: (typeof refrigeratorItems)[0]) => void;
+  rackState: IRackArea[];
+  setRackState: Dispatch<SetStateAction<IRackArea[]>>;
 }
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
@@ -95,6 +99,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const [areaActive, setAreaActive] = useState<(typeof rackArea)[0] | null>(
     null
   );
+  const [rackState, setRackState] = useState<IRackArea[] | []>(rackArea);
 
   function shuffleItems() {
     const shuffledItems = [...refrigeratorItems].sort(
@@ -163,87 +168,59 @@ export function GameProvider({ children }: { children: ReactNode }) {
   }
 
   function placeItem(rowIndex: number, colIndex: number) {
-    console.log("handleGridClick: ", { rowIndex, colIndex, itemActive });
+    if (!itemActive) return toast.error("Pilih item terlebih dahulu");
+    if (!areaActive) return;
 
-    if (!itemActive || !areaActive) return;
-
-    const item = [...topItem, ...bottomItem].find((i) => i.id === itemActive);
-    if (!item) return;
-
-    // Check if the item can be placed in this area
-    if (item.rack !== areaActive.area) return;
-
-    // Create a copy of the items array
     const newItems = areaActive.items.map((row) => [...row]);
-
-    // Check if the space is available
-    const canPlace = checkSpaceAvailability(newItems, rowIndex, colIndex, item);
-    if (!canPlace) return;
-
-    // Place the item
-    const placedItem: IItemPlaced = {
-      id: item.id,
-      name: item.name,
-      image: item.image.startsWith("/") ? item.image : `/${item.image}`,
-      amount: 1,
+    const item = refrigeratorItems.find((item) => item.id === itemActive);
+    newItems[rowIndex][colIndex] = {
+      id: itemActive,
+      name: item?.name || "",
+      image: item?.image || "",
+      amount: item?.placementAmount || 1,
+      blockWidth: item?.blockWidth || 1,
+      blockHeight: item?.blockHeight || 1,
+      rack: areaActive.area,
+      dock: item?.dock || "top",
     };
 
-    // Update the grid with the placed item
-    for (let i = 0; i < item.blockHeight; i++) {
-      for (let j = 0; j < item.blockWidth; j++) {
-        if (
-          rowIndex + i < newItems.length &&
-          colIndex + j < newItems[0].length
-        ) {
-          newItems[rowIndex + i][colIndex + j] = placedItem;
-        }
-      }
-    }
-
-    // Update the area's items
+    // UPDATE RACK INFORMATION
     setAreaActive({
       ...areaActive,
       items: newItems,
     });
+    setRackState((curr) => {
+      const newData = curr;
+      newData[newData.findIndex((i) => i.areaId === areaActive.areaId)].items =
+        newItems;
+      return newData;
+    });
 
-    // Update item quantity in topItem or bottomItem
-    if (item.dock === "top") {
-      setTopItem((prev) =>
-        prev.map((i) =>
-          i.id === item.id ? { ...i, totalQty: Math.max(0, i.totalQty - 1) } : i
-        )
-      );
-    } else {
-      setBottomItem((prev) =>
-        prev.map((i) =>
-          i.id === item.id ? { ...i, totalQty: Math.max(0, i.totalQty - 1) } : i
-        )
-      );
+    // UPDATE ITEM INFORMATION
+    const inTop = topItem.findIndex((i) => i.id === itemActive);
+    if (inTop >= 0) {
+      setTopItem((prev) => {
+        const news = prev;
+        news[inTop].totalQty = Math.max(
+          0,
+          news[inTop].totalQty - news[inTop].placementAmount
+        );
+        return news;
+      });
     }
 
-    // Deselect the item
     setItemActive(null);
   }
 
-  function checkSpaceAvailability(
-    grid: (IItemPlaced | null)[][],
-    rowIndex: number,
-    colIndex: number,
-    item: (typeof refrigeratorItems)[0]
-  ): boolean {
-    // Check if the space is available
-    for (let i = 0; i < item.blockHeight; i++) {
-      for (let j = 0; j < item.blockWidth; j++) {
-        if (
-          rowIndex + i >= grid.length ||
-          colIndex + j >= grid[0].length ||
-          grid[rowIndex + i][colIndex + j] !== null
-        ) {
-          return false;
-        }
-      }
+  function onClickItem(item: (typeof refrigeratorItems)[0]) {
+    if (areaActive) {
+      if (item.rack !== areaActive.area && itemActive !== item.id)
+        toast.error(`Oops!`, {
+          description: `${item.name} tidak bisa ditaruh di ${areaActive.name}`,
+        });
+      else toast.dismiss();
+      setItemActive(itemActive === item.id ? null : item.id);
     }
-    return true;
   }
 
   return (
@@ -276,6 +253,9 @@ export function GameProvider({ children }: { children: ReactNode }) {
         setBottomItem,
         doResetGame,
         placeItem,
+        onClickItem,
+        rackState,
+        setRackState,
       }}
     >
       {children}
