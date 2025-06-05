@@ -1,0 +1,205 @@
+/*  */
+/*  */
+/*  */
+.gs-gameActive-overlay {
+  @apply fixed left-0 top-0 size-full;
+  background: radial-gradient(
+      circle at 20% 30%,
+      rgba(186, 230, 253, 0.4) 0%,
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 70% 20%,
+      rgba(191, 219, 254, 0.3) 0%,
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 40% 70%,
+      rgba(224, 242, 254, 0.5) 0%,
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(186, 230, 253, 0.4) 0%,
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 10% 80%,
+      rgba(191, 219, 254, 0.45) 0%,
+      transparent 32%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(224, 242, 254, 0.8) 0%,
+      rgba(186, 230, 253, 0.6) 25%,
+      rgba(191, 219, 254, 0.4) 50%,
+      rgba(224, 242, 254, 0.7) 75%,
+      rgba(186, 230, 253, 0.5) 100%
+    );
+  backdrop-filter: blur(4px);
+}
+
+.item-rack {
+  /* transform: rotateX(55deg) rotateY(10deg); */
+  /* transform-style: preserve-3d; */
+  width: 300px;
+  height: 150px;
+  transform: perspective(600px) rotateX(65deg);
+}
+
+.game-rack-area {
+  @apply absolute left-[0] top-[0%] size-full;
+}
+.gra-area {
+  @apply relative size-full;
+}
+@keyframes showningDoorMiddle {
+  0% {
+    opacity: 0;
+    /* top: -10%; */
+    transform: scale(0.9) translate(-50%, 0%);
+  }
+  100% {
+    opacity: 1;
+    /* top: 0%; */
+    transform: scale(1) translate(-50%, 0%);
+  }
+}
+.gra-top-middle {
+  @apply absolute top-[-3%] left-[50%] w-[120%] max-w-xl overflow-hidden;
+  /* @apply bg-slate-400/30 backdrop-blur-[2px] rounded  border border-red-500; */
+  /* transform: rotateX(0deg) rotateY(0deg); */
+  /* transform-style: preserve-3d; */
+  /* clip-path: polygon(0 0, 100% 0, 87% 100%, 12% 100%); */
+  @apply pt-[90px];
+
+  opacity: 0;
+  transform: scale(0.9) translate(-50%, 50%);
+  animation: showningDoorMiddle 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+    forwards;
+
+  background-image: url("/illustration/top-main-area.png"),
+    url("/illustration/top-main-area.webp");
+  background-position: top center;
+  background-repeat: repeat;
+  background-size: cover;
+}
+/* .gra-top-middle::after {
+    content: "";
+    @apply absolute left-0 top-0 ;
+    
+  } */
+@keyframes showningRack {
+  0% {
+    opacity: 0;
+    /* top: -10%; */
+    transform: scale(0.9) translate(0%, -10%);
+  }
+  100% {
+    opacity: 1;
+    /* top: 0%; */
+    transform: scale(1) translate(0%, 0%);
+  }
+}
+.gra-top-middle-row {
+  @apply w-full rounded-sm;
+  @apply flex h-[68px] w-full max-w-xs  px-5 hover:bg-slate-400/50;
+  background-image: url("/rack/rack-top-middle.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+
+  opacity: 0;
+  transform: translate(0%, 50%);
+  animation: showningRack 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.15s
+    forwards;
+}
+.gra-top-middle-row:nth-of-type(2) {
+  animation: showningRack 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s
+    forwards;
+}
+.gra-top-middle-row:nth-of-type(3) {
+  animation: showningRack 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.65s
+    forwards;
+}
+.gra-top-middle-row:nth-of-type(4) {
+  animation: showningRack 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.9s
+    forwards;
+}
+.gra-grid-item {
+  @apply h-[80%];
+  @apply flex items-end justify-center;
+  /* @apply min-h-[60px] min-w-[60px]; */
+  /* @apply bg-white/50; */
+}
+
+.gra-grid-item img {
+  @apply size-full;
+  @apply object-contain;
+}
+
+@keyframes showningDoorTop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0%);
+  }
+}
+.gra-top-door-set {
+  @apply absolute top-[0%] left-[50%] w-64 max-w-sm px-4 min-h-[600px];
+}
+.gra-top-door {
+  @apply shadow-inner;
+  /* transform: rotateX(5deg) rotateY(-20deg); */
+  /* transform-style: preserve-3d; */
+  opacity: 0;
+  transform: translate(-50%, 50%);
+  animation: showningDoorTop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+    forwards;
+}
+.gra-top-door-bg {
+  transform: translate(-50%, 0%);
+  @apply w-full h-full;
+  background-image: url("/illustration/door-refri.webp");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.gra-top-door-bg.top-right {
+  transform: translate(-50%, 0%) scaleX(-1);
+}
+.gra-top-door-row {
+  @apply w-[95%] aspect-[4/1.25] relative;
+  @apply px-6 flex gap-2;
+  background-image: url("/rack/rack-door-back.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  @apply mt-10;
+}
+.gra-top-door-row:nth-of-type(2) {
+  @apply mt-4;
+}
+.gra-top-door-row:nth-of-type(3) {
+  @apply mt-12;
+}
+.gra-top-door-row .gra-grid-item {
+  @apply w-1/4;
+}
+.gra-top-door-row::after {
+  @apply absolute bottom-0 left-0 w-full h-[80%];
+}
+.gra-middle-rack {
+  @apply absolute top-[10%] left-[50%] -translate-x-[50%] w-72 max-w-sm py-2 px-4;
+  max-width: 360px;
+  width: 100%;
+  aspect-ratio: 898/675;
+  background-image: url("/rack/laci-no-cap.webp");
+  background-size: cover;
+  background-size: center bottom;
+  background-repeat: no-repeat;
+}

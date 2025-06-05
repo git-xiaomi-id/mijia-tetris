@@ -55,14 +55,18 @@ export default function GameScreenContent() {
             //   screenSteps.findIndex((n) => n === asset.key) >= 2;
 
             return (
-              <div className="absolute left-0 top-0 size-full" key={asset.key}>
+              <div
+                className="absolute left-0 top-0 size-full   "
+                key={asset.key}
+              >
                 <div className="relative size-full">
                   <img
                     key={asset.key}
                     alt={asset?.key || ""}
                     src={asset?.src || ""}
                     className={[
-                      "h-full object-contain block mx-auto gs-image-wrap",
+                      "gs-image-wrap",
+                      `gs-image-wrap-i${index + 1}`,
                       isKey || isGameList ? "active" : "hidden",
                     ].join(" ")}
                     onLoad={index === 0 ? runScenario : undefined}
@@ -91,10 +95,7 @@ export default function GameScreenContent() {
         {/* Onboarding Parts */}
         {onboardingOpen && (
           <>
-            {/* Overlay */}
             <div className="absolute bg-[#22222298] size-full" />
-
-            {/* Modal */}
             <OnboardingModal />
           </>
         )}

@@ -156,7 +156,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
 
         return nextStep as TScreenStep;
       });
-    }, 1500);
+    }, 1000);
   }
 
   useEffect(() => {

@@ -20,7 +20,7 @@ export default function RackTopMiddle({
   };
 
   const view = (
-    <div className="gra-area flex flex-col gap-3.5 items-center">
+    <div className="gra-area flex flex-col gap-2 items-center">
       {items.map((row, rowIndex) => (
         <div key={rowIndex} className="gra-top-middle-row">
           {row.map((item, colIndex) => (

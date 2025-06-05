@@ -3,6 +3,7 @@ import { useGameProvider } from "@/hooks/use-game";
 import RackTopMiddle from "./rack-top-middle";
 import RackTopDoor from "./rack-top-door";
 import RackBoxMiddle from "./rack-box-middle";
+import "./game-interact.css";
 
 export default function GameInteract() {
   const { clickPlay } = useClickSound();
