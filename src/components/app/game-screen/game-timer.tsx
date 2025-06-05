@@ -1,16 +1,14 @@
-import { useGameProvider } from "@/hooks/use-game";
 import { useEffect } from "react";
 
-export default function GameTimer() {
-  //   const [_step, setStep] = useState<TStep>("pause");
-  //   const [time, setTime] = useState<number>(0);
-
-  const { time, setTime, timerStep } = useGameProvider();
-
-  //   useEffect(() => {
-  //     setStep(step || "pause");
-  //   }, [step]);
-
+export default function GameTimer({
+  time,
+  setTime,
+  timerStep,
+}: {
+  time: number;
+  setTime: React.Dispatch<React.SetStateAction<number>>;
+  timerStep: "pause" | "start";
+}) {
   useEffect(() => {
     let interval: NodeJS.Timeout | undefined;
 

@@ -1,12 +1,11 @@
 import { useAppProvider } from "@/hooks/use-context";
 import { useGameProvider } from "@/hooks/use-game";
 import { Instagram, Loader } from "lucide-react";
-import GameTimer from "./game-timer";
-import ButtonTimer from "./button-timer";
 import OnboardingModal from "./onboarding-modal";
 import ItemDock from "./item-dock";
 import OnboardingOverlay from "./onboarding-overlay";
 import GameInteract from "./game-interact";
+import TimeSet from "./time-set";
 
 function UsernameDisplay({ username }: { username: string }) {
   return (
@@ -45,8 +44,7 @@ export default function GameScreenContent() {
                 : "opacity-0 pointer-events-none",
             ].join(" ")}
           >
-            <GameTimer />
-            <ButtonTimer />
+            <TimeSet />
           </div>
         </div>
 
