@@ -1,18 +1,18 @@
-const CloseDialog = ({ size = 40 }: { size?: number }) => (
+const CloseDialog = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={size}
-    height={size - 1}
+    width="42"
+    height="43"
     fill="none"
-    viewBox="0 0 42 42"
+    viewBox="0 0 42 43"
   >
-    <g filter="url(#filter0_d_184_1898)">
+    <g filter="url(#filter0_d_680_11378)">
       <rect
         width="36"
         height="36"
         x="3"
-        y="1"
-        fill="url(#paint0_linear_184_1898)"
+        y="1.237"
+        fill="url(#paint0_linear_680_11378)"
         rx="18"
         shapeRendering="crispEdges"
       ></rect>
@@ -20,28 +20,28 @@ const CloseDialog = ({ size = 40 }: { size?: number }) => (
         width="37"
         height="37"
         x="2.5"
-        y="0.5"
+        y="0.737"
         stroke="#065BAF"
         strokeOpacity="0.4"
         rx="18.5"
         shapeRendering="crispEdges"
       ></rect>
-      <g filter="url(#filter1_d_184_1898)">
+      <g filter="url(#filter1_d_680_11378)">
         <path
           fill="#fff"
           fillRule="evenodd"
-          d="m21 20.414 5.657 5.657a1 1 0 0 0 1.414-1.414L22.414 19l5.657-5.657a1 1 0 0 0-1.414-1.414L21 17.586l-5.657-5.657a1 1 0 0 0-1.413 1.414L19.586 19l-5.657 5.657a1.001 1.001 0 1 0 1.414 1.414z"
+          d="m21 20.651 5.657 5.657a1 1 0 0 0 1.414-1.414l-5.657-5.657 5.657-5.657a1 1 0 0 0-1.414-1.414L21 17.823l-5.657-5.657a1 1 0 0 0-1.413 1.414l5.656 5.657-5.657 5.657a1 1 0 1 0 1.414 1.414z"
           clipRule="evenodd"
         ></path>
       </g>
     </g>
     <defs>
       <filter
-        id="filter0_d_184_1898"
+        id="filter0_d_680_11378"
         width="42"
         height="42"
         x="0"
-        y="0"
+        y="0.237"
         colorInterpolationFilters="sRGB"
         filterUnits="userSpaceOnUse"
       >
@@ -57,20 +57,20 @@ const CloseDialog = ({ size = 40 }: { size?: number }) => (
         <feColorMatrix values="0 0 0 0 0.219608 0 0 0 0 0.552941 0 0 0 0 0.890196 0 0 0 0.2 0"></feColorMatrix>
         <feBlend
           in2="BackgroundImageFix"
-          result="effect1_dropShadow_184_1898"
+          result="effect1_dropShadow_680_11378"
         ></feBlend>
         <feBlend
           in="SourceGraphic"
-          in2="effect1_dropShadow_184_1898"
+          in2="effect1_dropShadow_680_11378"
           result="shape"
         ></feBlend>
       </filter>
       <filter
-        id="filter1_d_184_1898"
-        width="18.728"
+        id="filter1_d_680_11378"
+        width="18.727"
         height="18.728"
         x="11.624"
-        y="11.648"
+        y="11.886"
         colorInterpolationFilters="sRGB"
         filterUnits="userSpaceOnUse"
       >
@@ -86,20 +86,20 @@ const CloseDialog = ({ size = 40 }: { size?: number }) => (
         <feColorMatrix values="0 0 0 0 0.219608 0 0 0 0 0.552941 0 0 0 0 0.890196 0 0 0 1 0"></feColorMatrix>
         <feBlend
           in2="BackgroundImageFix"
-          result="effect1_dropShadow_184_1898"
+          result="effect1_dropShadow_680_11378"
         ></feBlend>
         <feBlend
           in="SourceGraphic"
-          in2="effect1_dropShadow_184_1898"
+          in2="effect1_dropShadow_680_11378"
           result="shape"
         ></feBlend>
       </filter>
       <linearGradient
-        id="paint0_linear_184_1898"
+        id="paint0_linear_680_11378"
         x1="21"
         x2="21"
-        y1="1"
-        y2="37"
+        y1="1.237"
+        y2="37.237"
         gradientUnits="userSpaceOnUse"
       >
         <stop stopColor="#50A7FE"></stop>

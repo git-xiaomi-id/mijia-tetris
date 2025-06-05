@@ -1,24 +1,24 @@
 "use server";
 
 import {
-  getUserByToken,
-  checkAlreadyLoggedIn,
-  createUser,
-  removeUserToken,
-  removeTokenFromUser,
-  checkValidUser,
-  getUserGamesCountToday,
-} from "./supabase-client";
-import {
   delCookie,
   getCookie,
   KEY_ID_LOCAL,
   KEY_PLAY_COUNT,
-  KEY_PRIZE_INFO,
+  KEY_PRIZE_ALERT,
   KEY_TOKEN,
   KEY_USERNAME_LOCAL,
   setCookie,
 } from "@/lib/utils";
+import {
+  checkAlreadyLoggedIn,
+  checkValidUser,
+  createUser,
+  getUserByToken,
+  getUserGamesCountToday,
+  removeTokenFromUser,
+  removeUserToken,
+} from "./supabase-client";
 
 function generateRandomString(length: number) {
   let result = "";
@@ -52,7 +52,7 @@ export async function clearCookieData() {
   setCookie(KEY_USERNAME_LOCAL, "");
   setCookie(KEY_TOKEN, "");
   setCookie(KEY_PLAY_COUNT, "");
-  setCookie(KEY_PRIZE_INFO, "");
+  setCookie(KEY_PRIZE_ALERT, "");
 }
 
 export async function tapLogoutUser() {

@@ -1,7 +1,15 @@
 "use client";
 
 import { type Tables } from "@/lib/supabase";
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { getCookie, KEY_PRIZE_ALERT } from "@/lib/utils";
+import {
+  createContext,
+  useContext,
+  useState,
+  type Dispatch,
+  type ReactNode,
+  type SetStateAction,
+} from "react";
 import useSWR from "swr";
 import { tapCheckUser, tapCheckUserGames } from "../lib/actions";
 
@@ -14,12 +22,18 @@ interface AppContextType {
   userLoading: boolean;
   gamesCount: number;
   gamesLoading: boolean;
+  hasPrizeAlert: boolean;
+  setHasPrizeAlert: Dispatch<SetStateAction<boolean>>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const [screen, setScreen] = useState<Screen>("welcome");
+  const [hasPrizeAlert, setHasPrizeAlert] = useState<boolean>(() => {
+    const hasSeenAlert = getCookie(KEY_PRIZE_ALERT);
+    return !hasSeenAlert;
+  });
 
   const { data, isLoading } = useSWR("user", tapCheckUser);
 
@@ -37,6 +51,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         userLoading: isLoading,
         screen,
         setScreen,
+        hasPrizeAlert,
+        setHasPrizeAlert,
       }}
     >
       {children}

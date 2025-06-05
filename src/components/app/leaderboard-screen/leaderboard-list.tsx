@@ -2,14 +2,9 @@ import { getLeaderboardWithUserInfo } from "@/lib/supabase-client";
 import { formatTime } from "@/utils/format-time";
 import { Loader, Trophy } from "lucide-react";
 import useSWR from "swr";
+import Top3List from "./top3-list";
 
 function LeaderboardTop3({ data }: { data: LeaderboardData[] }) {
-  const medalsIcon = [
-    "/icon/icon-medal-gold.webp",
-    "/icon/icon-medal-silver.webp",
-    "/icon/icon-medal-bronze.webp",
-  ];
-
   const topPlayers = data.slice(0, 3);
 
   return (
@@ -23,34 +18,12 @@ function LeaderboardTop3({ data }: { data: LeaderboardData[] }) {
 
       <div className="mt-3 space-y-0.5 w-full">
         {topPlayers.map((player, index) => (
-          <div
+          <Top3List
             key={index}
-            className={`ls-board-${
-              index + 1
-            } rounded-lg flex items-center justify-between shadow-sm py-3 px-2`}
-          >
-            <div className="flex items-center gap-3">
-              <div className="relative w-10 h-10 flex items-center justify-center">
-                <img
-                  src={medalsIcon[index]}
-                  alt={`Medal for position ${index + 1}`}
-                  width="40"
-                  height="40"
-                  className="object-contain"
-                  loading="eager"
-                />
-                <span className="absolute inset-0 -top-2 flex items-center justify-center font-bold text-lg text-white drop-shadow-md">
-                  {index + 1}
-                </span>
-              </div>
-              <span className="font-semibold text-gray-800">
-                @{player.user.username_ig}
-              </span>
-            </div>
-            <div className="ls-time-box-top3 text-right">
-              {formatTime(player.duration)}
-            </div>
-          </div>
+            position={index + 1}
+            name={`@${player.user.username_ig}`}
+            duration={player.duration}
+          />
         ))}
       </div>
     </div>

@@ -1,13 +1,14 @@
 import { useAppProvider } from "@/hooks/use-context";
+import { useGameProvider } from "@/hooks/use-game";
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import AppModal from "../welcome-screen/modal";
 import LeaderboardAction from "./leaderboard-action";
 import LeaderboardHeading from "./leaderboard-heading";
 import LeaderboardList from "./leaderboard-list";
+import LeaderboardNotice from "./leaderboard-notice";
 import "./leaderboard-screen.css";
 import LeaderboardShiny from "./leaderboard-shiny";
-import AppModal from "../welcome-screen/modal";
-import { useState, useEffect, useCallback } from "react";
-import { useGameProvider } from "@/hooks/use-game";
-import { useNavigate } from "react-router";
 
 function LeaderboardIllustration() {
   return (
@@ -47,17 +48,9 @@ function LeaderboardIllustration() {
 export default function LeaderboardScreen() {
   const { user, userLoading } = useAppProvider();
   const navigate = useNavigate();
-  const { setTime, setTimerStep, setScreenStep, setOnboardingStep } =
-    useGameProvider();
+  const { doResetGame } = useGameProvider();
   const { setScreen } = useAppProvider();
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
-
-  function doResetGame() {
-    setTime(0);
-    setTimerStep("pause");
-    setScreenStep("intro1");
-    setOnboardingStep(0);
-  }
 
   function goHome() {
     doResetGame();
@@ -83,14 +76,17 @@ export default function LeaderboardScreen() {
 
   return (
     <div className="leaderboard-screen relative h-full flex flex-col">
-      <div className="ls-heading sticky top-8 z-10">
-        <LeaderboardHeading />
+      <div className="ls-heading sticky top-8 z-20">
+        <div className="flex-1 flex items-center justify-center">
+          <LeaderboardHeading />
+        </div>
+        <LeaderboardNotice />
       </div>
 
       <div className="flex-1 relative overflow-hidden">
         <LeaderboardIllustration />
 
-        <div className="relative z-20 h-full overflow-y-auto px-5 ls-scrollable">
+        <div className="relative z-10 h-full overflow-y-auto px-5 ls-scrollable">
           <div className="h-[400px] w-full" />
           <LeaderboardList />
         </div>
