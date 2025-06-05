@@ -316,28 +316,32 @@
 @keyframes showningDoorMiddle {
   0% {
     opacity: 0;
-    transform: translate(0%, 50%);
+    /* top: -10%; */
+    transform: scale(0.9) translate(0%, -10%);
   }
   100% {
     opacity: 1;
-    transform: translate(0%, 0%);
+    /* top: 0%; */
+    transform: scale(1) translate(0%, 0%);
   }
 }
 .gra-top-middle {
-  @apply absolute top-[5%] left-[17.5%] w-[65%] max-w-sm pt-12 rounded overflow-hidden;
+  @apply absolute top-[-3%] left-[-10%] w-[120%] overflow-hidden;
   /* @apply bg-slate-400/30 backdrop-blur-[2px] rounded  border border-red-500; */
   /* transform: rotateX(0deg) rotateY(0deg); */
   /* transform-style: preserve-3d; */
   /* clip-path: polygon(0 0, 100% 0, 87% 100%, 12% 100%); */
+  @apply pt-[90px];
 
   opacity: 0;
-  transform: translate(0%, 50%);
+  transform: scale(0.9) translate(0%, 50%);
   animation: showningDoorMiddle 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)
     forwards;
 
-  background-image: url("/illustration/refri-upper.webp");
-  background-position: top center;
-  background-repeat: no-repeat;
+  background-image: url("/illustration/top-main-area.png"),
+    url("/illustration/top-main-area.webp");
+  background-position: top left;
+  background-repeat: repeat;
   background-size: cover;
 }
 /* .gra-top-middle::after {
