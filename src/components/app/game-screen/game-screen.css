@@ -234,8 +234,8 @@
   @apply top-[9%] right-[22%] h-[33%];
 }
 .gs-mask-door-dashed.door-middle {
-  @apply top-[12%] left-[34%];
-  @apply w-[32%] h-[29.75%];
+  @apply top-[11%] left-[34%];
+  @apply w-[32%] h-[30.75%];
 }
 .gs-mask-door-dashed-middle {
   /* MARK */

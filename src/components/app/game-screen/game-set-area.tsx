@@ -53,12 +53,14 @@ function SetAreaTopDoorRight({ items }: { items: IItemPlaced[][] }) {
           }}
           //   style={{ height: `${100 / items.length}%` }}
         >
-          {row.map((item, colIndex) => (
+          {[...row].map((item, colIndex) => (
             <div key={colIndex} className="w-full">
               <img
                 key={colIndex}
                 className="relative pointer-events-none"
-                style={{ transform: `translateY(${colIndex * -12}%)` }}
+                style={{
+                  transform: `translateY(${colIndex * -12}%) scale(2)`,
+                }}
                 src={item.image}
                 alt={item.name}
               />
@@ -90,11 +92,11 @@ function SetAreaTopDoorLeft({ items }: { items: IItemPlaced[][] }) {
           //   style={{ height: `${100 / items.length}%` }}
         >
           {row.map((item, colIndex) => (
-            <div key={colIndex}>
+            <div key={colIndex} className="w-full">
               <img
                 key={colIndex}
                 className="relative pointer-events-none"
-                style={{ transform: `translateY(${colIndex * 12}%)` }}
+                style={{ transform: `translateY(${colIndex * 12}%) scale(2)` }}
                 src={item.image}
                 alt={item.name}
               />
