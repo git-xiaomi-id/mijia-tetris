@@ -141,7 +141,8 @@ function WelcomeScreenInput({
   ) : (
     <div className="flex flex-col gap-3 items-center justify-center  w-full max-w-[280px] mx-auto">
       <div className="flex justify-center items-center w-full">
-        Tulis akun ig kamu <div className="hand-down">👇🏼</div>
+        {localUsername ? "Main lagi dengan akun" : "Tulis akun ig kamu"}{" "}
+        <div className="hand-down">👇🏼</div>
       </div>
       <div className="w-full">
         <AppInput

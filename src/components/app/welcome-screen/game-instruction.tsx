@@ -59,7 +59,7 @@ export default function GameInstruction() {
         <button type="button" onClick={onClose} className="gi-close-btn">
           <CloseDialog />
         </button>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 pb-14  relative">
           <h2 className="gi-title">Panduan Main</h2>
           <div className="px-5 w-full mx-auto">
             <ol itemType="number" className="list-decimal text-[#5F5F5F]">
@@ -69,6 +69,14 @@ export default function GameInstruction() {
                 </li>
               ))}
             </ol>
+          </div>
+
+          <div className="absolute right-0 bottom-0">
+            <img
+              className="w-20 h-auto block  animate-headshaking-slow"
+              src="/mi-bunny/mi-bunny-smile.webp"
+              alt="mi bunny smile"
+            />
           </div>
         </div>
       </AlertDialogContent>
