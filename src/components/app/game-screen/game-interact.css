@@ -167,7 +167,7 @@
 }
 .gra-top-door-row {
   @apply w-[95%] aspect-[4/1.25] relative;
-  @apply px-[18px] flex;
+  @apply px-[4px] flex items-end;
   background-image: url("/rack/rack-door-back.webp");
   background-size: cover;
   background-repeat: no-repeat;
