@@ -217,3 +217,37 @@ body {
   transform: translateY(10%);
   animation: shownSlow 0.5s ease-out 0.25s 1 forwards;
 }
+
+@keyframes animation-app-ping {
+  0% {
+    transform: scale(1);
+  }
+  12.5% {
+    transform: scale(1.15);
+  }
+  25% {
+    transform: scale(1);
+  }
+  37.5% {
+    transform: scale(1.15);
+  }
+  50% {
+    transform: scale(1);
+  }
+  62.5% {
+    transform: scale(1.25);
+  }
+  75% {
+    transform: scale(1);
+  }
+  87.5% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-app-ping {
+  animation: animation-app-ping 5s ease-in-out infinite;
+}
