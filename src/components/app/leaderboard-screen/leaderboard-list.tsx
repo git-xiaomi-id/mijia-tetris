@@ -71,8 +71,8 @@ export default function LeaderboardList() {
   if (data?.data) {
     return (
       <div className="flex flex-col gap-7 w-full">
-        <LeaderboardTop3 data={data.data} />
-        <LeaderboardListContent data={data.data} />
+        <LeaderboardTop3 data={data.data as any} />
+        <LeaderboardListContent data={data.data as any} />
       </div>
     );
   }
