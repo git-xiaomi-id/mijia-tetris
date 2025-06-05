@@ -38,11 +38,11 @@ export type Database = {
         Row: {
           created_at: string;
           duration: number;
-          finish_at: string;
+          finishAt: string | null;
           id: number;
           items: number | null;
           score: number | null;
-          start_at: string;
+          startAt: string | null;
           token: string | null;
           user: string;
           username_ig: string | null;
@@ -50,11 +50,11 @@ export type Database = {
         Insert: {
           created_at?: string;
           duration: number;
-          finish_at: string;
+          finishAt?: string | null;
           id?: number;
           items?: number | null;
           score?: number | null;
-          start_at: string;
+          startAt?: string | null;
           token?: string | null;
           user: string;
           username_ig?: string | null;
@@ -62,11 +62,11 @@ export type Database = {
         Update: {
           created_at?: string;
           duration?: number;
-          finish_at?: string;
+          finishAt?: string | null;
           id?: number;
           items?: number | null;
           score?: number | null;
-          start_at?: string;
+          startAt?: string | null;
           token?: string | null;
           user?: string;
           username_ig?: string | null;
