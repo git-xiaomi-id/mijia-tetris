@@ -36,17 +36,11 @@ export interface IRackArea {
 }
 
 export type TRack =
-  | "top-left-door"
   | "top-middle-door"
-  | "top-right-door"
-  | "middle-left-door"
-  | "middle-right-door"
-  | "bottom-left-door"
-  | "bottom-right-door"
-  | "freezer-left-door"
-  | "freezer-right-door"
-  | "freezer-sec2-left-door"
-  | "freezer-sec2-right-door";
+  | "top-door"
+  | "middle-rack"
+  | "freezer"
+  | "freezer-bottom";
 
 export type TAreaId =
   | "top-left"
@@ -72,7 +66,7 @@ const refrigeratorItems: IItem[] = [
     blockHeight: 3,
     placementSet: "horizontal",
     placementAmount: 1,
-    totalQty: 1,
+    totalQty: 3,
     category: "Food",
     image: "/items/egg-front-view.webp",
     dock: "top",
@@ -85,7 +79,7 @@ const refrigeratorItems: IItem[] = [
     blockHeight: 3,
     placementSet: "horizontal",
     placementAmount: 1,
-    totalQty: 1,
+    totalQty: 2,
     category: "Food",
     image: "/items/pudding-front-view.webp",
     dock: "bottom",
@@ -105,13 +99,13 @@ const refrigeratorItems: IItem[] = [
     rack: "top-middle-door",
   },
   {
-    id: "banana",
-    name: "Banana",
+    id: "pisang",
+    name: "Pisang",
     blockWidth: 1,
     blockHeight: 3,
     placementSet: "vertical",
     placementAmount: 1,
-    totalQty: 5,
+    totalQty: 6,
     category: "Food",
     image: "/items/banana-front-view.webp",
     dock: "bottom",
@@ -124,7 +118,7 @@ const refrigeratorItems: IItem[] = [
     blockHeight: 2,
     placementSet: "horizontal",
     placementAmount: 1,
-    totalQty: 1,
+    totalQty: 3,
     category: "Food",
     image: "/items/brownie-front-view.webp",
     dock: "top",
@@ -149,12 +143,12 @@ const refrigeratorItems: IItem[] = [
     blockWidth: 1,
     blockHeight: 1,
     placementSet: "horizontal",
-    placementAmount: 9,
-    totalQty: 9,
+    placementAmount: 3,
+    totalQty: 6,
     category: "Food",
     image: "/items/bread-front-view.webp",
     dock: "top",
-    rack: "top-left-door",
+    rack: "top-middle-door",
   },
   {
     id: "wortel",
@@ -162,12 +156,12 @@ const refrigeratorItems: IItem[] = [
     blockWidth: 1,
     blockHeight: 2,
     placementSet: "vertical",
-    placementAmount: 6,
-    totalQty: 6,
+    placementAmount: 4,
+    totalQty: 8,
     category: "Food",
     image: "/items/carrot-front-view.webp",
     dock: "bottom",
-    rack: "bottom-left-door",
+    rack: "middle-rack",
   },
   {
     id: "kentang",
@@ -175,12 +169,12 @@ const refrigeratorItems: IItem[] = [
     blockWidth: 1,
     blockHeight: 1,
     placementSet: "horizontal",
-    placementAmount: 1,
-    totalQty: 4,
+    placementAmount: 4,
+    totalQty: 8,
     category: "Food",
     image: "/items/potato-front-view.webp",
     dock: "top",
-    rack: "top-middle-door",
+    rack: "middle-rack",
   },
   {
     id: "tomat",
@@ -189,11 +183,11 @@ const refrigeratorItems: IItem[] = [
     blockHeight: 2,
     placementSet: "vertical",
     placementAmount: 4,
-    totalQty: 4,
+    totalQty: 8,
     category: "Food",
     image: "/items/tomato-front-view.webp",
     dock: "bottom",
-    rack: "middle-right-door",
+    rack: "middle-rack",
   },
   {
     id: "botol",
@@ -201,12 +195,12 @@ const refrigeratorItems: IItem[] = [
     blockWidth: 1,
     blockHeight: 1,
     placementSet: "horizontal",
-    placementAmount: 10,
+    placementAmount: 1,
     totalQty: 10,
     category: "Drink",
     image: "/items/bottle-front-view.webp",
     dock: "top",
-    rack: "top-right-door",
+    rack: "top-door",
   },
   {
     id: "susu_karton",
@@ -214,12 +208,12 @@ const refrigeratorItems: IItem[] = [
     blockWidth: 1,
     blockHeight: 1,
     placementSet: "horizontal",
-    placementAmount: 6,
+    placementAmount: 1,
     totalQty: 6,
     category: "Drink",
     image: "/items/milk-front-view.webp",
     dock: "bottom",
-    rack: "bottom-right-door",
+    rack: "top-door",
   },
   {
     id: "toples",
@@ -227,12 +221,12 @@ const refrigeratorItems: IItem[] = [
     blockWidth: 1,
     blockHeight: 1,
     placementSet: "horizontal",
-    placementAmount: 8,
+    placementAmount: 1,
     totalQty: 8,
     category: "Food",
     image: "/items/jar-front-view.webp",
     dock: "top",
-    rack: "top-left-door",
+    rack: "top-door",
   },
   {
     id: "ice_cream",
@@ -240,12 +234,12 @@ const refrigeratorItems: IItem[] = [
     blockWidth: 1,
     blockHeight: 1,
     placementSet: "horizontal",
-    placementAmount: 8,
+    placementAmount: 4,
     totalQty: 8,
     category: "Drink",
     image: "/items/ice-cream-front-view.webp",
     dock: "bottom",
-    rack: "freezer-left-door",
+    rack: "freezer",
   },
   {
     id: "mochi_ice_cream",
@@ -253,12 +247,12 @@ const refrigeratorItems: IItem[] = [
     blockWidth: 1,
     blockHeight: 2,
     placementSet: "vertical",
-    placementAmount: 2,
-    totalQty: 2,
+    placementAmount: 4,
+    totalQty: 8,
     category: "Drink",
     image: "/items/ice-mochi-front-view.webp",
     dock: "top",
-    rack: "freezer-right-door",
+    rack: "freezer",
   },
   {
     id: "dumpling",
@@ -267,11 +261,11 @@ const refrigeratorItems: IItem[] = [
     blockHeight: 1,
     placementSet: "horizontal",
     placementAmount: 4,
-    totalQty: 4,
+    totalQty: 8,
     category: "Food",
     image: "/items/dumpling-front-view.webp",
     dock: "top",
-    rack: "freezer-sec2-left-door",
+    rack: "freezer",
   },
   {
     id: "ayam",
@@ -280,11 +274,11 @@ const refrigeratorItems: IItem[] = [
     blockHeight: 2,
     placementSet: "horizontal",
     placementAmount: 4,
-    totalQty: 4,
+    totalQty: 12,
     category: "Food",
     image: "/items/chicken-front-view.webp",
     dock: "top",
-    rack: "freezer-sec2-right-door",
+    rack: "freezer",
   },
   {
     id: "sosis",
@@ -293,11 +287,11 @@ const refrigeratorItems: IItem[] = [
     blockHeight: 2,
     placementSet: "vertical",
     placementAmount: 4,
-    totalQty: 4,
+    totalQty: 12,
     category: "Food",
     image: "/items/sausage-front-view.webp",
     dock: "bottom",
-    rack: "freezer-left-door",
+    rack: "freezer",
   },
   {
     id: "ikan",
@@ -310,7 +304,7 @@ const refrigeratorItems: IItem[] = [
     category: "Food",
     image: "/items/fish-front-view.webp",
     dock: "bottom",
-    rack: "freezer-right-door",
+    rack: "freezer-bottom",
   },
   {
     id: "daging",
@@ -323,43 +317,43 @@ const refrigeratorItems: IItem[] = [
     category: "Food",
     image: "/items/meat-front-view.webp",
     dock: "top",
-    rack: "freezer-sec2-left-door",
+    rack: "freezer-bottom",
   },
 ];
 
 export const rackArea: IRackArea[] = [
   {
-    area: "top-left-door",
+    area: "top-door",
     areaId: "top-left",
     className: "gs-mask-door-dashed door-left",
     // items: Array.from({ length: 3 }, () => Array(4).fill(null)),
     items: generateGridArray(3, 4),
     columns: 4,
     rows: 3,
-    name: "Door",
+    name: "Pintu Kulkas",
   },
   {
     area: "top-middle-door",
     areaId: "top-middle1",
     className: "gs-mask-door-dashed door-middle",
     // items: Array.from({ length: 4 }, () => Array(6).fill(null)),
-    items: generateGridArray(3, 6),
+    items: generateGridArray(4, 6),
     columns: 6,
     rows: 4,
-    name: "Main Rak",
+    name: "Rak Utama",
   },
   {
-    area: "top-right-door",
+    area: "top-door",
     areaId: "top-right",
     className: "gs-mask-door-dashed door-right",
     // items: Array.from({ length: 3 }, () => Array(4).fill(null)),
     items: generateGridArray(3, 4),
     columns: 4,
     rows: 3,
-    name: "Door",
+    name: "Pintu Kulkas",
   },
   {
-    area: "middle-left-door",
+    area: "middle-rack",
     areaId: "middle-left",
     className: "gs-mask-door-dashed-middle door-left",
     // items: Array.from({ length: 1 }, () => Array(4).fill(null)),
@@ -369,7 +363,7 @@ export const rackArea: IRackArea[] = [
     name: "Drawer Atas",
   },
   {
-    area: "middle-right-door",
+    area: "middle-rack",
     areaId: "middle-right",
     className: "gs-mask-door-dashed-middle door-right",
     // items: Array.from({ length: 1 }, () => Array(4).fill(null)),
@@ -379,7 +373,7 @@ export const rackArea: IRackArea[] = [
     name: "Drawer Bawah",
   },
   {
-    area: "bottom-left-door",
+    area: "freezer",
     areaId: "bottom-left",
     className: "gs-mask-door-dashed-bottom left",
     items: generateGridArray(1, 4),
@@ -388,7 +382,7 @@ export const rackArea: IRackArea[] = [
     name: "Freezer 1",
   },
   {
-    area: "bottom-right-door",
+    area: "freezer",
     areaId: "bottom-right",
     className: "gs-mask-door-dashed-bottom right",
     items: generateGridArray(1, 4),
@@ -397,7 +391,7 @@ export const rackArea: IRackArea[] = [
     name: "Freezer 2",
   },
   {
-    area: "freezer-left-door",
+    area: "freezer",
     areaId: "freezer-left",
     className: "gs-mask-door-dashed-freezerbottom left",
     items: generateGridArray(1, 4),
@@ -406,7 +400,7 @@ export const rackArea: IRackArea[] = [
     name: "Freezer 3",
   },
   {
-    area: "freezer-right-door",
+    area: "freezer",
     areaId: "freezer-right",
     className: "gs-mask-door-dashed-freezerbottom right",
     items: generateGridArray(1, 4),
@@ -415,7 +409,7 @@ export const rackArea: IRackArea[] = [
     name: "Freezer 4",
   },
   {
-    area: "freezer-sec2-left-door",
+    area: "freezer-bottom",
     areaId: "freezer-sec2-left",
     className: "gs-mask-door-dashed-freezerbottom sec2 left",
     items: generateGridArray(1, 4),
@@ -424,7 +418,7 @@ export const rackArea: IRackArea[] = [
     name: "Freezer 5",
   },
   {
-    area: "freezer-sec2-right-door",
+    area: "freezer-bottom",
     areaId: "freezer-sec2-right",
     className: "gs-mask-door-dashed-freezerbottom sec2 right",
     items: generateGridArray(1, 4),
