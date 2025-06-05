@@ -262,8 +262,6 @@ export default function FinishShareIG({
     const PIXEL_RATIO = 3;
 
     try {
-      console.log("🚀 Generating ULTRA QUALITY image...");
-
       // Create ultra quality container
       tempContainer = document.createElement("div");
       tempContainer.style.cssText = `
