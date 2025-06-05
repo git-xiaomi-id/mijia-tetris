@@ -34,12 +34,12 @@ export default function RackTopDoor({
             >
               {item && (
                 <div className="relative size-full">
-                  <img src={item.image} alt={item.name} />
-                  {/* {item.amount > 1 && (
-                    <div className="absolute bottom-0 right-0 bg-blue-500 text-white text-xs px-1 rounded-tl">
-                      {item.amount}
-                    </div>
-                  )} */}
+                  <img
+                    key={colIndex}
+                    src={item.image}
+                    alt={item.name}
+                    className="pointer-events-none"
+                  />
                 </div>
               )}
             </div>

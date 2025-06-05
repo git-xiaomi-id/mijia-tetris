@@ -173,19 +173,21 @@
 }
 .gra-top-door-row {
   @apply w-[95%] aspect-[4/1.25] relative;
-  @apply px-6 flex gap-2;
+  @apply px-[18px] flex;
   background-image: url("/rack/rack-door-back.webp");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-
   @apply mt-10;
+
+  @apply after:absolute after:left-0 after:top-0 after:size-full after:bg-transparent after:pointer-events-none after:rounded-sm after:border-2 after:border-dashed after:border-transparent;
+  @apply hover:after:bg-slate-400/20 hover:after:border-[#ff813e];
 }
 .gra-top-door-row:nth-of-type(2) {
-  @apply mt-4;
+  @apply mt-5;
 }
 .gra-top-door-row:nth-of-type(3) {
-  @apply mt-12;
+  @apply mt-14;
 }
 .gra-top-door-row .gra-grid-item {
   @apply w-1/4;

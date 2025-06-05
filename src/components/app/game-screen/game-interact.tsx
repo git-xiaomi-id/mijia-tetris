@@ -71,9 +71,9 @@ export default function GameInteract() {
               )}
 
               {areaActive.areaId.includes("top-middle") && (
-                // <div className="w-[80%] h-[80%]">
-                <RackTopMiddle items={areaActive.items} />
-                // </div>
+                <div className="w-[80%] h-[80%]">
+                  <RackTopMiddle items={areaActive.items} />
+                </div>
               )}
 
               {(areaActive.areaId === "middle-left" ||
