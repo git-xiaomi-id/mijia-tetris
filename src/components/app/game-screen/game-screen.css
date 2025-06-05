@@ -39,7 +39,7 @@
   background-size: contain;
 
   /* @apply absolute left-0 bottom-0; */
-  @apply w-full h-fit rounded-t-2xl p-4 pb-16  border-t-4 border-gray-200;
+  @apply w-full h-fit rounded-t-2xl p-4 pb-8  border-t-4 border-gray-200;
 
   @apply translate-y-10 opacity-0 transition-all;
 }
@@ -340,7 +340,7 @@
 
   background-image: url("/illustration/top-main-area.png"),
     url("/illustration/top-main-area.webp");
-  background-position: top left;
+  background-position: top center;
   background-repeat: repeat;
   background-size: cover;
 }
