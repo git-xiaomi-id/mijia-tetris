@@ -1,59 +1,16 @@
-import useClickSound from "@/hooks/use-click-sound";
 import { useGameProvider } from "@/hooks/use-game";
 import RackTopMiddle from "./rack-top-middle";
 import RackTopDoor from "./rack-top-door";
 import RackBoxMiddle from "./rack-box-middle";
 import "./game-interact.css";
+import GameSetArea from "./game-set-area";
 
 export default function GameInteract() {
-  const { clickPlay } = useClickSound();
-  const {
-    screenStep,
-    screenSteps,
-    assets,
-    areaActive,
-    setAreaActive,
-    rackState,
-  } = useGameProvider();
-  const asset = assets[assets.length - 1];
-
-  function clickArea(area: (typeof rackState)[0]) {
-    clickPlay();
-    setAreaActive(area);
-  }
-
+  const { screenStep, screenSteps, areaActive } = useGameProvider();
   return (
     screenSteps.findIndex((n) => n === screenStep) >= 3 && (
       <>
-        <div className="absolute left-0 top-0 size-full">
-          <div
-            className={[
-              "h-full w-fit mx-auto relative transition-all",
-              screenStep === "game" ? "scale-110" : "",
-            ].join(" ")}
-          >
-            <img
-              key={asset.key}
-              alt={asset?.key || ""}
-              src={asset?.src || ""}
-              className="h-full object-contain block mx-auto transition-all"
-            />
-            {
-              // Clickable Area
-              screenStep === "game" &&
-                rackState.map((area, index) => (
-                  <button
-                    key={index}
-                    onClick={() => clickArea(area)}
-                    type="button"
-                    className={area.className}
-                  >
-                    <span className="text-[10px]">{area?.name}</span>
-                  </button>
-                ))
-            }
-          </div>
-        </div>
+        <GameSetArea />
 
         {areaActive && (
           <>
