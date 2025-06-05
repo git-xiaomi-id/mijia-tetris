@@ -2,10 +2,9 @@ import { useAppProvider } from "@/hooks/use-context";
 import { useGameProvider } from "@/hooks/use-game";
 import { Instagram } from "lucide-react";
 import { useMemo } from "react";
+import ChancePlay from "../chance-play";
 import FinishHeading from "./finish-heading";
 import FinishTimer from "./finish-timer";
-import LivesFill from "./icons/lives-fill";
-import LivesOut from "./icons/lives-out";
 
 function UsernameDisplay({ username }: { username: string }) {
   return (
@@ -14,26 +13,6 @@ function UsernameDisplay({ username }: { username: string }) {
         <Instagram size={16} />
       </div>
       <div className="font-[520] text-sm truncate">@{username}</div>
-    </div>
-  );
-}
-
-function ChancePlay({ gameCount }: { gameCount: number }) {
-  const maxLives = 3;
-  const emptyLives = Math.min(Math.max(gameCount, 0), maxLives);
-  const filledLives = maxLives - emptyLives;
-
-  return (
-    <div className="flex items-center gap-2">
-      <p className="font-[520] text-[10px]">Kesempatan main:</p>
-      <div className="flex items-center gap-1">
-        {Array.from({ length: emptyLives }, (_, index) => (
-          <LivesOut key={`empty-${index}`} />
-        ))}
-        {Array.from({ length: filledLives }, (_, index) => (
-          <LivesFill key={`filled-${index}`} />
-        ))}
-      </div>
     </div>
   );
 }
@@ -72,7 +51,7 @@ export default function FinishScreenView() {
 
   return (
     <div className="fs-view">
-      <ChancePlay gameCount={gamesCount} />
+      <ChancePlay gameCount={gamesCount} direction="row" />
       <div className="fs-view-card">
         <div className="flex flex-col items-center justify-center gap-3">
           <div className="flex flex-col items-center justify-center">

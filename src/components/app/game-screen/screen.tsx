@@ -1,6 +1,6 @@
 import { useAppProvider } from "@/hooks/use-context";
 import { useGameProvider } from "@/hooks/use-game";
-import { Instagram } from "lucide-react";
+import { Instagram, Loader } from "lucide-react";
 import GameTimer from "./game-timer";
 import ButtonTimer from "./button-timer";
 import OnboardingModal from "./onboarding-modal";
@@ -20,8 +20,14 @@ function UsernameDisplay({ username }: { username: string }) {
 }
 
 export default function GameScreenContent() {
-  const { screenStep, screenSteps, assets, runScenario, onboardingOpen } =
-    useGameProvider();
+  const {
+    screenStep,
+    screenSteps,
+    assets,
+    runScenario,
+    onboardingOpen,
+    loadingSubmit,
+  } = useGameProvider();
   const { user } = useAppProvider();
 
   return (
@@ -91,6 +97,14 @@ export default function GameScreenContent() {
         >
           <ItemDock />
         </div>
+
+        {loadingSubmit && (
+          <>
+            <div className="absolute inset-0 bg-black/50 z-50 flex items-center justify-center">
+              <Loader className="size-6 animate-spin text-white" />
+            </div>
+          </>
+        )}
 
         {/* Onboarding Parts */}
         {onboardingOpen && (

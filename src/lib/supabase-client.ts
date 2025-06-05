@@ -1,4 +1,5 @@
 import clientSupabase from "@/lib/clientSupabase";
+import { KEY_PLAY_COUNT, setCookie } from "./utils";
 
 export async function getUserByToken(token: string) {
   if (!token) return null;
@@ -96,8 +97,8 @@ export async function getLeaderboardWithUserInfo() {
       user!inner(username_ig),
       duration,
       score,
-      finish_at,
-      start_at
+      finishAt,
+      startAt
     `
     )
     .order("duration", { ascending: true })
@@ -130,5 +131,38 @@ export async function getUserGamesCountToday(username: string) {
     return { data: null, error, count: 0 };
   }
 
+  setCookie(KEY_PLAY_COUNT, count?.toString() || "0");
+
   return { data, error: null, count: count || 0 };
+}
+
+export async function postGameResult({
+  user,
+  username_ig,
+  token,
+  duration,
+  score,
+  finishAt,
+  startAt,
+  items,
+}: {
+  user: string;
+  username_ig: string | null;
+  token: string | null;
+  duration: number;
+  score: number;
+  finishAt: string;
+  startAt: string;
+  items: number;
+}) {
+  return await clientSupabase.from("game").insert({
+    user,
+    token,
+    duration,
+    score,
+    startAt,
+    finishAt,
+    username_ig,
+    items,
+  });
 }

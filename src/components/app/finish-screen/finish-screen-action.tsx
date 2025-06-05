@@ -24,9 +24,9 @@ export default function FinishScreenAction() {
       setModal("empty");
       return;
     }
-    setScreen("game");
     doResetGame();
     runScenario();
+    setScreen("game");
   }
 
   function doExitGame() {

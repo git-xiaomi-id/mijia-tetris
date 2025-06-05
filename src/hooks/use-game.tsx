@@ -3,6 +3,7 @@ import refrigeratorItems, {
   type IItem,
   type IRackArea,
 } from "@/lib/refrigerator-items";
+import { postGameResult } from "@/lib/supabase-client";
 import {
   generateGridArray,
   getCookie,
@@ -19,6 +20,7 @@ import {
   type SetStateAction,
 } from "react";
 import { toast } from "sonner";
+import { useAppProvider } from "./use-context";
 
 export type TScreenStep =
   | "intro1"
@@ -59,6 +61,7 @@ interface GameContextType {
   onClickItem: (item: (typeof refrigeratorItems)[0]) => void;
   rackState: IRackArea[];
   setRackState: Dispatch<SetStateAction<IRackArea[]>>;
+  loadingSubmit: boolean;
 }
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
@@ -89,6 +92,8 @@ const assets = [
 // const area = ["top-left", "top-right", "top-middle1", "top-middle2", "top-middle3", "middle-left", "middle-right", ""]
 
 export function GameProvider({ children }: { children: ReactNode }) {
+  const { user, setScreen, updateGamesCount } = useAppProvider();
+
   const [screenStep, setScreenStep] = useState<TScreenStep>("intro1");
   const [timerStep, setTimerStep] = useState<TTimerStep>("pause");
   const [time, setTime] = useState<number>(0);
@@ -107,6 +112,8 @@ export function GameProvider({ children }: { children: ReactNode }) {
     null
   );
   const [rackState, setRackState] = useState<IRackArea[] | []>([...rackArea]);
+  const [gameStartTime, setGameStartTime] = useState<Date | null>(null);
+  const [loadingSubmit, setLoadingSubmit] = useState<boolean>(false);
 
   function shuffleItems() {
     const shuffledItems = [...refrigeratorItems].sort(
@@ -130,6 +137,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     setScreenStep("game");
     setTimerStep("start");
     setOnboardingOpen(false);
+    setGameStartTime(new Date());
 
     if (hasOnboarding) {
       setHasOnboarding(true);
@@ -169,8 +177,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     setTimerStep("pause");
     setScreenStep("intro1");
     setOnboardingStep(0);
-
-    //
+    setGameStartTime(null);
 
     shuffleItems();
     setAreaActive(null);
@@ -187,7 +194,6 @@ export function GameProvider({ children }: { children: ReactNode }) {
     if (callback) setTimeout(callback, 200);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   function placeItem(rowIndex: number) {
     if (!areaActive) return;
     if (!itemActive) return toast.error("Pilih item terlebih dahulu");
@@ -201,13 +207,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
       return;
     } else toast.dismiss();
 
-    function count(item: IItem) {
-      const count = item.totalQty - item.placementAmount;
-      return count;
-    }
-
     const newItems = areaActive.items.map((row) => [...row]);
-    // const item = refrigeratorItems.find((item) => item.id === itemActive);
     const lastIndex = newItems[rowIndex].findIndex(
       (i) => typeof i === "string"
     );
@@ -228,6 +228,35 @@ export function GameProvider({ children }: { children: ReactNode }) {
       dock: item?.dock || "top",
     };
 
+    // Find the current item from state (not from refrigeratorItems)
+    const inTop = topItem.findIndex((i) => i.id === itemActive);
+    const inBottom = bottomItem.findIndex((i) => i.id === itemActive);
+
+    let currentItem: IItem;
+    let updatedTopItems = topItem;
+    let updatedBottomItems = bottomItem;
+
+    if (inTop >= 0) {
+      currentItem = topItem[inTop];
+      const newQuantity = currentItem.totalQty - currentItem.placementAmount;
+      updatedTopItems = topItem.map((item, index) =>
+        index === inTop ? { ...item, totalQty: newQuantity } : item
+      );
+    } else if (inBottom >= 0) {
+      currentItem = bottomItem[inBottom];
+      const newQuantity = currentItem.totalQty - currentItem.placementAmount;
+      updatedBottomItems = bottomItem.map((item, index) =>
+        index === inBottom ? { ...item, totalQty: newQuantity } : item
+      );
+    } else {
+      setItemActive(null);
+      return;
+    }
+
+    // Check game completion with calculated values
+    const allUpdatedItems = [...updatedTopItems, ...updatedBottomItems];
+    const hasRemainingItems = allUpdatedItems.some((item) => item.totalQty > 0);
+
     // UPDATE RACK INFORMATION
     setAreaActive({ ...areaActive, items: newItems });
     setRackState((curr) => {
@@ -238,28 +267,50 @@ export function GameProvider({ children }: { children: ReactNode }) {
     });
 
     // UPDATE ITEM INFORMATION
-    const inTop = topItem.findIndex((i) => i.id === itemActive);
-
     if (inTop >= 0) {
-      // Item ada di topItem - update secara immutable
-      setTopItem((prev) => {
-        return prev.map((item, index) =>
-          index === inTop ? { ...item, totalQty: count(item) } : item
-        );
-      });
-    } else {
-      // Item ada di bottomItem - update secara immutable
-      const inBottom = bottomItem.findIndex((i) => i.id === itemActive);
-      if (inBottom >= 0) {
-        setBottomItem((prev) => {
-          return prev.map((item, index) =>
-            index === inBottom ? { ...item, totalQty: count(item) } : item
-          );
-        });
-      }
+      setTopItem(updatedTopItems);
+    } else if (inBottom >= 0) {
+      setBottomItem(updatedBottomItems);
     }
 
     setItemActive(null);
+
+    if (!hasRemainingItems) {
+      handleGameCompletion();
+    }
+  }
+
+  async function handleGameCompletion() {
+    if (!gameStartTime || !user) return;
+    setLoadingSubmit(true);
+
+    const finishTime = new Date();
+    const duration = Math.floor(
+      (finishTime.getTime() - gameStartTime.getTime()) / 1000
+    );
+    const totalItems = refrigeratorItems.length;
+    const score = Math.max(1000 - duration * 10, 100);
+
+    const { error } = await postGameResult({
+      user: user.id,
+      username_ig: user?.username_ig ?? null,
+      duration,
+      token: user.token ?? null,
+      finishAt: finishTime.toISOString(),
+      startAt: gameStartTime.toISOString(),
+      items: totalItems,
+      score,
+    });
+
+    if (!error) {
+      updateGamesCount(true);
+      setTimeout(() => {
+        setLoadingSubmit(false);
+        setScreen("finished");
+      }, 1000);
+    } else {
+      setLoadingSubmit(false);
+    }
   }
 
   function onClickItem(item: (typeof refrigeratorItems)[0]) {
@@ -301,6 +352,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
         onClickItem,
         rackState,
         setRackState,
+        loadingSubmit,
       }}
     >
       {children}
