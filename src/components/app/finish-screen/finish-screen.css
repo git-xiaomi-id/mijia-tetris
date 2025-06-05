@@ -8,7 +8,7 @@
 }
 
 .fs-view {
-  @apply w-full flex flex-col items-end justify-center gap-6;
+  @apply w-full flex flex-col justify-center gap-6;
   background-image: url("/bg-finished.png");
   /* Added w-full to match parent width */
 }

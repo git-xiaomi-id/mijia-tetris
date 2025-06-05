@@ -1,17 +1,18 @@
 "use client";
 
-import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
+import { useAppProvider } from "@/hooks/use-context";
+import { tapStartUser } from "@/lib/actions";
 import { Loader } from "lucide-react";
-import GameInstruction from "./game-instruction";
+import { type Dispatch, type SetStateAction, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { mutate } from "swr";
-import LogoutModal from "./logout-modal";
 import AppButton from "../button";
 import RegularButton from "../button-regular";
 import AppInput from "../input";
-import { tapStartUser } from "../../../lib/actions";
-import { useAppProvider } from "../../../hooks/use-context";
+import GameInstruction from "./game-instruction";
 import LoggedInModal from "./loggedin-detected-modal";
+import LogoutModal from "./logout-modal";
+import AppModal from "./modal";
 
 export default function WelcomeScreenView({
   tokenCookie,
@@ -19,11 +20,12 @@ export default function WelcomeScreenView({
   tokenCookie?: string;
 }) {
   const [username, setUsername] = useState("");
-  const { user, userLoading, setScreen } = useAppProvider();
+  const { user, userLoading, setScreen, gamesCount } = useAppProvider();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [logoutModal, setLogoutModal] = useState(false);
   const [loggedinDetected, setLoggedinDetected] = useState(false);
+  const [chanceModal, setChanceModal] = useState<boolean>(false);
 
   useEffect(() => {
     if (user && user.username_ig) setUsername(`@${user?.username_ig || ""}`);
@@ -42,9 +44,11 @@ export default function WelcomeScreenView({
     setLoading(true);
     const res = await tapStartUser(username.trim());
     setLoading(false);
+
     if (res?.data?.id) {
-      mutate("user");
-      setScreen("game");
+      await mutate("user");
+      await mutate("games");
+      checkChancePlay(res?.count ?? gamesCount);
     } else if (res.error?.message === "already-logged-in")
       setLoggedinDetected(true);
     // else alert(res?.error?.message);
@@ -54,6 +58,18 @@ export default function WelcomeScreenView({
   function switchLogout() {
     setLoggedinDetected(false);
     setLogoutModal(true);
+  }
+
+  function checkChancePlay(chance: number) {
+    if (chance >= 3) {
+      setChanceModal(true);
+    } else {
+      setScreen("game");
+    }
+  }
+
+  function closeChanceModal() {
+    setChanceModal(false);
   }
 
   return (
@@ -80,6 +96,18 @@ export default function WelcomeScreenView({
         onOpenChange={setLoggedinDetected}
         onCancelClick={switchLogout}
       />
+      {chanceModal && (
+        <AppModal
+          open={chanceModal}
+          title="Kesempatan main habis"
+          description="Kamu sudah menghabiskan semua kesempatan main hari ini. Kembali lagi besok untuk mendapatkan 3 kesempatan main tambahan."
+          image="/mi-bunny/mi-bunny-cry.webp"
+          animationImage="animate-headshaking"
+          textConfirm="Oke, mengerti"
+          onOpenChange={closeChanceModal}
+          onCancelClick={closeChanceModal}
+        />
+      )}
     </>
   );
 }
@@ -137,7 +165,13 @@ function WelcomeScreenInput({
   return userLoading && tokenCookie ? (
     <Loader className="size-6 mx-auto animate-spin" />
   ) : localUsername ? (
-    <div className="ws-currentUsername">{localUsername}</div>
+    <div className="flex flex-col gap-3 items-center justify-center  w-full max-w-[280px] mx-auto">
+      <div className="flex justify-center items-center w-full">
+        {localUsername ? "Main lagi dengan akun" : "Tulis akun ig kamu"}{" "}
+        <div className="hand-down">👇🏼</div>
+      </div>
+      <div className="ws-currentUsername">{localUsername}</div>
+    </div>
   ) : (
     <div className="flex flex-col gap-3 items-center justify-center  w-full max-w-[280px] mx-auto">
       <div className="flex justify-center items-center w-full">
