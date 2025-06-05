@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router";
+import { Analytics } from "@vercel/analytics/react";
 import { ToasterSonner } from "./components/ui/sonner";
 import { AppProvider } from "./hooks/use-context";
 import Leaderboard from "./leaderboard";
@@ -38,6 +39,9 @@ export default function App() {
           }}
         />
       </GameProvider>
+
+      {/*  */}
+      <Analytics />
     </AppProvider>
   );
 }
