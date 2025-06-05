@@ -7,21 +7,8 @@ import FinishHome from "../finish-screen/icons/finish-home";
 
 export default function LeaderboardAction() {
   const navigate = useNavigate();
-  const {
-    setTime,
-    setTimerStep,
-    setScreenStep,
-    setOnboardingStep,
-    runScenario,
-  } = useGameProvider();
+  const { runScenario, doResetGame } = useGameProvider();
   const { setScreen } = useAppProvider();
-
-  function doResetGame() {
-    setTime(0);
-    setTimerStep("pause");
-    setScreenStep("intro1");
-    setOnboardingStep(0);
-  }
 
   function doRestartGame() {
     doResetGame();

@@ -74,11 +74,14 @@ export async function tapCheckUserGames() {
   if (!username) {
     const userCheck = await tapCheckUser();
     if (userCheck?.data?.username_ig) {
-      username = userCheck.data.username_ig;
+      username = userCheck.data.username_ig.replace("@", "");
       setCookie(KEY_USERNAME_LOCAL, username);
     } else {
       return { error: { message: "No valid user found" }, count: 0 };
     }
+  } else {
+    username = username.replace("@", "");
+    setCookie(KEY_USERNAME_LOCAL, username);
   }
 
   return await getUserGamesCountToday(username);
@@ -126,9 +129,14 @@ export async function tapStartUser(usernameIG: string) {
     console.log("[tapStartUser] Create user result:", res);
   }
 
+  let count = 0;
+
   if (res?.data?.id) {
     const { username_ig, id, token } = res.data;
     await setUserCookie(username_ig!, token!, id!);
+    const checkUserGames = await tapCheckUserGames();
+    count = checkUserGames?.count ?? 0;
+
     if (import.meta.env.DEV) {
       console.log("[tapStartUser] Set cookies for user:", {
         username_ig,
@@ -138,7 +146,7 @@ export async function tapStartUser(usernameIG: string) {
     }
   }
 
-  return res;
+  return { ...res, count };
 }
 
 export async function tapForceLogoutUser(username_ig: string) {
