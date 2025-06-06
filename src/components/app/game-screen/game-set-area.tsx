@@ -108,6 +108,41 @@ function SetAreaTopDoorLeft({ items }: { items: IItemPlaced[][] }) {
   );
 }
 
+function SetAreaFreezer({ items }: { items: IItemPlaced[][] }) {
+  return (
+    <div className="size-full">
+      {items.map((row, rowIndex) => (
+        <div
+          key={rowIndex}
+          className="flex flex-1 items-end w-full"
+          style={{ height: `${100 / items.length}%` }}
+        >
+          {row.map((item, colIndex) => (
+            <div
+              key={colIndex}
+              className="relative w-full h-full  flex flex-col items-center"
+            >
+              {Array.from({ length: item.amount }).map((_, i) => (
+                <img
+                  key={i}
+                  src={item.image}
+                  alt={item.name}
+                  className="pointer-events-none size-[65%] object-contain"
+                  style={{
+                    scale: item.amount > 1 ? 0.85 + i * 0.1 : 1,
+                    transform: `translateX(0%) translateY(${i * -70}%)`,
+                    pointerEvents: item.amount - 1 === i ? "auto" : "none",
+                  }}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function GameSetArea() {
   const { clickPlay } = useClickSound();
   const { screenStep, assets, setAreaActive, rackState } = useGameProvider();
@@ -141,6 +176,7 @@ export default function GameSetArea() {
                   key={index}
                   onClick={() => clickArea(area)}
                   type="button"
+                  title={area.areaId}
                   className={`${area.className} ${
                     area.items.flat()?.some((item) => item?.id)
                       ? "off-blinking"
@@ -154,6 +190,8 @@ export default function GameSetArea() {
                       <SetAreaTopDoorRight items={area.items} />
                     ) : area.areaId.includes("top-middle") ? (
                       <SetAreaTopMiddle items={area.items} />
+                    ) : area.areaId.includes("freezer-sec2") ? (
+                      <SetAreaFreezer items={area.items} />
                     ) : (
                       <span className="text-[10px] pointer-events-none opacity-0">
                         {area?.name}
