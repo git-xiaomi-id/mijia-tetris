@@ -25,6 +25,9 @@ export const KEY_ONBOARDING = "mijia-game-onboarding";
 export const KEY_PLAY_COUNT = "mijia-game-count";
 export const KEY_PRIZE_ALERT = "mijia-game-prize-alert";
 
+export const START_DATE_LEADERBOARD = "2025-06-06T10:00:00.000Z";
+export const END_DATE_LEADERBOARD = "2025-06-12T16:59:59.999Z";
+
 export function generateGridArray<T = string>(
   rows: number = 0,
   cols: number = 0,

@@ -15,6 +15,19 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      get_unique_leaderboard: {
+        Args: {
+          start_date: string;
+          end_date: string;
+          limit_count: number;
+        };
+        Returns: {
+          username_ig: string;
+          score: number;
+          duration: number;
+          created_at: string;
+        }[];
+      };
       graphql: {
         Args: {
           operationName?: string;
@@ -113,7 +126,16 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      get_unique_leaderboard: {
+        Args: { start_date: string; end_date: string; limit_count: number };
+        Returns: {
+          username_ig: string;
+          duration: number;
+          score: number;
+          finishAt: string;
+          startAt: string;
+        }[];
+      };
     };
     Enums: {
       [_ in never]: never;
