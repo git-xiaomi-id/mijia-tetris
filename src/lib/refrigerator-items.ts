@@ -370,7 +370,7 @@ export const rackArea: IRackArea[] = [
     items: generateGridArray(1, 3),
     columns: 3,
     rows: 1,
-    name: "Drawer Atas",
+    name: "i Fresh",
   },
   {
     area: "middle-rack",
@@ -380,7 +380,7 @@ export const rackArea: IRackArea[] = [
     items: generateGridArray(1, 3),
     columns: 3,
     rows: 1,
-    name: "Drawer Bawah",
+    name: "Freeze Box",
   },
   {
     area: "freezer",
@@ -389,7 +389,7 @@ export const rackArea: IRackArea[] = [
     items: generateGridArray(1, 3),
     columns: 3,
     rows: 1,
-    name: "Freezer 1",
+    name: "Freezer",
   },
   {
     area: "freezer",
@@ -398,7 +398,7 @@ export const rackArea: IRackArea[] = [
     items: generateGridArray(1, 3),
     columns: 3,
     rows: 1,
-    name: "Freezer 2",
+    name: "Freezer",
   },
   {
     area: "freezer",
@@ -407,7 +407,7 @@ export const rackArea: IRackArea[] = [
     items: generateGridArray(1, 3),
     columns: 3,
     rows: 1,
-    name: "Freezer 3",
+    name: "Freezer",
   },
   {
     area: "freezer",
@@ -416,7 +416,7 @@ export const rackArea: IRackArea[] = [
     items: generateGridArray(1, 3),
     columns: 3,
     rows: 1,
-    name: "Freezer 4",
+    name: "Freezer",
   },
   {
     area: "freezer-bottom",
@@ -425,7 +425,7 @@ export const rackArea: IRackArea[] = [
     items: generateGridArray(1, 1),
     columns: 1,
     rows: 1,
-    name: "Freezer 5",
+    name: "Freezer Box",
   },
   {
     area: "freezer-bottom",
@@ -434,7 +434,7 @@ export const rackArea: IRackArea[] = [
     items: generateGridArray(1, 1),
     columns: 1,
     rows: 1,
-    name: "Freezer 6",
+    name: "Freezer Box",
   },
 ];
 

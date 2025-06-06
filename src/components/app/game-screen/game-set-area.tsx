@@ -1,6 +1,6 @@
 import useClickSound from "@/hooks/use-click-sound";
 import { useGameProvider } from "@/hooks/use-game";
-import type { IItemPlaced } from "@/lib/refrigerator-items";
+import type { IItemPlaced, IRackArea } from "@/lib/refrigerator-items";
 
 function SetAreaTopMiddle({ items }: { items: IItemPlaced[][] }) {
   return (
@@ -108,9 +108,15 @@ function SetAreaTopDoorLeft({ items }: { items: IItemPlaced[][] }) {
   );
 }
 
-function SetAreaFreezer({ items }: { items: IItemPlaced[][] }) {
+function SetAreaFreezer({
+  items,
+  text,
+}: {
+  items: IItemPlaced[][];
+  text?: string;
+}) {
   return (
-    <div className="size-full">
+    <div className="size-full relative">
       {items.map((row, rowIndex) => (
         <div
           key={rowIndex}
@@ -139,11 +145,23 @@ function SetAreaFreezer({ items }: { items: IItemPlaced[][] }) {
           ))}
         </div>
       ))}
+
+      <div className="h-[100%] w-full bg-[#595C62]/10 backdrop-blur-[1px] rounded-sm  absolute left-0 bottom-0  flex items-center justify-center  text-[#595C62] text-[6px] font-medium">
+        {text}
+      </div>
     </div>
   );
 }
 
-function SetDrawerMiddle({ items }: { items: IItemPlaced[][] }) {
+function SetDrawerMiddle({
+  items,
+  text,
+  areaId,
+}: {
+  items: IItemPlaced[][];
+  text?: string;
+  areaId: IRackArea["areaId"];
+}) {
   return (
     <div className="size-full">
       {items.map((row, rowIndex) => (
@@ -174,6 +192,13 @@ function SetDrawerMiddle({ items }: { items: IItemPlaced[][] }) {
           ))}
         </div>
       ))}
+      {areaId === "bottom-left" || areaId === "bottom-right" ? (
+        <div className="h-[20%] w-full bg-white backdrop-blur-[5px] rounded-t-[2px] rounded-b-sm shadow-xl  absolute left-0 bottom-0  flex items-center justify-center  text-[#595C62] text-[6px] font-medium"></div>
+      ) : (
+        <div className="h-[100%] w-full bg-[#595C62]/10 backdrop-blur-[1px] rounded-b-sm  absolute left-0 bottom-0  flex items-center justify-center  text-[#595C62] text-[6px] font-medium">
+          {text}
+        </div>
+      )}
     </div>
   );
 }
@@ -226,21 +251,29 @@ export default function GameSetArea() {
                     ) : area.areaId.includes("top-middle") ? (
                       <SetAreaTopMiddle items={area.items} />
                     ) : area.areaId.includes("freezer-sec2") ? (
-                      <SetAreaFreezer items={area.items} />
+                      <SetAreaFreezer items={area.items} text="Freeze Box" />
                     ) : area.areaId === "middle-right" ||
                       area.areaId === "middle-left" ||
                       area.areaId.includes("freezer-left") ||
                       area.areaId.includes("freezer-right") ||
                       area.areaId.includes("bottom-left") ||
                       area.areaId.includes("bottom-right") ? (
-                      <SetDrawerMiddle items={area.items} />
+                      <SetDrawerMiddle
+                        items={area.items}
+                        areaId={area.areaId}
+                        text={
+                          area.areaId === "middle-left"
+                            ? "i Fresh"
+                            : "Freeze Box"
+                        }
+                      />
                     ) : (
-                      <span className="text-[10px] pointer-events-none opacity-0">
+                      <span className="pointer-events-none text-white text-[6px] font-medium">
                         {area?.name}
                       </span>
                     )
                   ) : (
-                    <span className="text-[10px] pointer-events-none opacity-0">
+                    <span className="pointer-events-none text-white text-[6px] font-medium">
                       {area?.name}
                     </span>
                   )}
