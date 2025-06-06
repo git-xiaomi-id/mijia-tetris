@@ -65,7 +65,7 @@
 }
 .gra-top-middle {
   @apply absolute top-[-3%] left-[50%] w-[120%] max-w-xl overflow-hidden;
-  @apply pt-[90px];
+  @apply pt-[60px];
 
   opacity: 0;
   transform: scale(0.9) translate(-50%, 0%);
