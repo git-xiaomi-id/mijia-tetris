@@ -69,12 +69,15 @@ export default function LeaderboardNotice() {
             <AlertDialogTitle className="w-full [&>svg]:w-full">
               <NoticeHeading />
             </AlertDialogTitle>
-            <img
-              alt="prize-illustration"
-              src="/illustration/prizes.webp"
-              className="object-contain"
-              loading="lazy"
-            />
+            <picture>
+              <source srcSet="/illustration/prizes.webp" type="image/webp" />
+              <img
+                alt="prize-illustration"
+                src="/illustration/prizes.png"
+                className="object-contain mx-auto"
+                loading="lazy"
+              />
+            </picture>
             <div className="flex flex-col gap-0.5">
               {prizes.map((prize, index) => (
                 <Top3List key={prize} position={index + 1} name={prize} />
