@@ -20,12 +20,15 @@ export default function LogoutModal({
     setOpen(open || false);
   }, [open]);
 
-  let title = "Logouting...";
-  let description = "Tunggu yaaa kami sedang melepaskan Akun kamu dari game.";
   let image = "/mi-bunny/mi-bunny-shock.webp";
   let animation = "animate-headshaking";
 
-  if (response === "success") {
+  let title = "Yakin?";
+  let description = "Apa kamu yakin ingin melepaskan Akun kamu?";
+  if (loading) {
+    title = "Sedang memproses";
+    description = "Tunggu yaaa kami sedang melepaskan Akun kamu dari game.";
+  } else if (response === "success") {
     title = "Akun berhasil di Logout";
     description =
       "Akun berhasil di logout! Sekarang, kamu bisa main dengan akun lain.";
@@ -60,7 +63,7 @@ export default function LogoutModal({
       image={image}
       animationImage={animation}
       loadingConfirm={loading}
-      textConfirm="Oke, lanjutkan"
+      textConfirm="Ya, Keluarkan Akun"
       children={children}
       onOpenChange={setOpen}
       onConfirmClick={callLogout}
