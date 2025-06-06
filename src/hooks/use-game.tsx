@@ -226,6 +226,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
       blockHeight: item?.blockHeight || 1,
       rack: areaActive.area,
       dock: item?.dock || "top",
+      offsetY: item?.offsetY || 0,
     };
 
     // Find the current item from state (not from refrigeratorItems)

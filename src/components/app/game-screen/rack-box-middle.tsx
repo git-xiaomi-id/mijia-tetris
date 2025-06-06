@@ -40,15 +40,15 @@ export default function RackBoxMiddle({
                       transform:
                         itemIndex === 0
                           ? `translateY(${
-                              (item.amount - 1 - i) * 20
+                              (item.amount - 1 - i) * (item.offsetY || 20)
                             }%) translateX(${(item.amount - 1 - i) * 6}%)`
                           : itemIndex === 1
                           ? `translateY(${
-                              (item.amount - 1 - i) * 20
+                              (item.amount - 1 - i) * (item.offsetY || 20)
                             }%) translateX(${(item.amount - 1 - i) * 0}%)`
                           : itemIndex === 2
                           ? `translateY(${
-                              (item.amount - 1 - i) * 20
+                              (item.amount - 1 - i) * (item.offsetY || 20)
                             }%) translateX(${(item.amount - 1 - i) * -6}%)`
                           : "",
                     }}
@@ -63,6 +63,10 @@ export default function RackBoxMiddle({
     </div>
   );
   if (absolute)
-    return <div className="gra-middle-rack  flex items-end !pb-10">{view}</div>;
+    return (
+      <div className="gra-middle-rack  flex items-end !pb-10 scale-125">
+        {view}
+      </div>
+    );
   return view;
 }

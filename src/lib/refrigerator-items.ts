@@ -12,10 +12,14 @@ export interface IItem {
   category: string;
   dock: "top" | "bottom";
   rack: TRack;
+  offsetY?: number;
 }
 
 export interface IItemPlaced
-  extends Pick<IItem, "id" | "name" | "image" | "blockWidth" | "blockHeight"> {
+  extends Pick<
+    IItem,
+    "id" | "name" | "image" | "blockWidth" | "blockHeight" | "offsetY"
+  > {
   amount: number;
   rack: TRack;
   dock: "top" | "bottom";
@@ -240,6 +244,7 @@ const refrigeratorItems: IItem[] = [
     image: "/items/ice-cream-front-view.webp",
     dock: "bottom",
     rack: "freezer",
+    offsetY: 40,
   },
   {
     id: "mochi_ice_cream",
