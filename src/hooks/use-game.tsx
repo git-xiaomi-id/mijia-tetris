@@ -5,8 +5,10 @@ import refrigeratorItems, {
 } from "@/lib/refrigerator-items";
 import { postGameResult } from "@/lib/supabase-client";
 import {
+  delCookie,
   generateGridArray,
   getCookie,
+  KEY_LAST_GAME_RESULT,
   KEY_ONBOARDING,
   setCookie,
 } from "@/lib/utils";
@@ -97,7 +99,13 @@ export function GameProvider({ children }: { children: ReactNode }) {
 
   const [screenStep, setScreenStep] = useState<TScreenStep>("intro1");
   const [timerStep, setTimerStep] = useState<TTimerStep>("pause");
-  const [time, setTime] = useState<number>(0);
+  const [time, setTime] = useState<number>(() => {
+    const lastGameResult = getCookie(KEY_LAST_GAME_RESULT);
+    if (lastGameResult) {
+      return JSON.parse(lastGameResult)[0].duration;
+    }
+    return 0;
+  });
   const [onboardingStep, setOnboardingStep] = useState<number>(0);
   const [onboardingOpen, setOnboardingOpen] = useState<boolean>(false);
   const [hasOnboarding, setHasOnboarding] = useState<boolean>(
@@ -179,6 +187,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     setScreenStep("intro1");
     setOnboardingStep(0);
     setGameStartTime(null);
+    delCookie(KEY_LAST_GAME_RESULT);
 
     shuffleItems();
     setAreaActive(null);
@@ -282,7 +291,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     }
   }
   async function submitGameResult(isCompleted: boolean) {
-    if (!gameStartTime || !user) return { error: null };
+    if (!gameStartTime || !user) return { data: null, error: null };
 
     const finishTime = new Date();
     const duration = Math.floor(
@@ -307,10 +316,11 @@ export function GameProvider({ children }: { children: ReactNode }) {
   async function completeGame() {
     setLoadingSubmit(true);
 
-    const { error } = await submitGameResult(true);
+    const { data, error } = await submitGameResult(true);
 
-    if (!error) {
+    if (data && !error) {
       updateGamesCount(true);
+      setCookie(KEY_LAST_GAME_RESULT, JSON.stringify(data));
       const COMPLETION_DELAY = 1000;
       setTimeout(() => {
         setLoadingSubmit(false);

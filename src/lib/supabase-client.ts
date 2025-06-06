@@ -155,14 +155,17 @@ export async function postGameResult({
   startAt: string;
   items: number;
 }) {
-  return await clientSupabase.from("game").insert({
-    user,
-    token,
-    duration,
-    score,
-    startAt,
-    finishAt,
-    username_ig,
-    items,
-  });
+  return await clientSupabase
+    .from("game")
+    .insert({
+      user,
+      token,
+      duration,
+      score,
+      startAt,
+      finishAt,
+      username_ig,
+      items,
+    })
+    .select();
 }
