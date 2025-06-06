@@ -166,6 +166,7 @@ const refrigeratorItems: IItem[] = [
     image: "/items/carrot-front-view.webp",
     dock: "bottom",
     rack: "middle-rack",
+    offsetY: 35,
   },
   {
     id: "kentang",
@@ -179,6 +180,7 @@ const refrigeratorItems: IItem[] = [
     image: "/items/potato-front-view.webp",
     dock: "top",
     rack: "middle-rack",
+    offsetY: 10,
   },
   {
     id: "tomat",
@@ -192,6 +194,7 @@ const refrigeratorItems: IItem[] = [
     image: "/items/tomato-front-view.webp",
     dock: "bottom",
     rack: "middle-rack",
+    offsetY: 10,
   },
   {
     id: "botol",

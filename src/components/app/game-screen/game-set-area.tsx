@@ -127,10 +127,45 @@ function SetAreaFreezer({ items }: { items: IItemPlaced[][] }) {
                   key={i}
                   src={item.image}
                   alt={item.name}
-                  className="pointer-events-none size-[65%] object-contain"
+                  className="pointer-events-none size-[69%] object-contain"
                   style={{
                     scale: item.amount > 1 ? 0.85 + i * 0.1 : 1,
                     transform: `translateX(0%) translateY(${i * -70}%)`,
+                    pointerEvents: item.amount - 1 === i ? "auto" : "none",
+                  }}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function SetDrawerMiddle({ items }: { items: IItemPlaced[][] }) {
+  return (
+    <div className="size-full">
+      {items.map((row, rowIndex) => (
+        <div
+          key={rowIndex}
+          className="flex flex-1 items-end w-full"
+          style={{ height: `${100 / items.length}%` }}
+        >
+          {row.map((item, colIndex) => (
+            <div
+              key={colIndex}
+              className="relative w-full h-full  flex flex-1 flex-col items-center overflow-hidden"
+            >
+              {Array.from({ length: item.amount }).map((_, i) => (
+                <img
+                  key={i}
+                  src={item.image}
+                  alt={item.name}
+                  className="pointer-events-none object-contain"
+                  style={{
+                    scale: item.amount > 1 ? 0.85 + i * 0.1 : 1,
+                    transform: `translateX(0%) translateY(${i * -43}%)`,
                     pointerEvents: item.amount - 1 === i ? "auto" : "none",
                   }}
                 />
@@ -192,6 +227,13 @@ export default function GameSetArea() {
                       <SetAreaTopMiddle items={area.items} />
                     ) : area.areaId.includes("freezer-sec2") ? (
                       <SetAreaFreezer items={area.items} />
+                    ) : area.areaId === "middle-right" ||
+                      area.areaId === "middle-left" ||
+                      area.areaId.includes("freezer-left") ||
+                      area.areaId.includes("freezer-right") ||
+                      area.areaId.includes("bottom-left") ||
+                      area.areaId.includes("bottom-right") ? (
+                      <SetDrawerMiddle items={area.items} />
                     ) : (
                       <span className="text-[10px] pointer-events-none opacity-0">
                         {area?.name}
