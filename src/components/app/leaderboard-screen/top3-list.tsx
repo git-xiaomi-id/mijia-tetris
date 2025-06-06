@@ -15,10 +15,10 @@ export default function Top3List({ position, name, duration }: Top3ListProps) {
 
   return (
     <div
-      className={`ls-board-${position} rounded-lg flex items-center justify-between shadow-sm py-3 px-2`}
+      className={`ls-board-${position} flex-1 rounded-lg flex items-center justify-between shadow-sm py-3 px-2 overflow-hidden`}
     >
-      <div className="flex items-center gap-3">
-        <div className="relative w-10 h-10 flex items-center justify-center">
+      <div className="flex items-center gap-3 min-w-0 flex-1">
+        <div className="relative w-10 h-10 flex items-center justify-center flex-shrink-0">
           <img
             src={medalsIcon[position - 1]}
             alt={`Medal for position ${position}`}
@@ -31,10 +31,12 @@ export default function Top3List({ position, name, duration }: Top3ListProps) {
             {position}
           </span>
         </div>
-        <span className="font-semibold text-gray-800">{name}</span>
+        <span className="font-[520] text-[#222222] truncate min-w-0">
+          {name}
+        </span>
       </div>
       {typeof duration === "number" && (
-        <div className="ls-time-box-top3 text-right">
+        <div className="ls-time-box-top3 text-right flex-shrink-0 ml-2">
           {formatTime(duration)}
         </div>
       )}

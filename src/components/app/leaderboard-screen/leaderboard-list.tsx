@@ -39,17 +39,17 @@ function LeaderboardListContent({ data }: { data: LeaderboardData[] }) {
       {data.slice(3).map((item, index) => (
         <div
           key={index}
-          className={`rounded-lg px-2 pb-3 flex items-start justify-between border-b-[0.2px] border-b-[#D1D1D1]`}
+          className={`rounded-lg px-2 pb-3 flex items-start justify-between border-b-[0.2px] border-b-[#D1D1D1] overflow-hidden`}
         >
-          <div className="flex items-center gap-3">
-            <div className="w-7 h-7 flex items-center justify-center font-bold text-sm text-white drop-shadow-md bg-[#FF630F] rounded-full">
+          <div className="flex items-center gap-3 min-w-0 flex-1">
+            <div className="w-7 h-7 flex items-center justify-center font-bold text-sm text-white drop-shadow-md bg-[#FF630F] rounded-full flex-shrink-0">
               {index + 4}
             </div>
-            <span className="font-semibold text-gray-800">
+            <span className="font-[520] text-[#222222] truncate min-w-0">
               @{item.username_ig}
             </span>
           </div>
-          <div className="ls-time-box-other text-right">
+          <div className="ls-time-box-other text-right flex-shrink-0 ml-2">
             {formatTime(item.duration)}
           </div>
         </div>
