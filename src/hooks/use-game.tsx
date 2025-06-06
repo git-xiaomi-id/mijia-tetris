@@ -288,6 +288,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     const duration = Math.floor(
       (finishTime.getTime() - gameStartTime.getTime()) / 1000
     );
+    setTime(duration);
     const totalItems = refrigeratorItems.length;
     const score = isCompleted ? Math.max(1000 - duration * 10, 100) : 0;
 

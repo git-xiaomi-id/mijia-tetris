@@ -1,5 +1,10 @@
 import clientSupabase from "@/lib/clientSupabase";
-import { KEY_PLAY_COUNT, setCookie } from "./utils";
+import {
+  END_DATE_LEADERBOARD,
+  KEY_PLAY_COUNT,
+  setCookie,
+  START_DATE_LEADERBOARD,
+} from "./utils";
 
 export async function getUserByToken(token: string) {
   if (!token) return null;
@@ -90,20 +95,14 @@ export async function checkValidUser(
 }
 
 export async function getLeaderboardWithUserInfo() {
-  return await clientSupabase
-    .from("game")
-    .select(
-      `
-      user!inner(username_ig),
-      duration,
-      score,
-      finishAt,
-      startAt
-    `
-    )
-    .gt("duration", 0)
-    .order("duration", { ascending: true })
-    .limit(15);
+  const startDate = new Date(START_DATE_LEADERBOARD).toISOString();
+  const endDate = new Date(END_DATE_LEADERBOARD).toISOString();
+
+  return await clientSupabase.rpc("get_unique_leaderboard", {
+    start_date: startDate,
+    end_date: endDate,
+    limit_count: 15,
+  });
 }
 
 export async function getUserGamesCountToday(username: string) {
