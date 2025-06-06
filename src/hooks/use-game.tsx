@@ -62,6 +62,7 @@ interface GameContextType {
   rackState: IRackArea[];
   setRackState: Dispatch<SetStateAction<IRackArea[]>>;
   loadingSubmit: boolean;
+  saveGameProgress: () => void;
 }
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
@@ -277,40 +278,55 @@ export function GameProvider({ children }: { children: ReactNode }) {
     setItemActive(null);
 
     if (!hasRemainingItems) {
-      handleGameCompletion();
+      completeGame();
     }
   }
-
-  async function handleGameCompletion() {
-    if (!gameStartTime || !user) return;
-    setLoadingSubmit(true);
+  async function submitGameResult(isCompleted: boolean) {
+    if (!gameStartTime || !user) return { error: null };
 
     const finishTime = new Date();
     const duration = Math.floor(
       (finishTime.getTime() - gameStartTime.getTime()) / 1000
     );
     const totalItems = refrigeratorItems.length;
-    const score = Math.max(1000 - duration * 10, 100);
+    const score = isCompleted ? Math.max(1000 - duration * 10, 100) : 0;
 
-    const { error } = await postGameResult({
+    return await postGameResult({
       user: user.id,
       username_ig: user?.username_ig ?? null,
-      duration,
+      duration: isCompleted ? duration : 0,
       token: user.token ?? null,
       finishAt: finishTime.toISOString(),
       startAt: gameStartTime.toISOString(),
       items: totalItems,
       score,
     });
+  }
+
+  async function completeGame() {
+    setLoadingSubmit(true);
+
+    const { error } = await submitGameResult(true);
 
     if (!error) {
       updateGamesCount(true);
+      const COMPLETION_DELAY = 1000;
       setTimeout(() => {
         setLoadingSubmit(false);
         setScreen("finished");
-      }, 1000);
+      }, COMPLETION_DELAY);
     } else {
       setLoadingSubmit(false);
+    }
+  }
+
+  async function saveGameProgress() {
+    setLoadingSubmit(true);
+    const { error } = await submitGameResult(false);
+    setLoadingSubmit(false);
+
+    if (!error) {
+      updateGamesCount(true);
     }
   }
 
@@ -354,6 +370,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
         rackState,
         setRackState,
         loadingSubmit,
+        saveGameProgress,
       }}
     >
       {children}

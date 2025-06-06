@@ -33,7 +33,7 @@ export default function Top3List({ position, name, duration }: Top3ListProps) {
         </div>
         <span className="font-semibold text-gray-800">{name}</span>
       </div>
-      {duration && (
+      {typeof duration === "number" && (
         <div className="ls-time-box-top3 text-right">
           {formatTime(duration)}
         </div>
