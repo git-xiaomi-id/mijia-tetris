@@ -15,19 +15,6 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      get_unique_leaderboard: {
-        Args: {
-          start_date: string;
-          end_date: string;
-          limit_count: number;
-        };
-        Returns: {
-          username_ig: string;
-          score: number;
-          duration: number;
-          created_at: string;
-        }[];
-      };
       graphql: {
         Args: {
           operationName?: string;
@@ -54,6 +41,7 @@ export type Database = {
           finishAt: string | null;
           id: number;
           items: number | null;
+          red_flag: boolean | null;
           score: number | null;
           startAt: string | null;
           token: string | null;
@@ -66,6 +54,7 @@ export type Database = {
           finishAt?: string | null;
           id?: number;
           items?: number | null;
+          red_flag?: boolean | null;
           score?: number | null;
           startAt?: string | null;
           token?: string | null;
@@ -78,6 +67,7 @@ export type Database = {
           finishAt?: string | null;
           id?: number;
           items?: number | null;
+          red_flag?: boolean | null;
           score?: number | null;
           startAt?: string | null;
           token?: string | null;
