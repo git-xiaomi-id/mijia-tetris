@@ -122,42 +122,44 @@ export default function GameSetArea() {
     <div className="absolute left-0 top-0 size-full">
       <div
         className={[
-          "h-full w-fit mx-auto relative transition-all",
+          "h-full w-fit mx-auto relative transition-all  flex flex-col justify-center",
           screenStep === "game" ? "scale-110" : "",
         ].join(" ")}
       >
-        <img
-          key={asset.key}
-          alt={asset?.key || ""}
-          src={asset?.src || ""}
-          className="h-full object-contain block mx-auto transition-all"
-        />
-        {
-          // Clickable Area
-          screenStep === "game" &&
-            rackState.map((area, index) => (
-              <button
-                key={index}
-                onClick={() => clickArea(area)}
-                type="button"
-                className={area.className}
-              >
-                {area.items.flat()?.some((item) => item?.id) ? (
-                  area.areaId === "top-left" ? (
-                    <SetAreaTopDoorLeft items={area.items} />
-                  ) : area.areaId === "top-right" ? (
-                    <SetAreaTopDoorRight items={area.items} />
-                  ) : area.areaId.includes("top-middle") ? (
-                    <SetAreaTopMiddle items={area.items} />
+        <div className="w-full h-auto relative">
+          <img
+            key={asset.key}
+            alt={asset?.key || ""}
+            src={asset?.src || ""}
+            className="h-auto w-full object-contain block mx-auto transition-all"
+          />
+          {
+            // Clickable Area
+            screenStep === "game" &&
+              rackState.map((area, index) => (
+                <button
+                  key={index}
+                  onClick={() => clickArea(area)}
+                  type="button"
+                  className={area.className}
+                >
+                  {area.items.flat()?.some((item) => item?.id) ? (
+                    area.areaId === "top-left" ? (
+                      <SetAreaTopDoorLeft items={area.items} />
+                    ) : area.areaId === "top-right" ? (
+                      <SetAreaTopDoorRight items={area.items} />
+                    ) : area.areaId.includes("top-middle") ? (
+                      <SetAreaTopMiddle items={area.items} />
+                    ) : (
+                      <span className="text-[10px]">{area?.name}</span>
+                    )
                   ) : (
                     <span className="text-[10px]">{area?.name}</span>
-                  )
-                ) : (
-                  <span className="text-[10px]">{area?.name}</span>
-                )}
-              </button>
-            ))
-        }
+                  )}
+                </button>
+              ))
+          }
+        </div>
       </div>
     </div>
   );
