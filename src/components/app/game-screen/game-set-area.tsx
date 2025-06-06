@@ -264,7 +264,7 @@ export default function GameSetArea() {
                         text={
                           area.areaId === "middle-left"
                             ? "i Fresh"
-                            : "Freeze Box"
+                            : "Fresh Box"
                         }
                       />
                     ) : (

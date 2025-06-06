@@ -380,7 +380,7 @@ export const rackArea: IRackArea[] = [
     items: generateGridArray(1, 3),
     columns: 3,
     rows: 1,
-    name: "Freeze Box",
+    name: "Fresh Box",
   },
   {
     area: "freezer",
