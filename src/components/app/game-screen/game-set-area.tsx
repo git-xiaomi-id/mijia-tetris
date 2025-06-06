@@ -201,7 +201,7 @@ export default function GameSetArea() {
             key={asset.key}
             alt={asset?.key || ""}
             src={asset?.src || ""}
-            className="h-auto w-full object-contain block mx-auto transition-all"
+            className="h-auto w-full max-w-[520px] object-contain block mx-auto transition-all"
           />
           {
             // Clickable Area

@@ -22,7 +22,7 @@ export default function RackBoxMiddle({
   };
 
   const view = (
-    <div className="gra-area flex items-center justify-center gap-1 max-w-[70%] max-h-[90%] mx-auto px-2">
+    <div className="gra-area flex items-center justify-center gap-1 max-w-[75%] max-h-[90%] mx-auto">
       {items.map((row, rowIndex) =>
         row.map((item, itemIndex) => {
           return (
@@ -71,9 +71,9 @@ export default function RackBoxMiddle({
   if (absolute)
     return (
       <div
-        className={`gra-middle-rack ${
+        className={`gra-middle-rack flex items-end !pb-10 scale-110 sm:scale-125 ${
           isFreezerTop ? "freezerTop" : ""
-        } flex items-end !pb-10 scale-125`}
+        }`}
       >
         {view}
         {!isFreezerTop && <div className="gra-middle-rack-cap" />}
