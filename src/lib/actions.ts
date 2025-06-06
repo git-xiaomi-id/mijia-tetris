@@ -4,6 +4,7 @@ import {
   delCookie,
   getCookie,
   KEY_ID_LOCAL,
+  KEY_LAST_GAME_RESULT,
   KEY_PLAY_COUNT,
   KEY_PRIZE_ALERT,
   KEY_TOKEN,
@@ -41,6 +42,8 @@ async function removeCookieData() {
   delCookie(KEY_ID_LOCAL);
   delCookie(KEY_USERNAME_LOCAL);
   delCookie(KEY_TOKEN);
+  delCookie(KEY_PLAY_COUNT);
+  delCookie(KEY_LAST_GAME_RESULT);
 }
 
 //
