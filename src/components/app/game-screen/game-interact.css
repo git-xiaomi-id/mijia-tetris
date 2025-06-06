@@ -194,8 +194,20 @@
   max-width: 360px;
   width: 100%;
   aspect-ratio: 898/675;
-  background-image: url("/rack/laci-no-cap.webp");
-  background-size: cover;
+  /* background-image: url("/rack/laci-no-cap.webp"); */
+  background-image: url("/illustration/back-freezer-3-6.png");
+  background-size: contain;
   background-size: center bottom;
   background-repeat: no-repeat;
+}
+.gra-middle-rack-cap {
+  @apply absolute bottom-0 w-full h-[84px] scale-110;
+  background-image: url("/illustration/back-freezer-3-6-cap.webp");
+  background-size: contain;
+  background-size: center center;
+  background-repeat: no-repeat;
+  backdrop-filter: blur(2px);
+}
+.gra-middle-rack.freezerTop {
+  background-image: url("/rack/laci-no-cap.webp");
 }

@@ -5,9 +5,11 @@ import useClickSound from "@/hooks/use-click-sound";
 export default function RackBoxMiddle({
   items,
   absolute = true,
+  isFreezerTop = false,
 }: {
   items: IItemPlaced[][];
   absolute?: boolean;
+  isFreezerTop?: boolean;
 }) {
   const { itemActive, areaActive, placeItem } = useGameProvider();
   const { clickPlay } = useClickSound();
@@ -26,7 +28,7 @@ export default function RackBoxMiddle({
           return (
             <div
               key={itemIndex}
-              className="border border-dashed border-transparent hover:border-[#ff813e] hover:bg-slate-300/60   w-full h-full  flex flex-col justify-end"
+              className=" w-full h-full  flex flex-col justify-end  group hover:bg-[#ff813e]/50 rounded-sm"
               onClick={() => handleGridClick(rowIndex, itemIndex)}
             >
               {item &&
@@ -38,19 +40,23 @@ export default function RackBoxMiddle({
                     className="w-full h-auto object-contain"
                     style={{
                       transform:
-                        itemIndex === 0
-                          ? `translateY(${
+                        (areaActive?.columns || 0) > 1
+                          ? itemIndex === 0
+                            ? `translateY(${
+                                (item.amount - 1 - i) * (item.offsetY || 20)
+                              }%) translateX(${(item.amount - 1 - i) * 6}%)`
+                            : itemIndex === 1
+                            ? `translateY(${
+                                (item.amount - 1 - i) * (item.offsetY || 20)
+                              }%) translateX(${(item.amount - 1 - i) * 0}%)`
+                            : itemIndex === 2
+                            ? `translateY(${
+                                (item.amount - 1 - i) * (item.offsetY || 20)
+                              }%) translateX(${(item.amount - 1 - i) * -6}%)`
+                            : ""
+                          : `scale(${0.95 + i * 0.1}) translateY(${
                               (item.amount - 1 - i) * (item.offsetY || 20)
-                            }%) translateX(${(item.amount - 1 - i) * 6}%)`
-                          : itemIndex === 1
-                          ? `translateY(${
-                              (item.amount - 1 - i) * (item.offsetY || 20)
-                            }%) translateX(${(item.amount - 1 - i) * 0}%)`
-                          : itemIndex === 2
-                          ? `translateY(${
-                              (item.amount - 1 - i) * (item.offsetY || 20)
-                            }%) translateX(${(item.amount - 1 - i) * -6}%)`
-                          : "",
+                            }%)`,
                     }}
                   />
                 ))}
@@ -64,8 +70,13 @@ export default function RackBoxMiddle({
   );
   if (absolute)
     return (
-      <div className="gra-middle-rack  flex items-end !pb-10 scale-125">
+      <div
+        className={`gra-middle-rack ${
+          isFreezerTop ? "freezerTop" : ""
+        } flex items-end !pb-10 scale-125`}
+      >
         {view}
+        {!isFreezerTop && <div className="gra-middle-rack-cap" />}
       </div>
     );
   return view;

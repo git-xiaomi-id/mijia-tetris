@@ -204,27 +204,23 @@
 }
 
 @keyframes blink {
-  0% {
-    /* opacity: 1; */
-    @apply border-slate-600;
+  0%,
+  100% {
+    @apply bg-orange-600/30;
   }
   50% {
-    /* opacity: 0.5; */
-    @apply border-slate-600/50;
-  }
-  100% {
-    /* opacity: 1; */
-    @apply border-slate-600;
+    @apply bg-orange-600/0;
   }
 }
 
 /*  */
 /*  */
 /* Dashed border doors without background */
+
 .gs-mask-door-dashed {
   @apply w-[10%] h-[200px] aspect-square absolute top-4 rounded;
   border: 2px dashed #666;
-  @apply bg-white/50 border border-dashed border-slate-500 hover:border-orange-600 hover:bg-orange-600/30 active:scale-90 transition-all;
+  @apply bg-orange-600/30 border border-dashed border-slate-500 hover:border-orange-600 hover:bg-orange-600/30 active:scale-90 transition-all;
   animation: blink 1.5s ease-in-out infinite;
 }
 .gs-mask-door-dashed.door-left {
@@ -263,7 +259,7 @@
 }
 .gs-mask-door-dashed-freezerbottom {
   /* MARK */
-  @apply w-[58px] h-[7.1%] aspect-square absolute top-[67.5%] rounded;
+  @apply w-[16%] h-[7.1%] aspect-square absolute top-[67.5%] rounded;
   @apply bg-white/30 border border-dashed border-slate-500 hover:border-orange-600 hover:bg-orange-600/30 active:scale-90 transition-all;
   animation: blink 1.5s ease-in-out infinite;
 }
@@ -275,4 +271,14 @@
 }
 .gs-mask-door-dashed-freezerbottom.sec2 {
   @apply top-[77.5%];
+}
+
+/*  */
+
+.gs-mask-door-dashed.off-blinking,
+.gs-mask-door-dashed-middle.off-blinking,
+.gs-mask-door-dashed-bottom.off-blinking,
+.gs-mask-door-dashed-freezerbottom.off-blinking {
+  animation: none;
+  @apply bg-transparent;
 }

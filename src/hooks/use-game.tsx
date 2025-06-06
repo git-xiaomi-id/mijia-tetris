@@ -195,7 +195,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     if (callback) setTimeout(callback, 200);
   }
 
-  function placeItem(rowIndex: number) {
+  function placeItem(rowIndex: number, colIndex: number, shouldCol?: boolean) {
     if (!areaActive) return;
     if (!itemActive) return toast.error("Pilih item terlebih dahulu");
 
@@ -218,7 +218,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
         description: "Tidak cukup ruang untuk menaruh item",
       });
     }
-    newItems[rowIndex][lastIndex] = {
+    newItems[rowIndex][shouldCol ? colIndex : lastIndex] = {
       id: itemActive,
       name: item?.name || "",
       image: item?.image || "",

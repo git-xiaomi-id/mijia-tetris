@@ -42,7 +42,13 @@ export default function GameInteract() {
                 areaActive.areaId === "freezer-sec2-left" ||
                 areaActive.areaId === "freezer-sec2-right") && (
                 <div className="w-[80%] h-[80%]">
-                  <RackBoxMiddle items={areaActive.items} />
+                  <RackBoxMiddle
+                    items={areaActive.items}
+                    isFreezerTop={
+                      areaActive.areaId === "bottom-left" ||
+                      areaActive.areaId === "bottom-right"
+                    }
+                  />
                 </div>
               )}
             </div>

@@ -141,7 +141,11 @@ export default function GameSetArea() {
                   key={index}
                   onClick={() => clickArea(area)}
                   type="button"
-                  className={area.className}
+                  className={`${area.className} ${
+                    area.items.flat()?.some((item) => item?.id)
+                      ? "off-blinking"
+                      : ""
+                  }`}
                 >
                   {area.items.flat()?.some((item) => item?.id) ? (
                     area.areaId === "top-left" ? (
@@ -151,10 +155,14 @@ export default function GameSetArea() {
                     ) : area.areaId.includes("top-middle") ? (
                       <SetAreaTopMiddle items={area.items} />
                     ) : (
-                      <span className="text-[10px]">{area?.name}</span>
+                      <span className="text-[10px] pointer-events-none opacity-0">
+                        {area?.name}
+                      </span>
                     )
                   ) : (
-                    <span className="text-[10px]">{area?.name}</span>
+                    <span className="text-[10px] pointer-events-none opacity-0">
+                      {area?.name}
+                    </span>
                   )}
                 </button>
               ))
