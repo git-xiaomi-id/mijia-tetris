@@ -21,14 +21,22 @@ import { useGameProvider } from "@/hooks/use-game";
 import { useAppProvider } from "@/hooks/use-context";
 import RestartGameHeading from "./restart-game-heading";
 import ExitGameHeading from "./exit-game-heading";
+import AppModal from "../welcome-screen/modal";
 
 export default function ButtonTimer() {
-  const { screenStep, timerStep, togglingStep, runScenario, doResetGame } =
-    useGameProvider();
-  const { setScreen } = useAppProvider();
+  const {
+    screenStep,
+    timerStep,
+    togglingStep,
+    runScenario,
+    doResetGame,
+    saveGameProgress,
+  } = useGameProvider();
+  const { setScreen, gamesCount } = useAppProvider();
 
   const { clickPlay } = useClickSound();
   const [pop, setPop] = useState<"exit" | "restart" | "">("");
+  const [chanceModal, setChanceModal] = useState(false);
 
   function _onClick() {
     clickPlay();
@@ -49,14 +57,32 @@ export default function ButtonTimer() {
     setPop("");
   }
 
-  async function doExitGame() {
-    callReset();
-    setScreen("welcome");
+  function doExitGame() {
+    saveGameProgress();
+    if (gamesCount >= 3) {
+      setChanceModal(true);
+    } else {
+      callReset(() => setScreen("welcome"));
+    }
   }
 
   function doRestartGame() {
-    callReset();
-    runScenario();
+    saveGameProgress();
+    if (gamesCount >= 3) {
+      setChanceModal(true);
+    } else {
+      callReset(() => runScenario());
+    }
+  }
+
+  function closeChanceModal() {
+    setChanceModal(false);
+
+    if (pop === "exit") {
+      callReset(() => setScreen("welcome"));
+    } else if (pop === "restart") {
+      callReset(() => runScenario());
+    }
   }
 
   return (
@@ -68,7 +94,7 @@ export default function ButtonTimer() {
           <button
             type="button"
             onClick={_onClick}
-            className="size-10 aspect-square transition-all active:scale-90   absolute right-0 -bottom-7"
+            className="size-10 aspect-square transition-all active:scale-90 absolute right-0 -bottom-7"
           >
             {timerStep === "start" ? (
               <PauseIcon size={40} />
@@ -100,7 +126,6 @@ export default function ButtonTimer() {
                   <div className="w-full text-center">Restart Game</div>
                 </div>
               </AppButton>
-
               <AppButton variant="red" onClick={popExit}>
                 <div className="flex items-center gap-3 w-full [&_svg]:size-5">
                   <GameExitIcon />
@@ -119,9 +144,7 @@ export default function ButtonTimer() {
         <AlertDialogContent className="w-[90%] max-w-sm rounded-xl">
           <AlertDialogHeader>
             <AlertDialogTitle hidden>Restart Game</AlertDialogTitle>
-            <div
-              className={`size-[120px] mx-auto relative animate-headscaling`}
-            >
+            <div className="size-[120px] mx-auto relative animate-headscaling">
               <img
                 alt="restart-illustration"
                 src="/mi-bunny/mi-bunny-shock.webp"
@@ -132,7 +155,7 @@ export default function ButtonTimer() {
               <RestartGameHeading />
             </div>
             <AlertDialogDescription className="text-center text-lg">
-              Kamu yakin mau restart game?
+              Yakin mau restart game? Kamu akan menggunakan 1 kesempatan main.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="flex flex-row gap-6 w-full">
@@ -153,9 +176,7 @@ export default function ButtonTimer() {
         <AlertDialogContent className="w-[90%] max-w-sm rounded-xl">
           <AlertDialogHeader>
             <AlertDialogTitle hidden>Exit Game</AlertDialogTitle>
-            <div
-              className={`size-[120px] mx-auto relative animate-headshaking`}
-            >
+            <div className="size-[120px] mx-auto relative animate-headshaking">
               <img
                 alt="exit-illustration"
                 src="/mi-bunny/mi-bunny-cry.webp"
@@ -166,7 +187,8 @@ export default function ButtonTimer() {
               <ExitGameHeading />
             </div>
             <AlertDialogDescription className="text-center text-lg">
-              Yakin mau keluar dari game?
+              Yakin mau keluar dari game? Kamu akan menggunakan 1 kesempatan
+              main.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="flex flex-row gap-6 w-full">
@@ -179,6 +201,17 @@ export default function ButtonTimer() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <AppModal
+        open={chanceModal}
+        title="Kesempatan main habis"
+        description="Kamu sudah menghabiskan semua kesempatan main hari ini. Kembali lagi besok untuk mendapatkan 3 kesempatan main tambahan."
+        image="/mi-bunny/mi-bunny-cry.webp"
+        animationImage="animate-headshaking"
+        textConfirm="Oke, mengerti"
+        onOpenChange={closeChanceModal}
+        onCancelClick={closeChanceModal}
+      />
     </>
   );
 }

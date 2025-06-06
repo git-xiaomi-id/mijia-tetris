@@ -63,6 +63,7 @@ export default function LogoutModal({
       textConfirm="Oke, lanjutkan"
       children={children}
       onOpenChange={setOpen}
+      onConfirmClick={callLogout}
     />
   );
 }
