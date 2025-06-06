@@ -22,7 +22,12 @@ export default function RackTopMiddle({
   const view = (
     <div className="gra-area flex flex-col items-center  max-w-[55%] mx-auto">
       {items.map((row, rowIndex) => (
-        <div key={rowIndex} className="gra-top-middle-row">
+        <div
+          key={rowIndex}
+          className={`gra-top-middle-row ${
+            rowIndex === items.length - 1 ? "-mt-1.5" : ""
+          }`}
+        >
           {row.map((item, colIndex) => (
             <div
               key={colIndex}
@@ -51,7 +56,7 @@ export default function RackTopMiddle({
           ))}
         </div>
       ))}
-      <div className="bg-gray-100/5 h-20 w-full backdrop-blur-0" />
+      <div className="bg-gray-100/5 h-24 w-full backdrop-blur-0" />
     </div>
   );
   if (absolute) return <div className="gra-top-middle">{view}</div>;
