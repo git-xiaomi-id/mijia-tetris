@@ -20,37 +20,49 @@ export default function RackBoxMiddle({
   };
 
   const view = (
-    <div className="gra-area flex items-center justify-center gap-2">
-      {items.map((row, rowIndex) => (
-        <div key={rowIndex} className="flex gap-2 h-full w-[70%]">
-          {row.map((item, colIndex) => (
+    <div className="gra-area flex items-center justify-center gap-1 max-w-[70%] max-h-[90%] mx-auto px-2">
+      {items.map((row, rowIndex) =>
+        row.map((item, itemIndex) => {
+          return (
             <div
-              key={colIndex}
-              className={`gra-grid-item w-full !h-full cursor-pointer hover:bg-blue-100/20 transition-colors ${
-                item ? "bg-blue-200/30" : ""
-              }`}
-              onClick={() => handleGridClick(rowIndex, colIndex)}
+              key={itemIndex}
+              className="border border-dashed border-transparent hover:border-[#ff813e] hover:bg-slate-300/60   w-full h-full  flex flex-col justify-end"
+              onClick={() => handleGridClick(rowIndex, itemIndex)}
             >
-              {item && (
-                <div className="relative w-full h-full">
+              {item &&
+                Array.from({ length: item.amount }).map((_, i) => (
                   <img
+                    key={i}
                     src={item.image}
                     alt={item.name}
-                    className="w-full h-full object-contain p-1"
+                    className="w-full h-auto object-contain"
+                    style={{
+                      transform:
+                        itemIndex === 0
+                          ? `translateY(${
+                              (item.amount - 1 - i) * 20
+                            }%) translateX(${(item.amount - 1 - i) * 6}%)`
+                          : itemIndex === 1
+                          ? `translateY(${
+                              (item.amount - 1 - i) * 20
+                            }%) translateX(${(item.amount - 1 - i) * 0}%)`
+                          : itemIndex === 2
+                          ? `translateY(${
+                              (item.amount - 1 - i) * 20
+                            }%) translateX(${(item.amount - 1 - i) * -6}%)`
+                          : "",
+                    }}
                   />
-                  {item.amount > 1 && (
-                    <div className="absolute bottom-0 right-0 bg-blue-500 text-white text-xs px-1 rounded-tl">
-                      {item.amount}
-                    </div>
-                  )}
-                </div>
-              )}
+                ))}
             </div>
-          ))}
-        </div>
-      ))}
+          );
+        })
+      )}
+
+      {/*  */}
     </div>
   );
-  if (absolute) return <div className="gra-middle-rack">{view}</div>;
+  if (absolute)
+    return <div className="gra-middle-rack  flex items-end !pb-10">{view}</div>;
   return view;
 }
