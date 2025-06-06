@@ -101,6 +101,7 @@ export async function getLeaderboardWithUserInfo() {
       startAt
     `
     )
+    .gt("duration", 0)
     .order("duration", { ascending: true })
     .limit(15);
 }
