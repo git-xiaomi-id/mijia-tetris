@@ -13,10 +13,12 @@ const isDevToolsOpen = () => {
   const heightThreshold = window.outerHeight - window.innerHeight > threshold;
 
   // Method 2: Check console object
-  let devtools = { open: false };
+  const devtools = { open: false };
   const element = new Image();
-  element.__defineGetter__("id", function () {
-    devtools.open = true;
+  Object.defineProperty(element, "id", {
+    get: function () {
+      devtools.open = true;
+    },
   });
   // Set up continuous console logging when devtools are detected
   if (devtools.open) {
@@ -45,7 +47,7 @@ const isDesktop = () => {
 
   // Check if any mobile keywords exist in user agent
   const isMobile = mobileKeywords.some((keyword) =>
-    userAgent.includes(keyword),
+    userAgent.includes(keyword)
   );
 
   // Also check screen width as additional detection
@@ -133,5 +135,5 @@ createRoot(document.getElementById("root")!).render(
         <App />
       </BrowserRouter>
     )}
-  </StrictMode>,
+  </StrictMode>
 );
