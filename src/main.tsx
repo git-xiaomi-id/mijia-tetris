@@ -33,6 +33,9 @@ const isDevToolsOpen = () => {
 
 // Function to detect if user is on desktop
 const isDesktop = () => {
+  // Skip desktop detection in development environment
+  if (import.meta.env.DEV) return false;
+
   const userAgent = navigator.userAgent.toLowerCase();
   const mobileKeywords = [
     "mobile",

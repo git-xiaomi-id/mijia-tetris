@@ -1,4 +1,4 @@
-import clientSupabase from "@/lib/clientSupabase";
+import clientSupabase, { adminSupabase } from "@/lib/clientSupabase";
 import {
   END_DATE_LEADERBOARD,
   KEY_PLAY_COUNT,
@@ -155,7 +155,7 @@ export async function postGameResult({
   startAt: string;
   items: number;
 }) {
-  return await clientSupabase
+  return await adminSupabase
     .from("game")
     .insert({
       user,

@@ -45,6 +45,7 @@ export type Database = {
           score: number | null;
           startAt: string | null;
           token: string | null;
+          updated_at: string | null;
           user: string;
           username_ig: string | null;
         };
@@ -58,6 +59,7 @@ export type Database = {
           score?: number | null;
           startAt?: string | null;
           token?: string | null;
+          updated_at?: string | null;
           user: string;
           username_ig?: string | null;
         };
@@ -71,6 +73,7 @@ export type Database = {
           score?: number | null;
           startAt?: string | null;
           token?: string | null;
+          updated_at?: string | null;
           user?: string;
           username_ig?: string | null;
         };
@@ -84,8 +87,44 @@ export type Database = {
           }
         ];
       };
+      game_log: {
+        Row: {
+          action: string;
+          changed_at: string | null;
+          game_id: number;
+          id: number;
+          new_data: Json | null;
+          old_data: Json | null;
+        };
+        Insert: {
+          action: string;
+          changed_at?: string | null;
+          game_id: number;
+          id?: never;
+          new_data?: Json | null;
+          old_data?: Json | null;
+        };
+        Update: {
+          action?: string;
+          changed_at?: string | null;
+          game_id?: number;
+          id?: never;
+          new_data?: Json | null;
+          old_data?: Json | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "game_log_game_id_fkey";
+            columns: ["game_id"];
+            isOneToOne: false;
+            referencedRelation: "game";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
       user: {
         Row: {
+          blocked_at: string | null;
           created_at: string;
           id: string;
           replay_at: string | null;
@@ -94,6 +133,7 @@ export type Database = {
           username_ig: string | null;
         };
         Insert: {
+          blocked_at?: string | null;
           created_at?: string;
           id?: string;
           replay_at?: string | null;
@@ -102,6 +142,7 @@ export type Database = {
           username_ig?: string | null;
         };
         Update: {
+          blocked_at?: string | null;
           created_at?: string;
           id?: string;
           replay_at?: string | null;
@@ -121,6 +162,32 @@ export type Database = {
         Returns: {
           username_ig: string;
           duration: number;
+          score: number;
+          finishAt: string;
+          startAt: string;
+        }[];
+      };
+      get_unique_leaderboard_dashboard: {
+        Args: { start_date: string; end_date: string; limit_count: number };
+        Returns: {
+          id: number;
+          username_ig: string;
+          duration: number;
+          created_at: string;
+          items: number;
+          score: number;
+          finishAt: string;
+          startAt: string;
+        }[];
+      };
+      get_unique_leaderboard_fixed: {
+        Args: { start_date: string; end_date: string; limit_count: number };
+        Returns: {
+          id: number;
+          username_ig: string;
+          duration: number;
+          created_at: string;
+          items: number;
           score: number;
           finishAt: string;
           startAt: string;

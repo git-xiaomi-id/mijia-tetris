@@ -298,9 +298,12 @@ export function GameProvider({ children }: { children: ReactNode }) {
       (finishTime.getTime() - gameStartTime.getTime()) / 1000
     );
     setTime(duration);
-    const totalItems = refrigeratorItems.length;
+    const totalItems = [...rackState]
+      .flatMap((area) => area.items)
+      .flat()
+      .filter((i) => i && i.amount)
+      .reduce((t, i) => t + i.amount, 0);
     const score = isCompleted ? Math.max(1000 - duration * 10, 100) : 0;
-
     return await postGameResult({
       user: user.id,
       username_ig: user?.username_ig ?? null,
@@ -314,31 +317,35 @@ export function GameProvider({ children }: { children: ReactNode }) {
   }
 
   async function completeGame() {
-    setLoadingSubmit(true);
+    return setTimeout(async () => {
+      setLoadingSubmit(true);
 
-    const { data, error } = await submitGameResult(true);
+      const { data, error } = await submitGameResult(true);
 
-    if (data && !error) {
-      updateGamesCount(true);
-      setCookie(KEY_LAST_GAME_RESULT, JSON.stringify(data));
-      const COMPLETION_DELAY = 1000;
-      setTimeout(() => {
+      if (data && !error) {
+        updateGamesCount(true);
+        setCookie(KEY_LAST_GAME_RESULT, JSON.stringify(data));
+        const COMPLETION_DELAY = 1000;
+        setTimeout(() => {
+          setLoadingSubmit(false);
+          setScreen("finished");
+        }, COMPLETION_DELAY);
+      } else {
         setLoadingSubmit(false);
-        setScreen("finished");
-      }, COMPLETION_DELAY);
-    } else {
-      setLoadingSubmit(false);
-    }
+      }
+    }, 150);
   }
 
   async function saveGameProgress() {
-    setLoadingSubmit(true);
-    const { error } = await submitGameResult(false);
-    setLoadingSubmit(false);
+    setTimeout(async () => {
+      setLoadingSubmit(true);
+      const { error } = await submitGameResult(false);
+      setLoadingSubmit(false);
 
-    if (!error) {
-      updateGamesCount(true);
-    }
+      if (!error) {
+        updateGamesCount(true);
+      }
+    }, 150);
   }
 
   function onClickItem(item: (typeof refrigeratorItems)[0]) {

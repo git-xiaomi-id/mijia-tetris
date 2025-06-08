@@ -99,6 +99,14 @@ export async function tapStartUser(usernameIG: string) {
     if (import.meta.env.DEV)
       console.log("[tapStartUser] Checking user with token:", token);
     const user = await checkValidUser(username, token, id);
+    if (user && user.data && user.data.blocked_at)
+      return {
+        data: null,
+        error: {
+          message:
+            "You're blocked by system. Please contact @xiaomicommunity_id",
+        },
+      };
     if (user && user.data) return user;
   }
 
