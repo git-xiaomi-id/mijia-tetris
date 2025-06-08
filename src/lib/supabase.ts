@@ -47,6 +47,7 @@ export type Database = {
           token: string | null;
           updated_at: string | null;
           user: string;
+          useragent: string | null;
           username_ig: string | null;
         };
         Insert: {
@@ -61,6 +62,7 @@ export type Database = {
           token?: string | null;
           updated_at?: string | null;
           user: string;
+          useragent?: string | null;
           username_ig?: string | null;
         };
         Update: {
@@ -75,6 +77,7 @@ export type Database = {
           token?: string | null;
           updated_at?: string | null;
           user?: string;
+          useragent?: string | null;
           username_ig?: string | null;
         };
         Relationships: [
@@ -149,6 +152,33 @@ export type Database = {
           token?: string | null;
           updated_at?: string | null;
           username_ig?: string | null;
+        };
+        Relationships: [];
+      };
+      user_changes_log: {
+        Row: {
+          action: string;
+          changed_at: string | null;
+          id: number;
+          new_value: Json | null;
+          old_value: Json | null;
+          user_id: number;
+        };
+        Insert: {
+          action: string;
+          changed_at?: string | null;
+          id?: never;
+          new_value?: Json | null;
+          old_value?: Json | null;
+          user_id: number;
+        };
+        Update: {
+          action?: string;
+          changed_at?: string | null;
+          id?: never;
+          new_value?: Json | null;
+          old_value?: Json | null;
+          user_id?: number;
         };
         Relationships: [];
       };

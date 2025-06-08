@@ -136,6 +136,12 @@ export async function getUserGamesCountToday(username: string) {
   return { data, error: null, count: count || 0 };
 }
 
+function getUserAgent() {
+  const userAgent = window.navigator.userAgent;
+  const platform = window.navigator.platform || "";
+  return [userAgent, platform].join("|||");
+}
+
 export async function postGameResult({
   user,
   username_ig,
@@ -155,6 +161,7 @@ export async function postGameResult({
   startAt: string;
   items: number;
 }) {
+  const useragent = getUserAgent();
   return await adminSupabase
     .from("game")
     .insert({
@@ -166,6 +173,7 @@ export async function postGameResult({
       finishAt,
       username_ig,
       items,
+      useragent,
     })
     .select();
 }
