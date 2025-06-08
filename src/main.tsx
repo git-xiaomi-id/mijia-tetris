@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { BrowserRouter } from "react-router";
 import App from "./App.tsx";
+import NoDesktopInformation from "./no-desktop.tsx";
 
 // Function to detect developer tools
 const isDevToolsOpen = () => {
@@ -34,7 +35,7 @@ const isDevToolsOpen = () => {
 // Function to detect if user is on desktop
 const isDesktop = () => {
   // Skip desktop detection in development environment
-  if (import.meta.env.DEV) return false;
+  // if (import.meta.env.DEV) return false;
 
   const userAgent = navigator.userAgent.toLowerCase();
   const mobileKeywords = [
@@ -93,36 +94,6 @@ const startProtection = () => {
 };
 
 // Desktop blocking component
-const DesktopBlocker = () => (
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      height: "100vh",
-      backgroundColor: "#1a1a2e",
-      color: "#ffffff",
-      fontFamily: "Arial, sans-serif",
-      textAlign: "center",
-      padding: "20px",
-    }}
-  >
-    <h1 style={{ fontSize: "2rem", marginBottom: "1rem" }}>
-      📱 Mobile Only App
-    </h1>
-    <p style={{ fontSize: "1.2rem", marginBottom: "1rem" }}>
-      Aplikasi ini hanya dapat diakses melalui perangkat mobile.
-    </p>
-    <p style={{ fontSize: "1rem", color: "#cccccc" }}>
-      Silakan buka menggunakan smartphone atau tablet Anda.
-    </p>
-    <div style={{ marginTop: "2rem", fontSize: "0.8rem", color: "#999" }}>
-      <p>⚠️ Developer tools terdeteksi</p>
-      <p>Akses melalui inspect browser tidak diizinkan</p>
-    </div>
-  </div>
-);
 
 // Initialize protection
 if (!isDesktop()) {
@@ -132,7 +103,7 @@ if (!isDesktop()) {
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     {isDesktop() ? (
-      <DesktopBlocker />
+      <NoDesktopInformation />
     ) : (
       <BrowserRouter>
         <App />
